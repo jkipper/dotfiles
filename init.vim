@@ -13,10 +13,10 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'sheerun/vim-polyglot'
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'romgrk/barbar.nvim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'voldikss/vim-floaterm'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 let mapleader=" "
@@ -38,17 +38,19 @@ nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 set encoding=utf-8
 set nu
 set tabstop=2 expandtab smarttab shiftwidth=2 softtabstop=2 autoindent
+set sessionoptions+=options,resize,winpos,terminal
+:setlocal spell spelllang=en_us
 
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let g:nvim_tree_ignore = ['.git', '.\pyc$']
 colorscheme onedark
 set termguicolors
 
+nnoremap <silent> <C-P> :lua require'telescope.builtin'.git_files(require('telescope.themes').get_ivy({}))<CR>
+nnoremap <silent> <leader>sf :lua require'telescope.builtin'.live_grep{}<CR>
+nnoremap <silent> <C-F> :lua require'telescope.builtin'.current_buffer_fuzzy_find(require('telescope.themes').get_ivy({}))<CR>
+nnoremap <silent> <leader>sb :lua require'telescope.builtin'.buffers(require('telescope.themes').get_ivy({}))<CR>
 
-command! -bang -nargs=? GFiles
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-nnoremap <silent> <C-P> :GFiles<CR>
 " COC config
 
 function! s:check_back_space() abort
