@@ -16,7 +16,8 @@ Plug 'romgrk/barbar.nvim'
 Plug 'joshdick/onedark.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 let mapleader=" "
@@ -46,10 +47,18 @@ let g:nvim_tree_ignore = ['.git', '.\pyc$']
 colorscheme onedark
 set termguicolors
 
-nnoremap <silent> <C-P> :lua require'telescope.builtin'.git_files(require('telescope.themes').get_ivy({}))<CR>
-nnoremap <silent> <leader>sf :lua require'telescope.builtin'.live_grep{}<CR>
-nnoremap <silent> <C-F> :lua require'telescope.builtin'.current_buffer_fuzzy_find(require('telescope.themes').get_ivy({}))<CR>
-nnoremap <silent> <leader>sb :lua require'telescope.builtin'.buffers(require('telescope.themes').get_ivy({}))<CR>
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+nnoremap <silent> <C-P> :GFiles<CR>
+nnoremap <silent> <leader>sf :Rg<CR>
+nnoremap <silent> <C-F> :BLines<CR>
+nnoremap <silent> <leader>sb :Buffers<CR>
 
 " COC config
 
