@@ -15,9 +15,9 @@ Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'romgrk/barbar.nvim'
 Plug 'joshdick/onedark.vim'
 Plug 'voldikss/vim-floaterm'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 call plug#end()
 
 let mapleader=" "
