@@ -3,8 +3,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'doums/darcula'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -20,6 +18,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'famiu/feline.nvim'
 call plug#end()
 
 let mapleader=" "
@@ -111,16 +110,6 @@ imap <C-BS> <C-W>
 
 :tnoremap <C-T> <C-\><C-n> " exit terminal mode with ctrl-T
 
-let g:airline_theme = 'bubblegum'
-let g:airline_powerline_fonts = 1
-let g:airline_skip_empty_sections = 1
-
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = ' '
 
 set noshowmode
 
@@ -132,7 +121,9 @@ nnoremap <silent> <A-<> :BufferMovePrevious<CR>
 nnoremap <silent> <A->> :BufferMoveNext<CR>
 nnoremap <silent> <A-c> :BufferClose<CR>
 
-
+lua << EOF
+require('feline').setup()
+EOF
 
 highlight LuaTreeFolderIcon guibg=blue
 
