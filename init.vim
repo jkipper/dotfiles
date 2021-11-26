@@ -11,7 +11,6 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'sheerun/vim-polyglot'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'romgrk/barbar.nvim'
 Plug 'joshdick/onedark.vim'
 Plug 'voldikss/vim-floaterm'
@@ -19,6 +18,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-commentary'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 let mapleader=" "
@@ -146,3 +147,10 @@ let g:doge_doc_standard_python = 'google'
 let g:floaterm_wintype = 'vsplit'
 nnoremap <silent> <C-T> :FloatermToggle<CR>
 let g:fzf_layout = { 'down': '~30%' }
+
+let g:vim_markdown_folding_disabled = 1
+
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+let g:vim_markdown_json_frontmatter = 1  " for JSON format
