@@ -111,7 +111,7 @@ imap <C-BS> <C-W>
 
 :tnoremap <C-T> <C-\><C-n> " exit terminal mode with ctrl-T
 
-let g:airline_theme = 'dracula'
+let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
 
