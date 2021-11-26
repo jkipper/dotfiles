@@ -18,6 +18,7 @@ Plug 'voldikss/vim-floaterm'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 let mapleader=" "
@@ -40,7 +41,6 @@ set encoding=utf-8
 set nu
 set tabstop=2 expandtab smarttab shiftwidth=2 softtabstop=2 autoindent
 set sessionoptions+=options,resize,winpos,terminal
-:setlocal spell spelllang=en_us
 
 let NERDTreeIgnore=['\.pyc$', '\~$']
 let g:nvim_tree_ignore = ['.git', '.\pyc$']
@@ -110,8 +110,20 @@ imap <C-BS> <C-W>
 
 :tnoremap <C-T> <C-\><C-n> " exit terminal mode with ctrl-T
 
+let g:airline_theme = 'dracula'
+let g:airline_powerline_fonts = 1
+let g:airline_skip_empty_sections = 1
+
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ' '
+
+set noshowmode
+
+
 
 nnoremap <silent> <A-,> :BufferPrev<CR>
 nnoremap <silent> <A-.> :BufferNext<CR>
