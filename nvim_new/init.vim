@@ -4,22 +4,23 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0
     \}
-lua << EOF
-require'plugins'
-EOF
+let g:coq_settings = {"auto_start": v:true, "keymap.jump_to_mark": "<a-n>"}
 
+:lua require'plugins'
+:lua require'lsp_setup'
 let mapleader=" "
 set mouse=nv
 " navigation
-nnoremap <C-J> <C-W><C-J> " Move below
-nnoremap <C-K> <C-W><C-K> " Move above
-nnoremap <C-L> <C-W><C-L> " Move right
-nnoremap <C-H> <C-W><C-H> " Move left
+
+nnoremap <C-J> <C-W><C-J> 
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 nnoremap <silent> <A-k> :m--<CR>
 nnoremap <silent> <A-j> :m+<CR>
 
-tnoremap <C-T> <C-\><C-n> " exit terminal mode with ctrl-T
+tnoremap <C-T> <C-\><C-n> 
 
 
 set encoding=utf-8
@@ -33,20 +34,32 @@ colorscheme onedark
 
 
 " FZF
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+if 0
+  command! -bang -nargs=? -complete=dir Files
+      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
-let g:fzf_layout = { 'down': '~30%' }
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+    \   fzf#vim#with_preview(), <bang>0)
 
-nnoremap <silent> <C-P> :GFiles<CR>
-nnoremap <silent> <leader>sf :Rg<CR>
-nnoremap <silent> <C-F> :BLines<CR>
-nnoremap <silent> <leader>sb :Buffers<CR>
+  let g:fzf_layout = { 'down': '~30%' }
+
+  nnoremap <silent> <C-P> :GFiles<CR>
+  nnoremap <silent> <leader>sf :Rg<CR>
+  nnoremap <silent> <C-F> :BLines<CR>
+  nnoremap <silent> <leader>sb :Buffers<CR>
+else
+" Telescope
+  nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
+  nnoremap <silent> <leader>sf :Telescope live_grep <CR>
+  nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
+  nnoremap <silent> <leader>sb :Telescope buffers <CR>
+  nnoremap <silent> <leader>sr :Telescope registers <CR>
+
+endif
+
 
 "NvimTree
 
@@ -68,8 +81,5 @@ let g:vim_markdown_toml_frontmatter = 1  " for TOML format
 nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
 nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
 
-
-" COC 
-xmap <leader>ff  <Plug>(coc-format-selected)
-nmap <leader>ff  <Plug>(coc-format)
-
+" Formatting
+nnoremap <leader>ff :Format<CR>
