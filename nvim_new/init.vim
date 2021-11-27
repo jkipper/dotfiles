@@ -9,7 +9,8 @@ require'plugins'
 EOF
 
 let mapleader=" "
-"split navigations
+set mouse=nv
+" navigation
 nnoremap <C-J> <C-W><C-J> " Move below
 nnoremap <C-K> <C-W><C-K> " Move above
 nnoremap <C-L> <C-W><C-L> " Move right

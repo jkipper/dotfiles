@@ -132,6 +132,10 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0,
     \}
+lua << EOF
+require'nvim-tree'.setup{}
+EOF
+
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 let g:doge_doc_standard_python = 'google'
 

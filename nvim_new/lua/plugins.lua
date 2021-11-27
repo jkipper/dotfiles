@@ -12,6 +12,8 @@ return require("packer").startup(
             end
         }
         use "tpope/vim-fugitive"
+        use {"lewis6991/gitsigns.nvim", requires={'nvim-lua/plenary.nvim'},
+        config = function() require'gitsigns'.setup() end}
         use {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
@@ -32,8 +34,9 @@ return require("packer").startup(
                 require("nvim_comment").setup()
             end}
         use {"plasticboy/vim-markdown", requires = "godlygeek/tabular"}
-        use {"famiu/feline.nvim", config = function()
-                require "feline".setup()
+
+        use {"famiu/feline.nvim", opt=false, config = function()
+                require "feline".setup {}
             end}
 
         use {
@@ -44,7 +47,8 @@ return require("packer").startup(
                     options = {
                         numbers = "none",
                         separator_style = "thin",
-                        close_icon = ""
+                        close_icon = "",
+                        offsets = {{filetype = "NvimTree", text = "File Explorer" , text_align = "center"}}
                     }
                 }
             end
@@ -52,6 +56,12 @@ return require("packer").startup(
         use {"mhartington/formatter.nvim", config = function()
                 require "formatter".setup()
             end}
-    end
+        use {'nvim-telescope/telescope.nvim',
+            requires = 'nvim-lua/plenary.nvim',
+          config = function()
+            require 'telescope'.setup()
+            end
+          }
+          end
 )
 
