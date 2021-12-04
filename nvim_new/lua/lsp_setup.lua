@@ -1,8 +1,29 @@
 local lsp = require "lspconfig"
-local coq = require "coq"
+-- local coq = require "coq"
 local installer = require "nvim-lsp-installer"
-
 local servers = {"diagnosticls", "jedi_language_server", "sumneko_lua"}
+local cmp = require 'cmp'
+
+local init_cmp = function()
+    cmp.setup({
+        snippet = {
+            expand = function(args)
+                vim.fn["vsnip#anonymous"](args.body)
+            end
+        },
+        mapping = {
+            ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i", "c"}),
+            ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), {"i", "c"}),
+            ['<Tab>'] = cmp.mapping.select_next_item(),
+            ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+            ["<CR>"] = cmp.mapping.confirm({select = true}),
+            ["<ESC>"] = cmp.mapping.abort()
+        },
+        sources = cmp.config.sources({{name = 'nvim_lsp'}, {name = 'vsnip'}},
+                                     {name = 'buffer'}),
+        experimental = {native_menu = false, ghost_test = true}
+    })
+end
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
@@ -23,16 +44,23 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',
                    opts)
 end
--- lsp.jedi_language_server.setup(coq.lsp_ensure_capabilities())
 
--- lsp.jedi_language_server.setup(coq.lsp_ensure_capabilities())
--- lsp.jsonls.setup(coq.lsp_ensure_capabilities())
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
+
+init_cmp()
+
+
+
 for _, server in ipairs(servers) do
     local server_available, requested_server = installer.get_server(server)
     if server_available then
         requested_server:on_ready(function()
-            local opts = {on_attach = on_attach}
-            requested_server:setup(coq.lsp_ensure_capabilities(opts))
+            requested_server:setup({
+                on_attach = on_attach,
+                capabilities = capabilities
+            })
         end)
         if not requested_server:is_installed() then
             requested_server:install()

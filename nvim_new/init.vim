@@ -4,7 +4,7 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0
     \}
-let g:coq_settings = {"auto_start": v:true, "keymap.jump_to_mark": "<a-n>"}
+set completeopt=menu,menuone,noselect
 
 :lua require'plugins'
 :lua require'lsp_setup'

@@ -1,5 +1,14 @@
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({
+        'git', 'clone', '--depth', '1',
+        'https://github.com/wbthomason/packer.nvim', install_path
+    })
+end
+vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function(use)
-    use "wbthomason/packer-nvim"
+    use {"wbthomason/packer-nvim"}
     use {
         "kyazdani42/nvim-tree.lua",
         requires = "kyazdani42/nvim-web-devicons",
@@ -16,6 +25,7 @@ return require("packer").startup(function(use)
     use {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
+        disabled = not vim.fn.has("win32"),
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "maintained",
@@ -91,15 +101,19 @@ return require("packer").startup(function(use)
         end
     }
     use "tpope/vim-surround"
-    use {"neovim/nvim-lspconfig", requires = "williamboman/nvim-lsp-installer"}
     use {
-        "ms-jpq/coq_nvim",
-        branch = "coq",
-        requires = {"ms-jpq/coq.artifacts", branch = "artifacts"}
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline", "hrsh7th/cmp-vsnip", "hrsh7th/vim-vsnip",
+            "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer",
+            "rafamadriz/friendly-snippets"
+        }
     }
     use {
         'nvim-telescope/telescope.nvim',
         requires = 'nvim-lua/plenary.nvim',
         config = function() require'telescope'.setup() end
     }
+    if packer_bootstrap then require('packer').sync() end
 end)
