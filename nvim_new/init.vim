@@ -24,13 +24,24 @@ tnoremap <C-T> <C-\><C-n>
 
 
 set encoding=utf-8
-set nu
 set tabstop=2 expandtab smarttab shiftwidth=2 softtabstop=2 autoindent
 set sessionoptions+=options,resize,winpos,terminal
 set termguicolors
 set backspace=indent,eol,start
 set noshowmode
-colorscheme onedark
+set complete-=i
+set smarttab
+set autoindent
+set incsearch
+set ruler
+set wildmenu
+set scrolloff=5
+set sidescrolloff=10
+set display+=lastline
+set formatoptions+=j
+set autoread
+set relativenumber
+colorscheme onehalfdark
 
 
 " FZF
@@ -57,6 +68,10 @@ else
   nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
   nnoremap <silent> <leader>sb :Telescope buffers <CR>
   nnoremap <silent> <leader>sr :Telescope registers <CR>
+  nnoremap <silent> <leader>sj :Telescope jumplist<CR>
+  nnoremap <silent> <leader>sgs :Telescope git_status<CR>
+  nnoremap <silent> <leader>sgc :Telescope git_commits<CR>
+  nnoremap <silent> <leader>sgb :Telescope git_branches<CR>
 
 endif
 
@@ -89,3 +104,7 @@ imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
 smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+" Trouble
+nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
+nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>

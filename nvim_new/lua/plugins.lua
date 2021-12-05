@@ -8,7 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 vim.cmd [[packadd packer.nvim]]
 return require("packer").startup(function(use)
-    use {"wbthomason/packer-nvim"}
+    use {"wbthomason/packer.nvim"}
     use {
         "kyazdani42/nvim-tree.lua",
         requires = "kyazdani42/nvim-web-devicons",
@@ -34,11 +34,11 @@ return require("packer").startup(function(use)
             }
         end
     }
+    use "danilo-augusto/vim-afterglow"
+    use { "sonph/onehalf" , rtp = 'vim'}
+    use "rmehri01/onenord.nvim"
     use "joshdick/onedark.vim"
     use "voldikss/vim-floaterm"
-
-    use {"junegunn/fzf", run = ":call fzf#install()"}
-    use "junegunn/fzf.vim"
 
     use "justinmk/vim-sneak"
     use {
@@ -46,7 +46,11 @@ return require("packer").startup(function(use)
         config = function() require("nvim_comment").setup() end
     }
     use {"plasticboy/vim-markdown", requires = "godlygeek/tabular"}
-
+    use {
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn['mkdp#util#install']() end,
+        ft = {'markdown'}
+    }
     use {
         "famiu/feline.nvim",
         opt = false,
@@ -73,33 +77,6 @@ return require("packer").startup(function(use)
             }
         end
     }
-    use {
-        "mhartington/formatter.nvim",
-        config = function()
-            require"formatter".setup({
-                filetype = {
-                    python = {
-                        function()
-                            return {
-                                exe = "black",
-                                args = {"--line-length=120", "-"},
-                                stdin = true
-                            }
-                        end
-                    },
-                    lua = {
-                        function()
-                            return {
-                                exe = "lua-format",
-                                args = {"--"},
-                                stdin = true
-                            }
-                        end
-                    }
-                }
-            })
-        end
-    }
     use "tpope/vim-surround"
     use {
         "hrsh7th/nvim-cmp",
@@ -107,13 +84,34 @@ return require("packer").startup(function(use)
             "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline", "hrsh7th/cmp-vsnip", "hrsh7th/vim-vsnip",
             "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer",
-            "rafamadriz/friendly-snippets"
+            "rafamadriz/friendly-snippets", "jose-elias-alvarez/null-ls.nvim"
         }
     }
     use {
         'nvim-telescope/telescope.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        config = function() require'telescope'.setup() end
+        config = function()
+            local trouble = require 'trouble.providers.telescope'
+            require'telescope'.setup({
+                defaults = {
+                    mappings = {
+                        i = {["<a-x>"] = trouble.open_with_trouble},
+                        n = {["<a-x>"] = trouble.open_with_trouble}
+                    }
+                }
+            })
+        end
     }
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function() require("trouble").setup {} end
+    }
+    use "sickill/vim-pasta"
+    use "tommcdo/vim-exchange"
+    use "unblevable/quick-scope"
+    use {"glts/vim-radical", requires = {"glts/vim-magnum"}}
+    use "tpope/vim-repeat"
+    use "tpope/vim-projectionist"
     if packer_bootstrap then require('packer').sync() end
 end)
