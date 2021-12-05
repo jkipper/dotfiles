@@ -1,6 +1,6 @@
 local lsp = require "lspconfig"
 local installer = require "nvim-lsp-installer"
-local servers = {"jedi_language_server", "sumneko_lua"}
+local servers = {"jedi_language_server", "sumneko_lua", "dockerls", "jsonls", "clangd"}
 local cmp = require 'cmp'
 
 local try_require = function(module)

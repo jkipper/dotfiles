@@ -41,7 +41,9 @@ set display+=lastline
 set formatoptions+=j
 set autoread
 set relativenumber
-colorscheme onehalfdark
+
+
+colorscheme onedark
 
 
 " FZF
