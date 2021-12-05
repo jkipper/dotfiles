@@ -43,7 +43,7 @@ set autoread
 set relativenumber
 
 
-colorscheme onedark
+colorscheme tokyonight
 
 
 " FZF

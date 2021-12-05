@@ -36,11 +36,12 @@ return require("packer").startup(function(use)
     }
     use "danilo-augusto/vim-afterglow"
     use {"sonph/onehalf", rtp = 'vim'}
+    use 'folke/tokyonight.nvim'
     use "rmehri01/onenord.nvim"
     use "joshdick/onedark.vim"
     use "voldikss/vim-floaterm"
 
-    use "justinmk/vim-sneak"
+    use 'ggandor/lightspeed.nvim'
     use {
         "terrortylor/nvim-comment",
         config = function() require("nvim_comment").setup() end
