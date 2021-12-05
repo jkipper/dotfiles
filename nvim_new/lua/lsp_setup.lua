@@ -1,7 +1,10 @@
 local lsp = require "lspconfig"
 local installer = require "nvim-lsp-installer"
-local servers = {"jedi_language_server", "sumneko_lua", "dockerls", "jsonls", "clangd"}
+local servers = {
+    "jedi_language_server", "sumneko_lua", "dockerls", "jsonls", "clangd"
+}
 local cmp = require 'cmp'
+local lspkind = require('lspkind')
 
 local try_require = function(module)
     local status, lfs = pcall(require, module)
@@ -14,6 +17,9 @@ local init_cmp = function()
             expand = function(args)
                 vim.fn["vsnip#anonymous"](args.body)
             end
+        },
+        formatting = {
+            format = lspkind.cmp_format({with_text = true, maxwidth = 50})
         },
         mapping = {
             ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), {"i", "c"}),

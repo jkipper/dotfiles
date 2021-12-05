@@ -35,7 +35,7 @@ return require("packer").startup(function(use)
         end
     }
     use "danilo-augusto/vim-afterglow"
-    use { "sonph/onehalf" , rtp = 'vim'}
+    use {"sonph/onehalf", rtp = 'vim'}
     use "rmehri01/onenord.nvim"
     use "joshdick/onedark.vim"
     use "voldikss/vim-floaterm"
@@ -84,7 +84,8 @@ return require("packer").startup(function(use)
             "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline", "hrsh7th/cmp-vsnip", "hrsh7th/vim-vsnip",
             "neovim/nvim-lspconfig", "williamboman/nvim-lsp-installer",
-            "rafamadriz/friendly-snippets", "jose-elias-alvarez/null-ls.nvim"
+            "rafamadriz/friendly-snippets", "jose-elias-alvarez/null-ls.nvim",
+            "onsails/lspkind-nvim"
         }
     }
     use {
