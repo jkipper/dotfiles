@@ -5,7 +5,6 @@ local servers = {
 }
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
-
 local try_require = function(module)
     local status, lfs = pcall(require, module)
     if status then return lfs end
@@ -88,9 +87,9 @@ local formatters = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 null_ls.config({
     sources = {
-        formatters.black.with({args = {'--line-length=120'}}),
-        formatters.lua_format, formatters.clang_format
-        --       diagnostics.flake8.with{args = {'--max-line-length','120'}}
+        formatters.black,
+        formatters.lua_format, formatters.clang_format,
+        diagnostics.flake8
     }
 })
 

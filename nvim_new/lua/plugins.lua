@@ -24,8 +24,7 @@ return require("packer").startup(function(use)
     }
     use {
         "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-        disabled = not vim.fn.has("win32"),
+        disabled = vim.fn.has("win32"),
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "maintained",
