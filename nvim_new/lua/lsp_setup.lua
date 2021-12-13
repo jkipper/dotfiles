@@ -85,7 +85,7 @@ end
 local null_ls = require('null-ls')
 local formatters = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
-null_ls.config({
+null_ls.setup({
     sources = {
         formatters.black,
         formatters.lua_format, formatters.clang_format,

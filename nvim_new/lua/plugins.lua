@@ -90,7 +90,10 @@ return require("packer").startup(function(use)
     }
     use {
         'nvim-telescope/telescope.nvim',
-        requires = 'nvim-lua/plenary.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+        },
         config = function()
             local trouble = require 'trouble.providers.telescope'
             require'telescope'.setup({
@@ -98,6 +101,14 @@ return require("packer").startup(function(use)
                     mappings = {
                         i = {["<a-x>"] = trouble.open_with_trouble},
                         n = {["<a-x>"] = trouble.open_with_trouble}
+                    }
+                },
+                extensions = {
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = true,
+                        case_mode = "smart_case"
                     }
                 }
             })
