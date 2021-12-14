@@ -8,7 +8,11 @@ set completeopt=menu,menuone,noselect
 
 :lua require'plugins'
 :lua require'lsp_setup'
-:lua require'telescope'.load_extension('fzf')
+if has("win32")
+  :lua require'telescope'.load_extension('fzy_native')
+else
+  :lua require'telescope'.load_extension('fzf')
+endif
 let mapleader=" "
 set mouse=nv
 " navigation
