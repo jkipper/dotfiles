@@ -24,7 +24,6 @@ return require("packer").startup(function(use)
     }
     use {
         "nvim-treesitter/nvim-treesitter",
-        disabled = vim.fn.has("win32"),
         config = function()
             require("nvim-treesitter.configs").setup {
                 ensure_installed = "maintained",
@@ -92,8 +91,7 @@ return require("packer").startup(function(use)
         'nvim-telescope/telescope.nvim',
         requires = {
             'nvim-lua/plenary.nvim',
-            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make', disable=vim.fn.has('win32')},
-            {'nvim-telescope/telescope-fzy-native.nvim', disable= not vim.fn.has('win32')}
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
         },
         config = function()
             local trouble = require 'trouble.providers.telescope'
