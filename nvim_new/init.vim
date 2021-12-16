@@ -107,9 +107,6 @@ let g:vim_markdown_toml_frontmatter = 1  " for TOML format
 nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
 nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
 
-" Formatting
-nnoremap <leader>ff :Format<CR>
-
 " vsnip
 imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
 smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
