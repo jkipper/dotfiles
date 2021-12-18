@@ -14,6 +14,7 @@ let g:lua_tree_show_icons = {
     \}
 set completeopt=menu,menuone,noselect
 
+
 :lua require'plugins'
 :lua require'lsp_setup'
 :lua require'telescope'.load_extension('fzf')
@@ -116,3 +117,7 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 " Trouble
 nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
 nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
+
+"" Dog generator
+let g:doge_mapping = '<Leader>md'
+let g:doge_doc_standard_python = 'google'

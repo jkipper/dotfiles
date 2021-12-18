@@ -40,13 +40,8 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-	use("danilo-augusto/vim-afterglow")
-	use({ "sonph/onehalf", rtp = "vim" })
 	use("folke/tokyonight.nvim")
-	use("rmehri01/onenord.nvim")
-	use("joshdick/onedark.vim")
 	use("voldikss/vim-floaterm")
-
 	use("ggandor/lightspeed.nvim")
 	use({
 		"terrortylor/nvim-comment",
@@ -63,13 +58,11 @@ return require("packer").startup(function(use)
 		ft = { "markdown" },
 	})
 	use({
-		"famiu/feline.nvim",
-		opt = false,
+		"nvim-lualine/lualine.nvim",
 		config = function()
-			require("feline").setup({})
+			require("lualine").setup({ options = { theme = "tokyonight" } })
 		end,
 	})
-
 	use({
 		"akinsho/bufferline.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -143,6 +136,12 @@ return require("packer").startup(function(use)
 		"folke/which-key.nvim",
 		config = function()
 			require("which-key").setup({})
+		end,
+	})
+	use({
+		"kkoomen/vim-doge",
+		run = function()
+			vim.fn["doge#install"]()
 		end,
 	})
 	if packer_bootstrap then

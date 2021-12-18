@@ -3,6 +3,7 @@ local installer = require("nvim-lsp-installer")
 local servers = {
 	"jedi_language_server",
 	"sumneko_lua",
+  "clangd",
 	"dockerls",
 	"jsonls",
 	"clangd",
@@ -31,8 +32,8 @@ local init_cmp = function()
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 			["<Tab>"] = cmp.mapping.select_next_item(),
 			["<S-Tab>"] = cmp.mapping.select_prev_item(),
-			["<CR>"] = cmp.mapping.confirm({ select = true }),
-			["<ESC>"] = cmp.mapping.abort(),
+			["<CR>"] = cmp.mapping.confirm(),
+			["<C-c>"] = cmp.mapping.abort(),
 		},
 		sources = cmp.config.sources({ { name = "nvim_lsp" }, { name = "vsnip" } }, { name = "buffer" }),
 		experimental = { native_menu = false, ghost_test = true },
