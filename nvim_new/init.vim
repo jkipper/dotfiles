@@ -12,11 +12,11 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0
     \}
+let g:neoformat_enabled_python = ['black', 'isort']
 set completeopt=menu,menuone,noselect
 
 
 :lua require'plugins'
-:lua require'lsp_setup'
 :lua require'telescope'.load_extension('fzf')
 let mapleader=" "
 set mouse=nv
@@ -56,24 +56,7 @@ set relativenumber
 colorscheme tokyonight
 
 
-" FZF
 
-if 0
-  command! -bang -nargs=? -complete=dir Files
-      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-  command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-    \   fzf#vim#with_preview(), <bang>0)
-
-  let g:fzf_layout = { 'down': '~30%' }
-
-  nnoremap <silent> <C-P> :GFiles<CR>
-  nnoremap <silent> <leader>sf :Rg<CR>
-  nnoremap <silent> <C-F> :BLines<CR>
-  nnoremap <silent> <leader>sb :Buffers<CR>
-else
 " Telescope
   nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
   nnoremap <silent> <leader>sf :Telescope live_grep <CR>
@@ -84,10 +67,6 @@ else
   nnoremap <silent> <leader>sgs :Telescope git_status<CR>
   nnoremap <silent> <leader>sgc :Telescope git_commits<CR>
   nnoremap <silent> <leader>sgb :Telescope git_branches<CR>
-
-endif
-
-
 "NvimTree
 
 nnoremap <silent> <C-e> :NvimTreeToggle<CR>
@@ -121,3 +100,6 @@ nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
 "" Dog generator
 let g:doge_mapping = '<Leader>md'
 let g:doge_doc_standard_python = 'google'
+
+" Formatter
+nnoremap <silent> <leader>ff :Neoformat<CR>

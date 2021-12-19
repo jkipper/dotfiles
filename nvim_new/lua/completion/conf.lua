@@ -1,15 +1,15 @@
 local lsp = require("lspconfig")
 local installer = require("nvim-lsp-installer")
+local cmp = require("cmp")
+local lspkind = require("lspkind")
 local servers = {
 	"jedi_language_server",
 	"sumneko_lua",
-  "clangd",
+	"clangd",
 	"dockerls",
 	"jsonls",
-	"clangd",
 }
-local cmp = require("cmp")
-local lspkind = require("lspkind")
+
 local try_require = function(module)
 	local status, lfs = pcall(require, module)
 	if status then
@@ -17,7 +17,8 @@ local try_require = function(module)
 	end
 end
 
-local init_cmp = function()
+
+local configure_cmp = function()
 	cmp.setup({
 		snippet = {
 			expand = function(args)
@@ -30,13 +31,13 @@ local init_cmp = function()
 		mapping = {
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+
 			["<Tab>"] = cmp.mapping.select_next_item(),
 			["<S-Tab>"] = cmp.mapping.select_prev_item(),
 			["<CR>"] = cmp.mapping.confirm(),
 			["<C-c>"] = cmp.mapping.abort(),
 		},
 		sources = cmp.config.sources({ { name = "nvim_lsp" }, { name = "vsnip" } }, { name = "buffer" }),
-		experimental = { native_menu = false, ghost_test = true },
 	})
 end
 
@@ -54,52 +55,38 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
 	buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "<leader>ff", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-init_cmp()
-
-for _, server in ipairs(servers) do
-	local server_available, requested_server = installer.get_server(server)
-	if server_available then
-		requested_server:on_ready(function()
-			requested_server:setup({
-				settings = try_require(server),
-				on_attach = on_attach,
-				capabilities = capabilities,
-			})
-		end)
-		if not requested_server:is_installed() then
-			requested_server:install()
+local config_lsp_servers = function()
+	for _, server in ipairs(servers) do
+		local server_available, requested_server = installer.get_server(server)
+		if server_available then
+			requested_server:on_ready(function()
+				requested_server:setup({
+					settings = try_require("completion.lsp_settings/" .. server),
+					on_attach = on_attach,
+					capabilities = capabilities,
+				})
+			end)
 		end
 	end
 end
 
-local null_on_attach = function(client, bufnr)
-	vim.api.nvim_buf_set_keymap(
-		bufnr,
-		"n",
-		"<leader>ff",
-		"<cmd>lua vim.lsp.buf.formatting()<CR>",
-		{ noremap = true, silent = true }
-	)
+local config_diagnostic_lsp = function()
+	local null_ls = require("null-ls")
+	null_ls.setup({
+		sources = {
+			null_ls.builtins.diagnostics.flake8,
+			null_ls.builtins.code_actions.gitsigns,
+		},
+		autostart = true,
+	})
 end
 
-local null_ls = require("null-ls")
-local formatters = null_ls.builtins.formatting
-local diagnostics = null_ls.builtins.diagnostics
-local code_actions = null_ls.builtins.code_actions
-null_ls.setup({
-	sources = {
-		formatters.black,
-		formatters.stylua,
-		formatters.clang_format,
-		diagnostics.flake8,
-		code_actions.gitsigns,
-	},
-
-	on_attach = null_on_attach,
-	autostart = true,
-})
+return function()
+	configure_cmp()
+	config_lsp_servers()
+	config_diagnostic_lsp()
+end
