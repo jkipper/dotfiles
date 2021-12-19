@@ -15,25 +15,16 @@ vim.cmd([[packadd packer.nvim]])
 
 return require("packer").startup(function(use)
 	use({ "wbthomason/packer.nvim" })
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = "maintained",
-				highlight = { enable = true },
-				tree_docs = { enable = true },
-			})
-		end,
-	})
 	use("folke/tokyonight.nvim")
 	use("voldikss/vim-floaterm")
+	require("nv_treesitter")(use)
 	require("git")(use)
 	require("markdown")(use)
 	require("statusline")(use)
 	require("navigation")(use)
 	require("fuzzy_finder")(use)
 	require("modifiers")(use)
-  require("completion")(use)
+	require("completion")(use)
 	if packer_bootstrap then
 		require("packer").sync()
 	end

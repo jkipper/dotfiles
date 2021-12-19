@@ -1,6 +1,7 @@
 set completeopt=menu,menuone,noselect
 
 :lua require'plugins'
+
 let mapleader=" "
 set mouse=nv
 " navigation
@@ -71,13 +72,8 @@ let g:vim_markdown_toml_frontmatter = 1  " for TOML format
 nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
 nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
 
-" vsnip
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
 " Trouble
+
 nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
 nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
 
