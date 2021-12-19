@@ -3,7 +3,7 @@ local installer = require("nvim-lsp-installer")
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local servers = {
-	"jedi_language_server",
+	"pyright",
 	"sumneko_lua",
 	"clangd",
 	"dockerls",
@@ -59,7 +59,7 @@ end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local config_lsp_servers = function()
+local configure_lsp_servers = function()
 	for _, server in ipairs(servers) do
 		local server_available, requested_server = installer.get_server(server)
 		if server_available then
@@ -87,6 +87,6 @@ end
 
 return function()
 	configure_cmp()
-	config_lsp_servers()
+	configure_lsp_servers()
 	config_diagnostic_lsp()
 end
