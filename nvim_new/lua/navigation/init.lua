@@ -1,9 +1,14 @@
 return function(use)
-	use("ggandor/lightspeed.nvim")
+	use({
+		"ggandor/lightspeed.nvim",
+		config = function()
+			require("lightspeed").setup({ ignore_case = true })
+		end,
+	})
 	use("unblevable/quick-scope")
 	use("tpope/vim-projectionist")
-  require("navigation.dashboard")(use)
-  require("navigation.file_tree")(use)
+	require("navigation.dashboard")(use)
+	require("navigation.file_tree")(use)
 	use({
 		"folke/which-key.nvim",
 		config = function()
