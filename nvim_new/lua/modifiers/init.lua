@@ -3,7 +3,6 @@ return function(use)
 	use("tommcdo/vim-exchange")
 	use({ "glts/vim-radical", requires = { "glts/vim-magnum" } })
 	use("tpope/vim-repeat")
-	use("sbdchd/neoformat")
 	use("tpope/vim-surround")
 	use({
 		"terrortylor/nvim-comment",
@@ -14,10 +13,6 @@ return function(use)
       }
 		end,
 	})
-	use({
-		"kkoomen/vim-doge",
-		run = function()
-			vim.fn["doge#install"]()
-		end,
-	})
+  require("modifiers.doc_gen")(use)
+  require("modifiers.formatter")(use)
 end

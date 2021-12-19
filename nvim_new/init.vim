@@ -1,23 +1,6 @@
-let g:dashboard_default_executive ='telescope'
-let g:dashboard_custom_header = [
-\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\]
-let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 0
-    \}
-let g:neoformat_enabled_python = ['black', 'isort']
 set completeopt=menu,menuone,noselect
 
-
 :lua require'plugins'
-:lua require'telescope'.load_extension('fzf')
 let mapleader=" "
 set mouse=nv
 " navigation
@@ -58,15 +41,16 @@ colorscheme tokyonight
 
 
 " Telescope
-  nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
-  nnoremap <silent> <leader>sf :Telescope live_grep <CR>
-  nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
-  nnoremap <silent> <leader>sb :Telescope buffers <CR>
-  nnoremap <silent> <leader>sr :Telescope registers <CR>
-  nnoremap <silent> <leader>sj :Telescope jumplist<CR>
-  nnoremap <silent> <leader>sgs :Telescope git_status<CR>
-  nnoremap <silent> <leader>sgc :Telescope git_commits<CR>
-  nnoremap <silent> <leader>sgb :Telescope git_branches<CR>
+nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
+nnoremap <silent> <leader>sf :Telescope live_grep <CR>
+nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
+nnoremap <silent> <leader>sb :Telescope buffers <CR>
+nnoremap <silent> <leader>sr :Telescope registers <CR>
+nnoremap <silent> <leader>sj :Telescope jumplist<CR>
+nnoremap <silent> <leader>gs :Telescope git_status<CR>
+nnoremap <silent> <leader>gc :Telescope git_commits<CR>
+nnoremap <silent> <leader>gb :Telescope git_branches<CR>
+
 "NvimTree
 
 nnoremap <silent> <C-e> :NvimTreeToggle<CR>
@@ -97,9 +81,6 @@ smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-T
 nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
 nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
 
-"" Dog generator
-let g:doge_mapping = '<Leader>md'
-let g:doge_doc_standard_python = 'google'
 
 " Formatter
 nnoremap <silent> <leader>ff :Neoformat<CR>

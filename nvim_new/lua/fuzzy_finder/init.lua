@@ -12,11 +12,15 @@ return function(use)
 			require("telescope").setup({
 				defaults = {
 					mappings = {
-						i = { ["<a-x>"] = trouble.open_with_trouble },
+						i = {
+							["<a-x>"] = trouble.open_with_trouble,
+							["<C-h>"] = "which_key",
+						},
 						n = { ["<a-x>"] = trouble.open_with_trouble },
 					},
 				},
 			})
+			require("telescope").load_extension("fzf")
 		end,
 	})
 end
