@@ -5,11 +5,12 @@ local lua_tree_show_icons = {
 }
 return function(use)
 	vim.api.nvim_set_var("lua_tree_show_icons", lua_tree_show_icons)
-	use({
+	use {
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",
+		cmd = "NvimTreeToggle",
 		config = function()
-			require("nvim-tree").setup({ filter = { custom = { ".git", ".pyc$" } }, diagnostics = { enable = true } })
+			require("nvim-tree").setup { filter = { custom = { ".git", ".pyc$" } }, diagnostics = { enable = true } }
 		end,
-	})
+	}
 end

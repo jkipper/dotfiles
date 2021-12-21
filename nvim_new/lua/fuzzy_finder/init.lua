@@ -1,5 +1,5 @@
 return function(use)
-	use({
+	use {
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"nvim-lua/plenary.nvim",
@@ -8,8 +8,8 @@ return function(use)
 		},
 
 		config = function()
-			local trouble = require("trouble.providers.telescope")
-			require("telescope").setup({
+			local trouble = require "trouble.providers.telescope"
+			require("telescope").setup {
 				defaults = {
 					mappings = {
 						i = {
@@ -19,8 +19,8 @@ return function(use)
 						n = { ["<a-x>"] = trouble.open_with_trouble },
 					},
 				},
-			})
-			require("telescope").load_extension("fzf")
+			}
+			require("telescope").load_extension "fzf"
 		end,
-	})
+	}
 end

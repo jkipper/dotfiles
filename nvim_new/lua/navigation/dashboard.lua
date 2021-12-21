@@ -11,5 +11,5 @@ local dashboard_custom_header = {
 return function(use)
 	vim.api.nvim_set_var("dashboard_default_executive", dashboard_default_executive)
 	vim.api.nvim_set_var("dashboard_custom_header", dashboard_custom_header)
-  use({ "glepnir/dashboard-nvim"})
+	use { "glepnir/dashboard-nvim" }
 end

@@ -1,9 +1,9 @@
 return function(use)
-	use({
+	use {
 		"nvim-treesitter/nvim-treesitter",
 		requires = "andymass/vim-matchup",
 		config = function()
-			require("nvim-treesitter.configs").setup({
+			require("nvim-treesitter.configs").setup {
 				ensure_installed = {
 					"cpp",
 					"c",
@@ -30,19 +30,20 @@ return function(use)
 					enable = true,
 					disable_virtual_text = { "python" },
 				},
-			})
+			}
 		end,
-	})
-	use({
+	}
+	use {
 		"folke/twilight.nvim",
 		config = function()
-			require("twilight").setup({})
+			require("twilight").setup {}
 		end,
-	})
-	use({
+		cmd = "Twilight",
+	}
+	use {
 		"romgrk/nvim-treesitter-context",
 		config = function()
-			require("treesitter-context").setup({})
+			require("treesitter-context").setup {}
 		end,
-	})
+	}
 end

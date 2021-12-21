@@ -1,20 +1,36 @@
 return function(use)
-	use({
+	use {
 		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lua",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"hrsh7th/cmp-vsnip",
-			"hrsh7th/vim-vsnip",
 			"neovim/nvim-lspconfig",
 			"williamboman/nvim-lsp-installer",
-			"rafamadriz/friendly-snippets",
-			"jose-elias-alvarez/null-ls.nvim",
 			"onsails/lspkind-nvim",
 		},
-		config = function() require("completion.conf")() end ,
-	})
+		config = function()
+			require("completion.conf").cmp()
+			require("completion.conf").lsp()
+		end,
+	}
+	use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
+	use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
+	use { "hrsh7th/cmp-path", after = "nvim-cmp" }
+	use { "hrsh7th/cmp-cmdline", after = "nvim-cmp" }
+
+	use {
+		"hrsh7th/cmp-vsnip",
+		after = "nvim-cmp",
+		requires = {
+			{ "hrsh7th/vim-vsnip", after = "nvim-cmp" },
+			{ "rafamadriz/friendly-snippets", event = "InsertCharPre" },
+		},
+	}
+	use {
+		"jose-elias-alvarez/null-ls.nvim",
+		after = "nvim-cmp",
+		config = function()
+			require("completion.conf").diagnostic()
+		end,
+	}
 end

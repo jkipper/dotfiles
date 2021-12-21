@@ -48,6 +48,7 @@ nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
 nnoremap <silent> <leader>sb :Telescope buffers <CR>
 nnoremap <silent> <leader>sr :Telescope registers <CR>
 nnoremap <silent> <leader>sj :Telescope jumplist<CR>
+nnoremap <silent> <leader>sd :Telescope diagnostics<CR>
 nnoremap <silent> <leader>gs :Telescope git_status<CR>
 nnoremap <silent> <leader>gc :Telescope git_commits<CR>
 nnoremap <silent> <leader>gb :Telescope git_branches<CR>
