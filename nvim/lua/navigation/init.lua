@@ -10,7 +10,8 @@ return function(use)
 	require "navigation.dashboard"(use)
 	require "navigation.file_tree"(use)
 	use {
-		"folke/which-key.nvim",
+		"zeertzjq/which-key.nvim",
+    branch = "patch-1",
 		config = function()
 			require("which-key").setup {}
 		end,
