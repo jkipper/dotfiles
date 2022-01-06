@@ -4,6 +4,7 @@ return function(use)
 	use { "glts/vim-radical", requires = { "glts/vim-magnum" } }
 	use "tpope/vim-repeat"
 	use "tpope/vim-surround"
+  use "vim-scripts/ReplaceWithRegister"
 	use {
 		"numToStr/Comment.nvim",
 		config = function()

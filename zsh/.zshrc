@@ -36,7 +36,6 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:ls:*' fzf-preview '(bat --color=always --decorations=never $realpath || exa --color=always $realpath) 2> /dev/null | head -200'
+zstyle ':fzf-tab:complete:(cd|rm|ls|bat):*' fzf-preview '(bat --color=always --decorations=never $realpath || exa --color=always $realpath) 2> /dev/null | head -200'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
