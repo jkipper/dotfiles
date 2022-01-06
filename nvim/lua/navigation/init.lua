@@ -29,4 +29,10 @@ return function(use)
 			require("marks").setup {}
 		end,
 	}
+  use {
+    "ahmedkhalf/project.nvim",
+    config =  function()
+      require('project_nvim').setup {}
+    end,
+  }
 end
