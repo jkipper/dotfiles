@@ -2,7 +2,7 @@
 #SingleInstance force
 #Include "virtual_desktop.ahk"
 
-CapsLock::Control
+  CapsLock::LCtrl
 
 #t::
 {
@@ -12,12 +12,19 @@ CapsLock::Control
     Run "wt.exe"
 }
 
+>^a::ä
+>^o::ö
+>^u::ü
+>^k::Up
+>^j::Down
+>^h::Left
+>^l::Right
 
-#^1::
-#^2::
-#^3::
-#^4::
-#^5::
+#<^1::
+#<^2::
+#<^3::
+#<^4::
+#<^5::
   switch_to_selected_desktop(PressedKey)
   {
     SwitchToDesktop(SubStr(PressedKey, -1))
