@@ -11,8 +11,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <silent> <A-k> :m--<CR>
-nnoremap <silent> <A-j> :m+<CR>
+nnoremap <silent> <A-k> :m--<CR>==
+nnoremap <silent> <A-j> :m+<CR>==
+
+vnoremap <silent> <A-k> :m '<-2<CR>gv=gv
+vnoremap <silent> <A-j> :m '>+1<CR>gv=gv
 
 tnoremap <C-T> <C-\><C-n> 
 
@@ -36,10 +39,31 @@ set formatoptions+=j
 set autoread
 set relativenumber
 
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
+
 
 colorscheme tokyonight
 
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
+
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
+augroup END
 
 " Telescope
 nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
@@ -81,3 +105,10 @@ nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
 
 " Formatter
 nnoremap <silent> <leader>ff :Neoformat<CR>
+
+" Testing
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>

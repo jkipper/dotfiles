@@ -1,5 +1,7 @@
-local dashboard_default_executive = "telescope"
-local dashboard_custom_header = {
+local g = vim.g
+
+g.dashboard_default_executive = "telescope"
+g.dashboard_custom_header = {
 	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
 	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
 	" ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
@@ -9,7 +11,5 @@ local dashboard_custom_header = {
 }
 
 return function(use)
-	vim.api.nvim_set_var("dashboard_default_executive", dashboard_default_executive)
-	vim.api.nvim_set_var("dashboard_custom_header", dashboard_custom_header)
 	use { "glepnir/dashboard-nvim" }
 end

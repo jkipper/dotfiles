@@ -25,6 +25,7 @@ return require("packer").startup(function(use)
 	require "fuzzy_finder"(use)
 	require "modifiers"(use)
 	require "completion"(use)
+  require "testing"(use)
 	if packer_bootstrap then
 		require("packer").sync()
 	end
