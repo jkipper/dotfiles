@@ -4,7 +4,6 @@ export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRLT_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--preview 'exa --color=always {} | head -200'"
 export FZF_CTRL_T_OPTS="--preview '(bat --color=always --decorations=never {} || exa --color=always {}) 2> /dev/null | head -200'"
-zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
 source "${HOME}/.zgenom/zgenom.zsh"
 
 # if the init script doesn't exist
@@ -29,6 +28,7 @@ if ! zgenom saved; then
   zgenom save
 fi
 neofetch
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false
 # set descriptions format to enable group support

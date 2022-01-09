@@ -1,5 +1,5 @@
-local lsp = require "lspconfig"
-local installer = require "nvim-lsp-installer"
+  local lsp = require "lspconfig"
+local installer = require "nvim-lsp-installer.servers"
 local lspkind = require "lspkind"
 local servers = {
 	"pyright",
@@ -9,21 +9,26 @@ local servers = {
 	"jsonls",
 }
 
+local completion_config = {}
+
 local try_require = function(module)
 	local status, lfs = pcall(require, module)
-	if status then
+  if status then
 		return lfs
 	end
 end
+
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
+
 local feedkey = function(key, mode)
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-local configure_cmp = function()
+
+completion_config.cmp = function()
 	local cmp = require "cmp"
 	cmp.setup {
 		snippet = {
@@ -88,7 +93,8 @@ local on_attach = function(client, bufnr)
 	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
-local configure_lsp_servers = function()
+
+completion_config.lsp = function()
 	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 	for _, server in ipairs(servers) do
 		local server_available, requested_server = installer.get_server(server)
@@ -104,7 +110,7 @@ local configure_lsp_servers = function()
 	end
 end
 
-local configure_diagnostic_lsp = function()
+completion_config.diagnostic = function()
 	local null_ls = require "null-ls"
 	null_ls.setup {
 		sources = {
@@ -114,10 +120,5 @@ local configure_diagnostic_lsp = function()
 		autostart = true,
 	}
 end
-
-completion_config = {}
-completion_config.lsp = configure_lsp_servers
-completion_config.cmp = configure_cmp
-completion_config.diagnostic = configure_diagnostic_lsp
 
 return completion_config
