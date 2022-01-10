@@ -12,13 +12,13 @@
     Run "wt.exe"
 }
 
->^a::ä
->^o::ö
->^u::ü
->^k::Up
->^j::Down
->^h::Left
->^l::Right
+!a::ä
+!o::ö
+!u::ü
+!k::Up
+!j::Down
+!h::Left
+!l::Right
 
 #<^1::
 #<^2::
