@@ -11,11 +11,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <silent> <A-k> :m--<CR>==
-nnoremap <silent> <A-j> :m+<CR>==
+nnoremap <silent> K :m--<CR>==
+nnoremap <silent> J :m+<CR>==
 
-vnoremap <silent> <A-k> :m '<-2<CR>gv=gv
-vnoremap <silent> <A-j> :m '>+1<CR>gv=gv
+vnoremap <silent> K :m '<-2<CR>gv=gv
+vnoremap <silent> J :m '>+1<CR>gv=gv
 
 tnoremap <C-T> <C-\><C-n> 
 
