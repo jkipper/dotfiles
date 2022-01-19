@@ -2,7 +2,7 @@
 #SingleInstance force
 #Include "virtual_desktop.ahk"
 
-  CapsLock::LCtrl
+CapsLock::LCtrl
 
 #t::
 {
@@ -13,8 +13,12 @@
 }
 
 !a::ä
+!+a::Ä
 !o::ö
+!+o::Ö
 !u::ü
+!+u::Ü
+!s::ß
 !k::Up
 !j::Down
 !h::Left
