@@ -5,7 +5,6 @@ return function(use)
 			require("lightspeed").setup { ignore_case = true }
 		end,
 	}
-	use "unblevable/quick-scope"
 	use "tpope/vim-projectionist"
 	require "navigation.dashboard"(use)
 	require "navigation.file_tree"(use)
