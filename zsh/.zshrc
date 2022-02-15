@@ -19,7 +19,6 @@ if ! zgenom saved; then
   zgenom oh-my-zsh plugins/git
 
   zgenom oh-my-zsh plugins/sudo 
-  zgenom load jeffreytse/zsh-vi-mode
   zgenom load zsh-users/zsh-completions
   zgenom load zsh-users/zsh-autosuggestions
   zgenom load zsh-users/zsh-syntax-highlighting
@@ -27,7 +26,6 @@ if ! zgenom saved; then
   # generate the init script from plugins above
   zgenom save
 fi
-neofetch
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # disable sort when completing `git checkout`
 zstyle ':completion:*:git-checkout:*' sort false

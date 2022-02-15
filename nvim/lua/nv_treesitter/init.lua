@@ -20,7 +20,7 @@ return function(use)
 				incremental_selection = {
 					enable = true,
 					keymaps = {
-						init_selection = "leadervb",
+						init_selection = "<leader>vb",
 						node_incremental = "+",
 						node_decremental = "-",
 						scope_incremental = "<leader>+",
