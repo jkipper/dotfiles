@@ -7,4 +7,10 @@ return function(use)
 			require("gitsigns").setup()
 		end,
 	}
+	use {
+		"sindrets/diffview.nvim",
+		config = function()
+			require("diffview").setup {}
+		end,
+	}
 end
