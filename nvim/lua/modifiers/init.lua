@@ -4,11 +4,17 @@ return function(use)
 	use { "glts/vim-radical", requires = { "glts/vim-magnum" } }
 	use "tpope/vim-repeat"
 	use "tpope/vim-surround"
-  use "vim-scripts/ReplaceWithRegister"
+	use "vim-scripts/ReplaceWithRegister"
 	use {
 		"numToStr/Comment.nvim",
 		config = function()
 			require("Comment").setup {}
+		end,
+	}
+	use {
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup {}
 		end,
 	}
 	require "modifiers.doc_gen"(use)

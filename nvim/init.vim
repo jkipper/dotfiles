@@ -103,6 +103,8 @@ nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
 nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
 
 
+" nnoremap <silent> <leader>md :Neogen<CR>
+
 " Formatter
 nnoremap <silent> <leader>ff :Neoformat<CR>
 

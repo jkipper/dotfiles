@@ -1,4 +1,4 @@
-  local lsp = require "lspconfig"
+local lsp = require "lspconfig"
 local installer = require "nvim-lsp-installer.servers"
 local lspkind = require "lspkind"
 local servers = {
@@ -13,7 +13,7 @@ local completion_config = {}
 
 local try_require = function(module)
 	local status, lfs = pcall(require, module)
-  if status then
+	if status then
 		return lfs
 	end
 end
@@ -27,9 +27,9 @@ local feedkey = function(key, mode)
 	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-
 completion_config.cmp = function()
 	local cmp = require "cmp"
+	local neogen = try_require "neogen"
 	cmp.setup {
 		snippet = {
 			expand = function(args)
@@ -49,6 +49,8 @@ completion_config.cmp = function()
 					cmp.select_next_item()
 				elseif vim.fn["vsnip#available"](1) == 1 then
 					feedkey("<Plug>(vsnip-expand-or-jump)", "")
+				elseif neogen and neogen.jumpable() then
+					neogen.jump_next()
 				elseif has_words_before() then
 					cmp.complete()
 				else
@@ -60,6 +62,8 @@ completion_config.cmp = function()
 					cmp.select_prev_item()
 				elseif vim.fn["vsnip#jumpable"](-1) == 1 then
 					feedkey("<Plug>(vsnip-jump-prev)", "")
+				elseif neogen and neogen.jumpable(true) then
+					neogen.jump_prev()
 				end
 			end, { "i", "s" }),
 			["<CR>"] = cmp.mapping.confirm(),
@@ -78,21 +82,16 @@ completion_config.cmp = function()
 end
 
 local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
+	local opts = { noremap = true, silent = true, buffer = true }
 
-	local opts = { noremap = true, silent = true }
-
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "H", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
-	buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
+	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+	vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
+	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end
-
 
 completion_config.lsp = function()
 	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())

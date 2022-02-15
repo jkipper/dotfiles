@@ -1,13 +1,22 @@
 local g = vim.g
-g.doge_mapping = "<Leader>md"
-g.doge_doc_standard_python = "google"
 
 return function(use)
 	use {
-		"kkoomen/vim-doge",
-		run = function()
-			vim.fn["doge#install"]()
+		"danymat/neogen",
+		config = function()
+			require("neogen").setup {
+				languages = {
+					lua = {
+						template = {
+							annotation_convention = "google_docstrings",
+						},
+					},
+				},
+			}
+			vim.keymap.set("n", "<leader>md", function()
+				require("neogen").generate()
+			end)
 		end,
-		cmd = "DogeGenerate",
+		requires = "nvim-treesitter/nvim-treesitter",
 	}
 end
