@@ -1,6 +1,60 @@
 set completeopt=menu,menuone,noselect
 
+if exists('g:vscode')
+" load only modifiers
+"
+"
+nmap gc  <Plug>VSCodeCommentary
+nmap gcc <Plug>VSCodeCommentaryLine
+else
 :lua require'plugins'
+" Telescope
+nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
+nnoremap <silent> <leader>sf :Telescope live_grep <CR>
+nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
+nnoremap <silent> <leader>sb :Telescope buffers <CR>
+nnoremap <silent> <leader>sr :Telescope registers <CR>
+nnoremap <silent> <leader>sj :Telescope jumplist<CR>
+nnoremap <silent> <leader>sd :Telescope diagnostics<CR>
+nnoremap <silent> <leader>gs :Telescope git_status<CR>
+nnoremap <silent> <leader>gc :Telescope git_commits<CR>
+nnoremap <silent> <leader>gb :Telescope git_branches<CR>
+
+" Trouble
+nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
+nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
+
+"NvimTree
+
+nnoremap <silent> <C-e> :NvimTreeToggle<CR>
+nnoremap <silent> <leader>r :NvimTreeRefresh<CR> 
+
+" FLOATERM
+let g:floaterm_wintype = 'vsplit'
+nnoremap <silent> <C-T> :FloatermToggle<CR>
+
+" Markdown
+
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_frontmatter = 1  " for YAML format
+let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+
+"Bufferline
+nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
+nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
+
+" Formatter
+nnoremap <silent> <leader>ff :Neoformat<CR>
+
+" Testing
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tv :TestVisit<CR>
+
+endif
 
 let mapleader=" "
 set mouse=nv
@@ -65,52 +119,6 @@ augroup highlight_yank
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 40})
 augroup END
 
-" Telescope
-nnoremap <silent> <C-P> :Telescope git_files theme=ivy<CR>
-nnoremap <silent> <leader>sf :Telescope live_grep <CR>
-nnoremap <silent> <C-F> :Telescope current_buffer_fuzzy_find <CR>
-nnoremap <silent> <leader>sb :Telescope buffers <CR>
-nnoremap <silent> <leader>sr :Telescope registers <CR>
-nnoremap <silent> <leader>sj :Telescope jumplist<CR>
-nnoremap <silent> <leader>sd :Telescope diagnostics<CR>
-nnoremap <silent> <leader>gs :Telescope git_status<CR>
-nnoremap <silent> <leader>gc :Telescope git_commits<CR>
-nnoremap <silent> <leader>gb :Telescope git_branches<CR>
-
-"NvimTree
-
-nnoremap <silent> <C-e> :NvimTreeToggle<CR>
-nnoremap <silent> <leader>r :NvimTreeRefresh<CR> 
-
-" FLOATERM
-let g:floaterm_wintype = 'vsplit'
-nnoremap <silent> <C-T> :FloatermToggle<CR>
-
-" Markdown
-
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_frontmatter = 1  " for YAML format
-let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-
-"Bufferline
-nnoremap <silent> <A-,> :BufferLineCyclePrev<CR>
-nnoremap <silent> <A-.> :BufferLineCycleNext<CR>
-
-" Trouble
-
-nnoremap <silent> <leader>xq :TroubleToggle quickfix<cr>
-nnoremap <silent> <leader>xl :TroubleToggle loclist<cr>
-
 
 " nnoremap <silent> <leader>md :Neogen<CR>
 
-" Formatter
-nnoremap <silent> <leader>ff :Neoformat<CR>
-
-" Testing
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tv :TestVisit<CR>

@@ -15,17 +15,17 @@ vim.cmd [[packadd packer.nvim]]
 
 return require("packer").startup(function(use)
 	use { "wbthomason/packer.nvim" }
-	use "folke/tokyonight.nvim"
-	use { "voldikss/vim-floaterm", cmd = "FloatermToggle" }
-	require "nv_treesitter"(use)
-	require "git"(use)
-	require "markdown"(use)
-	require "statusline"(use)
-	require "navigation"(use)
-	require "fuzzy_finder"(use)
-	require "modifiers"(use)
-	require "completion"(use)
+  use "folke/tokyonight.nvim"
+  use { "voldikss/vim-floaterm", cmd = "FloatermToggle" }
+  require "nv_treesitter"(use)
+  require "git"(use)
+  require "markdown"(use)
+  require "statusline"(use)
+  require "navigation"(use)
+  require "fuzzy_finder"(use)
+  require "completion"(use)
   require "testing"(use)
+  require "modifiers"(use)
 	if packer_bootstrap then
 		require("packer").sync()
 	end
