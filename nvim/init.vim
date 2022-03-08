@@ -2,8 +2,6 @@ set completeopt=menu,menuone,noselect
 
 if exists('g:vscode')
 " load only modifiers
-"
-"
 nmap gc  <Plug>VSCodeCommentary
 nmap gcc <Plug>VSCodeCommentaryLine
 else
