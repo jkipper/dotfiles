@@ -1,5 +1,5 @@
 local lsp = require "lspconfig"
-local installer = require "nvim-lsp-installer.servers"
+local installer = require "nvim-lsp-installer"
 local lspkind = require "lspkind"
 local servers = {
 	"pyright",
@@ -73,6 +73,18 @@ completion_config.cmp = function()
 			{ { name = "nvim_lsp" }, { name = "vsnip" }, { name = "nvim_lua" } },
 			{ { name = "buffer" }, { name = "path" } }
 		),
+		sorting = {
+			comparators = {
+				cmp.config.compare.offset,
+				cmp.config.compare.exact,
+				cmp.config.compare.recently_used,
+				require "clangd_extensions.cmp_scores",
+				cmp.config.compare.kind,
+				cmp.config.compare.sort_text,
+				cmp.config.compare.length,
+				cmp.config.compare.order,
+			},
+		},
 	}
 	cmp.setup.cmdline("/", {
 		sources = {
@@ -88,7 +100,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 	vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
 	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
+  vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end
@@ -99,12 +111,24 @@ completion_config.lsp = function()
 		local server_available, requested_server = installer.get_server(server)
 		if server_available then
 			requested_server:on_ready(function()
-				requested_server:setup {
-					settings = try_require("completion.lsp_settings/" .. server),
-					on_attach = on_attach,
-					capabilities = capabilities,
-				}
+				if requested_server.name == "clangd" then
+					local opts = { on_attach = on_attach, capabilities = capabilities }
+					require("clangd_extensions").setup {
+						server = vim.tbl_deep_extend("force", requested_server:get_default_options(), opts),
+					}
+					requested_server:attach_buffers()
+				else
+					requested_server:setup {
+						settings = try_require("completion.lsp_settings/" .. server),
+						on_attach = on_attach,
+						capabilities = capabilities,
+					}
+				end
 			end)
+			if not requested_server:is_installed() then
+				print("Installing " .. server)
+				requested_server:install()
+			end
 		end
 	end
 end

@@ -7,6 +7,8 @@ return function(use)
 			"neovim/nvim-lspconfig",
 			"williamboman/nvim-lsp-installer",
 			"onsails/lspkind-nvim",
+      "b0o/schemastore.nvim",
+"p00f/clangd_extensions.nvim"
 		},
 		config = function()
 			require("completion.conf").cmp()

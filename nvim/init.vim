@@ -1,3 +1,4 @@
+let mapleader=" "
 set completeopt=menu,menuone,noselect
 
 if exists('g:vscode')
@@ -54,7 +55,6 @@ nmap <silent> <leader>tv :TestVisit<CR>
 
 endif
 
-let mapleader=" "
 set mouse=nv
 " navigation
 
