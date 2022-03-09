@@ -37,3 +37,4 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:(cd|rm|ls|bat):*' fzf-preview '(bat --color=always --decorations=never $realpath || exa --color=always $realpath) 2> /dev/null | head -200'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+enable-fzf-tab
