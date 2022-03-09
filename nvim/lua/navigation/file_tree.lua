@@ -9,7 +9,13 @@ return function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		cmd = "NvimTreeToggle",
 		config = function()
-			require("nvim-tree").setup { filter = { custom = { ".git", ".pyc$" } }, diagnostics = { enable = true } }
+			require("nvim-tree").setup {
+				filter = {
+					custom = { ".git", ".pyc$" },
+				},
+				diagnostics = { enable = true },
+				view = { mappings = { list = { { key = "<C-e>", action = "close" } } } },
+			}
 		end,
 	}
 end
