@@ -1,4 +1,6 @@
 return function(use)
+  use "editorconfig/editorconfig-vim"
+  vim.g.EditorConfig_exclude_patterns = {'fugitive://.*'}
 	use "sickill/vim-pasta"
 	use "tommcdo/vim-exchange"
 	use { "glts/vim-radical", requires = { "glts/vim-magnum" } }
