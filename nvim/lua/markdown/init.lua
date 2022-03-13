@@ -4,11 +4,5 @@ return function(use)
 		requires = "godlygeek/tabular",
 		ft = "markdown",
 	}
-	use {
-		"iamcco/markdown-preview.nvim",
-		run = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-		ft = { "markdown" },
-	}
+  use {"ellisonleao/glow.nvim", ft = {"markdown"}}
 end

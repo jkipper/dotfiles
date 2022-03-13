@@ -19,6 +19,10 @@ return function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("trouble").setup {}
+      local keymap_opts = { noremap = true, silent = true }
+			vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", keymap_opts)
+			vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>", keymap_opts)
+			vim.keymap.set("n", "<leader>xx", "<cmd>TroubleClose<cr>", keymap_opts)
 		end,
 	}
 	use {
@@ -27,10 +31,10 @@ return function(use)
 			require("marks").setup {}
 		end,
 	}
-  use {
-    "ahmedkhalf/project.nvim",
-    config =  function()
-      require('project_nvim').setup {}
-    end,
-  }
+	use {
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("project_nvim").setup {}
+		end,
+	}
 end

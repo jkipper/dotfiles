@@ -15,7 +15,12 @@ vim.cmd [[packadd packer.nvim]]
 
 return require("packer").startup(function(use)
 	use { "wbthomason/packer.nvim" }
-	use "folke/tokyonight.nvim"
+	use {
+		"folke/tokyonight.nvim",
+		config = function()
+			vim.cmd "colorscheme tokyonight"
+		end,
+	}
 	use { "voldikss/vim-floaterm", cmd = "FloatermToggle" }
 	use {
 		"stevearc/dressing.nvim",
@@ -29,6 +34,7 @@ return require("packer").startup(function(use)
 			vim.notify = require "notify"
 		end,
 	}
+  require "building"(use)
 	require "nv_treesitter"(use)
 	require "git"(use)
 	require "markdown"(use)

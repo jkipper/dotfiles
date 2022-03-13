@@ -1,43 +1,44 @@
 return function(use)
 	use {
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
 			"neovim/nvim-lspconfig",
 			"williamboman/nvim-lsp-installer",
 			"onsails/lspkind-nvim",
-      "b0o/schemastore.nvim",
-"p00f/clangd_extensions.nvim"
+			"b0o/schemastore.nvim",
+			"p00f/clangd_extensions.nvim",
+			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lua",
 		},
 		config = function()
 			require("completion.conf").cmp()
 			require("completion.conf").lsp()
 		end,
 	}
-	use { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" }
-	use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
-	use { "hrsh7th/cmp-path", after = "nvim-cmp" }
-	use { "hrsh7th/cmp-cmdline", after = "nvim-cmp" }
-  use {
-    "ray-x/lsp_signature.nvim",
-    after = "nvim-cmp",
-    config = function()
-      require("lsp_signature").setup()
-    end,
-  }
+	use {
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("lsp_signature").setup { floating_window = false, hint_enable = true }
+		end,
+	}
 
 	use {
-		"hrsh7th/cmp-vsnip",
-		after = "nvim-cmp",
+		"saadparwaiz1/cmp_luasnip",
 		requires = {
-			{ "hrsh7th/vim-vsnip", after = "nvim-cmp" },
-			{ "rafamadriz/friendly-snippets", event = "InsertCharPre" },
+			{
+				"L3MON4D3/LuaSnip",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
+			{ "rafamadriz/friendly-snippets" },
 		},
 	}
 	use {
 		"jose-elias-alvarez/null-ls.nvim",
-		after = "nvim-cmp",
 		config = function()
 			require("completion.conf").diagnostic()
 		end,

@@ -6,7 +6,7 @@ return function(use)
 				options = {
 					theme = "tokyonight",
 				},
-        extensions = {'nvim-tree', 'fugitive'}
+				extensions = { "nvim-tree", "fugitive" },
 			}
 		end,
 	}
@@ -29,6 +29,14 @@ return function(use)
 					},
 				},
 			}
+
+			local keymap_opts = { noremap = true, silent = true }
+			vim.keymap.set("n", "<A-,>", function()
+				require("bufferline").cycle(-1)
+			end, keymap_opts)
+			vim.keymap.set("n", "<A-.>", function()
+				require("bufferline").cycle(1)
+			end, keymap_opts)
 		end,
 	}
 end

@@ -7,7 +7,6 @@ return function(use)
 	use {
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",
-		cmd = "NvimTreeFindFileToggle",
 		config = function()
 			require("nvim-tree").setup {
 				filter = {
@@ -16,6 +15,9 @@ return function(use)
 				diagnostics = { enable = true },
 				view = { mappings = { list = { { key = "<C-e>", action = "close" } } } },
 			}
+			local keymap_opts = { noremap = true, silent = true }
+			vim.keymap.set("n", "<C-e>", "<cmd>NvimTreeFindFileToggle<cr>", keymap_opts)
+			vim.keymap.set("n", "<leader>r", "<cmd>NvimTreeRefresh<cr>", keymap_opts)
 		end,
 	}
 end

@@ -23,17 +23,14 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
-local feedkey = function(key, mode)
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
 completion_config.cmp = function()
 	local cmp = require "cmp"
 	local neogen = try_require "neogen"
+	local snip = require "luasnip"
 	cmp.setup {
 		snippet = {
 			expand = function(args)
-				vim.fn["vsnip#anonymous"](args.body)
+				snip.lsp_expand(args.body)
 			end,
 		},
 		formatting = {
@@ -42,13 +39,13 @@ completion_config.cmp = function()
 		mapping = {
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-			["<UP>"] = cmp.config.disable,
-			["<DOWN>"] = cmp.config.disable,
+			["<UP>"] = cmp.mapping.abort(),
+			["<DOWN>"] = cmp.mapping.abort(),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-				elseif vim.fn["vsnip#available"](1) == 1 then
-					feedkey("<Plug>(vsnip-expand-or-jump)", "")
+				elseif snip and snip.expand_or_jumpable() then
+					snip.expand_or_jump()
 				elseif neogen and neogen.jumpable() then
 					neogen.jump_next()
 				elseif has_words_before() then
@@ -60,8 +57,8 @@ completion_config.cmp = function()
 			["<S-Tab>"] = cmp.mapping(function()
 				if cmp.visible() then
 					cmp.select_prev_item()
-				elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-					feedkey("<Plug>(vsnip-jump-prev)", "")
+				elseif snip and snip.jumpable(-1) then
+					snip.jump(-1)
 				elseif neogen and neogen.jumpable(true) then
 					neogen.jump_prev()
 				end
@@ -70,7 +67,7 @@ completion_config.cmp = function()
 			["<C-c>"] = cmp.mapping.abort(),
 		},
 		sources = cmp.config.sources(
-			{ { name = "nvim_lsp" }, { name = "vsnip" }, { name = "nvim_lua" } },
+			{ { name = "nvim_lsp" }, { name = "luasnip" }, { name = "nvim_lua" } },
 			{ { name = "buffer" }, { name = "path" } }
 		),
 		sorting = {
@@ -105,10 +102,10 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-  if client.name == "clangd" then
-    vim.keymap.set("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<CR>", opts)
-  end
+	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+	if client.name == "clangd" then
+		vim.keymap.set("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<CR>", opts)
+	end
 end
 
 completion_config.lsp = function()

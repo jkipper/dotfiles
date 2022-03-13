@@ -21,7 +21,22 @@ return function(use)
 				},
 			}
 			require("telescope").load_extension "fzf"
-      require("telescope").load_extension "projects"
+			require("telescope").load_extension "projects"
+
+			local keymap_opts = { noremap = true, silent = true }
+			local telescope = require "telescope.builtin"
+			vim.keymap.set("n", "<C-P>", function()
+				telescope.find_files(require("telescope.themes").get_ivy {})
+			end, keymap_opts)
+			vim.keymap.set("n", "<C-F>", telescope.current_buffer_fuzzy_find, keymap_opts)
+			vim.keymap.set("n", "<leader>sf", telescope.live_grep, keymap_opts)
+			vim.keymap.set("n", "<leader>sb", telescope.buffers, keymap_opts)
+			vim.keymap.set("n", "<leader>sr", telescope.registers, keymap_opts)
+			vim.keymap.set("n", "<leader>sj", telescope.jumplist, keymap_opts)
+			vim.keymap.set("n", "<leader>sd", telescope.diagnostics, keymap_opts)
+			vim.keymap.set("n", "<leader>gs", telescope.git_status, keymap_opts)
+			vim.keymap.set("n", "<leader>gc", telescope.git_commits, keymap_opts)
+			vim.keymap.set("n", "<leader>gb", telescope.git_branches, keymap_opts)
 		end,
 	}
 end
