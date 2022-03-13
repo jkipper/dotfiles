@@ -99,10 +99,16 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 	vim.keymap.set("n", "H", vim.lsp.buf.hover, opts)
+	vim.keymap.set("n", "<leader>H", vim.lsp.buf.signature_help, opts)
 	vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-  vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
+	vim.keymap.set("n", "gr", "<cmd>Trouble lsp_references<CR>", opts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+  if client.name == "clangd" then
+    vim.keymap.set("n", "<A-o>", "<cmd>ClangdSwitchSourceHeader<CR>", opts)
+  end
 end
 
 completion_config.lsp = function()
