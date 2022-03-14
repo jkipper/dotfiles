@@ -86,6 +86,7 @@ vim.cmd [[
   augroup filetype_mapping
     autocmd!
     autocmd BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+    autocmd BufNewFile,BufRead *.json set filetype=jsonc
   augroup END
 ]]
 
