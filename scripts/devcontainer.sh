@@ -14,7 +14,7 @@ WORKING_DIR="/workspace/$(basename $(readlink -f $1))"
 if ! podman image exists localhost/toolchain/$image_name:$image_tag
 then
   echo "New image available, rebuilding"
-  podman build --build-arg BASE=$BASE_IMAGE -t toolchain/$image_name:$image_tag $(dirname $0)
+  podman build --build-arg BASE=$BASE_IMAGE --build-arg GIT_USER="$(git config user.name)" --build-arg GIT_MAIL=$(git config user.email) -t toolchain/$image_name:$image_tag $(dirname $0)
   podman stop $TOOLCHAIN_NAME
   podman container rm $TOOLCHAIN_NAME
 fi
@@ -22,7 +22,7 @@ fi
 if ! podman container exists $TOOLCHAIN_NAME
 then
   echo "Creating new container"
-  podman run -dit --name=$TOOLCHAIN_NAME -v$1:$WORKING_DIR --mount type=bind,source=$(readlink -f ~/.zsh_history),target=/root/.zsh_history localhost/toolchain/$image_name:$image_tag zsh
+  podman run -dit --secret git_credentials --name=$TOOLCHAIN_NAME -v$1:$WORKING_DIR --mount type=bind,source=$(readlink -f ~/.zsh_history),target=/root/.zsh_history localhost/toolchain/$image_name:$image_tag zsh
 fi
 podman start $TOOLCHAIN_NAME && podman exec -it -w $WORKING_DIR $TOOLCHAIN_NAME zsh
 
