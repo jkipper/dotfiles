@@ -14,6 +14,10 @@ return function(use)
 			require("which-key").setup {}
 		end,
 	}
+  vim.g.symbols_outline = {auto_preview=false}
+  use {
+    "simrat39/symbols-outline.nvim"
+  }
 	use {
 		"folke/trouble.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
