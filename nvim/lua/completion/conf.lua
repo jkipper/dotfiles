@@ -129,7 +129,6 @@ completion_config.lsp = function()
 				end
 			end)
 			if not requested_server:is_installed() then
-				print("Installing " .. server)
 				requested_server:install()
 			end
 		end
