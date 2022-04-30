@@ -28,12 +28,12 @@ return require("packer").startup(function(use)
 			require("dressing").setup {}
 		end,
 	}
-	-- use {
-	-- 	"rcarriga/nvim-notify",
-	-- 	config = function()
-	-- 		vim.notify = require "notify"
-	-- 	end,
-	-- }
+	use {
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require "notify"
+		end,
+	}
   require "building"(use)
 	require "nv_treesitter"(use)
 	require "git"(use)

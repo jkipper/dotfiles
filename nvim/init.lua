@@ -50,18 +50,19 @@ vim.keymap.set("v", "<leader>d", '"_d', keymap_opts)
 vim.keymap.set("t", "<C-T>", "<C-\\><C-n>", keymap_opts)
 
 opt.mouse = "nv"
-opt.encoding = "utf-8"
 opt.tabstop = 2
 opt.expandtab = true
 opt.smarttab = true
 opt.shiftwidth = 2
 opt.softtabstop = 2
 opt.autoindent = true
+opt.breakindent = true
 opt.termguicolors = true
 opt.backspace = { "indent", "eol", "start" }
+opt.undofile = true
 -- doesn't work with opt for some reason
 vim.cmd "set noshowmode"
-opt.complete:remove { "i" }
+opt.completeopt = "menuone,noselect"
 opt.incsearch = true
 opt.ruler = true
 opt.wildmenu = true
@@ -72,23 +73,38 @@ opt.formatoptions:append { "j" }
 opt.autoread = true
 opt.relativenumber = true
 opt.number = true
+opt.ignorecase = true
+opt.smartcase = true
+vim.wo.signcolumn = "yes"
 
 opt.wildignore:append { "*.pyc", "*_build/*", "**coverage/*", "**/node_modules/*", "**/.git/" }
 
-vim.cmd [[
-  augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
-  augroup END
-]]
+local highlight_group = vim.api.nvim_create_augroup("highlight_yank", {})
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+	group = highlight_group,
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+	end,
+})
+local filetype_mappings = vim.api.nvim_create_augroup("filetype_mapping", {})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = filetype_mappings,
+	pattern = { "Jenkinsfile*" },
+	command = "set filetype=groovy",
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = filetype_mappings,
+	pattern = { "*.json" },
+	command = "set filetype=jsonc",
+})
 
-vim.cmd [[
-  augroup filetype_mapping
-    autocmd!
-    autocmd BufNewFile,BufRead Jenkinsfile* set filetype=groovy
-    autocmd BufNewFile,BufRead *.json set filetype=jsonc
-  augroup END
-]]
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+	pattern = "*",
+	callback = function()
+		vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+	end,
+})
 
 vim.diagnostic.config {
 	virtual_text = false,
@@ -100,4 +116,3 @@ for type, icon in pairs(signs) do
 end
 
 vim.o.updatetime = 100
-vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false, scope="cursor"})]]

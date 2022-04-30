@@ -9,7 +9,7 @@ return function(use)
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
 			require("nvim-tree").setup {
-				filter = {
+				filters = {
 					custom = { ".git", ".pyc$" },
 				},
 				diagnostics = { enable = true },
