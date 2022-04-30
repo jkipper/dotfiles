@@ -50,7 +50,7 @@ return function(use)
     end,
   }
   use {
-    "romgrk/nvim-treesitter-context",
+    "lewis6991/nvim-treesitter-context",
     config = function()
       require("treesitter-context").setup {}
     end,

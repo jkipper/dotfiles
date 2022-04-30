@@ -69,6 +69,7 @@ opt.wildmenu = true
 opt.scrolloff = 5
 opt.sidescrolloff = 10
 opt.display:append { "lastline" }
+opt.laststatus = 3
 opt.formatoptions:append { "j" }
 opt.autoread = true
 opt.relativenumber = true
@@ -99,12 +100,6 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
   command = "set filetype=jsonc",
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  pattern = "*",
-  callback = function()
-    vim.diagnostic.open_float(nil, { focus = false })
-  end,
-})
 
 vim.diagnostic.config {
   virtual_text = false,

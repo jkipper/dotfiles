@@ -92,7 +92,21 @@ end
 
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true, buffer = true }
-  print(vim.inspect(client))
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    buffer = bufnr,
+    callback = function()
+      local diagnostic_opts = {
+        focusable = false,
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+        border = 'rounded',
+        source = 'always',
+        prefix = ' ',
+      }
+      vim.diagnostic.open_float(nil, diagnostic_opts)
+    end,
+  })
+
+  require"illuminate".on_attach(client)
 
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -148,7 +162,6 @@ completion_config.diagnostic = function()
   local null_ls = require "null-ls"
   null_ls.setup {
     sources = {
-      null_ls.builtins.diagnostics.flake8,
       null_ls.builtins.code_actions.gitsigns,
     },
     autostart = true,
