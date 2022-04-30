@@ -5,26 +5,26 @@ g.mapleader = " "
 
 local keymap_opts = { noremap = true, silent = true }
 if g["vscode"] ~= nil then
-	vim.keymap.set("n", "gc", [[<Plug>VSCodeCommentary]], keymap_opts)
-	vim.keymap.set("n", "gcc", [[<Plug>VSCodeCommentaryLine]], keymap_opts)
+  vim.keymap.set("n", "gc", [[<Plug>VSCodeCommentary]], keymap_opts)
+  vim.keymap.set("n", "gcc", [[<Plug>VSCodeCommentaryLine]], keymap_opts)
 else
-	require "plugins"
-	g.floaterm_wintype = "vsplit"
-	vim.keymap.set("n", "<C-T>", "<cmd>FloatermToggle<CR>", keymap_opts)
+  require "plugins"
+  g.floaterm_wintype = "vsplit"
+  vim.keymap.set("n", "<C-T>", "<cmd>FloatermToggle<CR>", keymap_opts)
 
-	-- Markdown
-	g.vim_markdown_folding_disabled = 1
-	g.vim_markdown_conceal = 0
-	g.vim_markdown_frontmatter = 1
-	g.vim_markdown_toml_frontmatter = 1
+  -- Markdown
+  g.vim_markdown_folding_disabled = 1
+  g.vim_markdown_conceal = 0
+  g.vim_markdown_frontmatter = 1
+  g.vim_markdown_toml_frontmatter = 1
 
-	vim.keymap.set("n", "<leader>ff", "<cmd>Neoformat<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>ff", "<cmd>Neoformat<CR>", keymap_opts)
 
-	vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>", keymap_opts)
-	vim.keymap.set("n", "<leader>tf", "<cmd>TestFile<CR>", keymap_opts)
-	vim.keymap.set("n", "<leader>ts", "<cmd>TestSuite<CR>", keymap_opts)
-	vim.keymap.set("n", "<leader>tl", "<cmd>TestLast<CR>", keymap_opts)
-	vim.keymap.set("n", "<leader>tv", "<cmd>TestVisit<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>tn", "<cmd>TestNearest<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>tf", "<cmd>TestFile<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>ts", "<cmd>TestSuite<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>tl", "<cmd>TestLast<CR>", keymap_opts)
+  vim.keymap.set("n", "<leader>tv", "<cmd>TestVisit<CR>", keymap_opts)
 end
 
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>", keymap_opts)
@@ -81,38 +81,38 @@ opt.wildignore:append { "*.pyc", "*_build/*", "**coverage/*", "**/node_modules/*
 
 local highlight_group = vim.api.nvim_create_augroup("highlight_yank", {})
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-	group = highlight_group,
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
-	end,
+  group = highlight_group,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank { higroup = "Visual", timeout = 200 }
+  end,
 })
 local filetype_mappings = vim.api.nvim_create_augroup("filetype_mapping", {})
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	group = filetype_mappings,
-	pattern = { "Jenkinsfile*" },
-	command = "set filetype=groovy",
+  group = filetype_mappings,
+  pattern = { "Jenkinsfile*" },
+  command = "set filetype=groovy",
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	group = filetype_mappings,
-	pattern = { "*.json" },
-	command = "set filetype=jsonc",
+  group = filetype_mappings,
+  pattern = { "*.json" },
+  command = "set filetype=jsonc",
 })
 
 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-	pattern = "*",
-	callback = function()
-		vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
-	end,
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false })
+  end,
 })
 
 vim.diagnostic.config {
-	virtual_text = false,
+  virtual_text = false,
 }
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 vim.o.updatetime = 100
