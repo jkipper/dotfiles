@@ -1,4 +1,4 @@
-bind \ea 'fuzzy_complete'
+bind \ec 'fuzzy_complete'
 
 
 function _complete -a command
@@ -7,9 +7,14 @@ function _complete -a command
 end
 
 function fuzzy_complete
-    set -l completion (complete -C | string escape)
-    set -l completion_count (count (string split0 -- $completion))
-    echo $completion_count
-    set command_to_complete (complete -C | sort -u | fzf --height 40% --multi --reverse -q (commandline -t) | string split -f1 \t)
-    _complete $command_to_complete
+    if test (complete -C | count) -eq 0;
+    commandline -f end-of-line
+    fish_prompt
+      return 0
+    else
+    echo "OUTEr"
+      set command_to_complete (complete -C | sort -u | fzf --height 40% --multi --reverse -q (commandline -t) | string split -f1 \t)
+      cancel
+      _complete $command_to_complete
+    end
 end
