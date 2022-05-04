@@ -2,7 +2,7 @@ local g = vim.g
 local opt = vim.opt
 
 g.mapleader = " "
-
+vim.cmd [[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]]
 local keymap_opts = { noremap = true, silent = true }
 if g["vscode"] ~= nil then
   vim.keymap.set("n", "gc", [[<Plug>VSCodeCommentary]], keymap_opts)
