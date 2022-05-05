@@ -1,0 +1,48 @@
+#!/bin/fish
+
+set -l system_type (uname -s)
+
+function envsource
+  for line in (cat $argv | grep -v '^#')
+    set item (string split -m 1 '=' $line)
+    set -gx $item[1] $item[2]
+    echo "Exported key $item[1]"
+  end
+end
+
+if [ $system_type = "Darwin" ]
+
+  # install homebrew if it's missing
+  if not type -q brew
+    echo "Installing homebrew"
+    /usr/bin/ruby -e -- (curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)
+  end
+
+  if test -f "$HOME/.Brewfile"
+    echo "Updating homebrew bundle"
+    brew bundle --global
+  end
+end
+
+if test "$system_type" = "Linux"
+  envsource /etc/os-release
+  if test "$OS" = "Fedora Linux"
+    sudo dnf install -y fzf bat fd-find git-delta git
+  else if test "$OS" = "Ubuntu"
+    sudo apt-get install -y fzf bat fd-find git-delta git
+  end
+end
+
+if not type -q fisher
+  echo "Installing fisher"
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+end
+
+fisher update
+
+if not test -d "$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  echo "Installing packer"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+  nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+end
+
