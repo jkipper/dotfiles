@@ -1,6 +1,0 @@
-.venv/
-.clangd/
-__pycache__
-.mypy_cache
-.cache/
-
