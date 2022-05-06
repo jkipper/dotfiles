@@ -2,7 +2,7 @@ local lsp = require "lspconfig"
 local installer = require "nvim-lsp-installer"
 local lspkind = require "lspkind"
 local servers = {
-  "pylsp",
+  "pyright",
   "sumneko_lua",
   "clangd",
   "dockerls",
