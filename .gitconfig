@@ -23,7 +23,7 @@
   colorMoved = default
 
 [alias]
-  amend = commit --amend --no-edit
+  amend = commit -a --amend --no-edit
   fu = push -u origin HEAD
   ffu = push -fu origin HEAD
   ls = ls-files
