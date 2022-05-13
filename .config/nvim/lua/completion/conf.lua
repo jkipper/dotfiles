@@ -7,6 +7,7 @@ local servers = {
   "clangd",
   "dockerls",
   "jsonls",
+  "groovyls"
 }
 
 local completion_config = {}
