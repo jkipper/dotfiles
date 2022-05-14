@@ -6,8 +6,7 @@ local servers = {
   "sumneko_lua",
   "clangd",
   "dockerls",
-  "jsonls",
-  "groovyls"
+  "jsonls"
 }
 
 local completion_config = {}
