@@ -141,6 +141,7 @@ completion_config.lsp = function()
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   for _, server in ipairs(servers) do
     if server == "clangd" then
+      capabilities.offsetEncoding = {"utf-16"}
       require("clangd_extensions").setup {
         server = {
           settings = try_require("completions.lsp_settings." .. server),
