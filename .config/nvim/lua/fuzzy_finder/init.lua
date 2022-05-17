@@ -1,3 +1,11 @@
+function file_picker()
+  local opts = require("telescope.themes").get_ivy {}
+  local ok = pcall(require"telescope.builtin".git_files, opts)
+  if not ok then require"telescope.builtin".find_files(opts) end
+end
+
+
+
 return function(use)
 	use {
 		"nvim-telescope/telescope.nvim",
@@ -25,9 +33,7 @@ return function(use)
 
 			local keymap_opts = { noremap = true, silent = true }
 			local telescope = require "telescope.builtin"
-			vim.keymap.set("n", "<C-P>", function()
-				telescope.find_files(require("telescope.themes").get_ivy {})
-			end, keymap_opts)
+			vim.keymap.set("n", "<C-P>", file_picker, keymap_opts)
 			vim.keymap.set("n", "<C-F>", telescope.current_buffer_fuzzy_find, keymap_opts)
 			vim.keymap.set("n", "<leader>sf", telescope.live_grep, keymap_opts)
 			vim.keymap.set("n", "<leader>sb", telescope.buffers, keymap_opts)

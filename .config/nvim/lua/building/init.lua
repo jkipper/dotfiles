@@ -9,6 +9,16 @@ return function(use)
 		end,
 	}
 
+  use {
+    "akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
+      require("toggleterm").setup{
+        size = function(term) return vim.o.columns * 0.6 end,
+        open_mapping = [[<C-T>]],
+        direction = 'vertical'
+      }
+    end
+  }
+
 	use {
 		"rcarriga/nvim-dap-ui",
 		requires = { "mfussenegger/nvim-dap", "theHamsta/nvim-dap-virtual-text" },

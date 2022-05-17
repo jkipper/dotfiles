@@ -9,8 +9,6 @@ if g["vscode"] ~= nil then
   vim.keymap.set("n", "gcc", [[<Plug>VSCodeCommentaryLine]], keymap_opts)
 else
   require "plugins"
-  g.floaterm_wintype = "vsplit"
-  vim.keymap.set("n", "<C-T>", "<cmd>FloatermToggle<CR>", keymap_opts)
 
   -- Markdown
   g.vim_markdown_folding_disabled = 1
@@ -62,7 +60,7 @@ opt.backspace = { "indent", "eol", "start" }
 opt.undofile = true
 -- doesn't work with opt for some reason
 vim.cmd "set noshowmode"
-opt.completeopt = "menuone,noselect"
+opt.completeopt = "menu,menuone,noselect"
 opt.incsearch = true
 opt.ruler = true
 opt.wildmenu = true

@@ -13,6 +13,7 @@ return function(use)
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lua",
 			{"RRethy/vim-illuminate", config = function() vim.g.Illuminate_delay = 500 end},
+      { "mtoohey31/cmp-fish", ft = "fish" }
 		},
 		config = function()
 			require("completion.conf").cmp()

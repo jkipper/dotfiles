@@ -10,7 +10,6 @@ return require("packer").startup(function(use)
 			vim.cmd "colorscheme tokyonight"
 		end,
 	}
-	use { "voldikss/vim-floaterm", cmd = "FloatermToggle" }
 	use {
 		"stevearc/dressing.nvim",
 		config = function()

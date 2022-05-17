@@ -67,7 +67,7 @@ completion_config.cmp = function()
       ["<C-c>"] = cmp.mapping.abort(),
     },
     sources = cmp.config.sources(
-      { { name = "nvim_lsp" }, { name = "luasnip" }, { name = "nvim_lua" } },
+      { { name = "nvim_lsp" }, { name = "luasnip" }, { name = "nvim_lua" }, { name = "fish" } },
       { { name = "buffer" }, { name = "path" } }
     ),
     sorting = {
@@ -83,16 +83,24 @@ completion_config.cmp = function()
       },
     },
   }
+
   cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = "buffer" },
     },
   })
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'cmdline' }
+    })
+  })
+
 end
 
 local on_attach = function(client, bufnr)
   local opts = { noremap = true, silent = true, buffer = true }
-  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  vim.api.nvim_create_autocmd({ "CursorHold", "CursorHold" }, {
     buffer = bufnr,
     callback = function()
       local diagnostic_opts = {
@@ -106,7 +114,7 @@ local on_attach = function(client, bufnr)
     end,
   })
 
-  require"illuminate".on_attach(client)
+  require "illuminate".on_attach(client)
 
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -141,7 +149,7 @@ completion_config.lsp = function()
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   for _, server in ipairs(servers) do
     if server == "clangd" then
-      capabilities.offsetEncoding = {"utf-16"}
+      capabilities.offsetEncoding = { "utf-16" }
       require("clangd_extensions").setup {
         server = {
           settings = try_require("completions.lsp_settings." .. server),
