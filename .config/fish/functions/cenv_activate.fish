@@ -14,10 +14,10 @@ function __cenv_activate -a image register mounts
     return 1
   end
   
-  if set -q _cenv_active
-    echo "Container environment already active"
-    return 1
-  end
+  # if set -q _cenv_active
+  #   echo "Container environment already active"
+  #   return 1
+  # end
 
   set -g _cenv_toplevel (git rev-parse --show-toplevel)
   if test $status -ne 0 
@@ -29,10 +29,14 @@ function __cenv_activate -a image register mounts
   set -l build_dir (realpath -- $_cenv_toplevel/../build)
   set -l mount_args --volume=$_cenv_toplevel:$_cenv_toplevel --volume=$build_dir:$build_dir
   for mount in (string split " "  -- $mounts)
-    set -a mount_args --volume=$mount:$mount
+    if string match "*:*" -- $mount 
+      set -a mount_args --volume=$mount
+    else
+      set -a mount_args --volume=$mount:$mount
+    end
   end
   set -g _cenv_registered_executables (string split " " -- $register)
-  if not command $_cenv_engine run -d -t $mount_args -w$_cenv_toplevel --name=$_cenv_projectname $image 
+  if not command $_cenv_engine run -d $mount_args -w$_cenv_toplevel --name=$_cenv_projectname $image tail -f /dev/null 
     echo "Starting container failed"
     return 1
   end
