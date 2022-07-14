@@ -39,11 +39,12 @@ vim.keymap.set("n", "J", "<cmd>m+<cr>==", keymap_opts)
 vim.keymap.set("n", "n", "nzzzv", keymap_opts)
 vim.keymap.set("n", "N", "Nzzzv", keymap_opts)
 
-vim.keymap.set("n", "<leader>y", '"+y', keymap_opts)
-vim.keymap.set("v", "<leader>y", '"+y', keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>cy", '"*y', keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>cp", '"*p', keymap_opts)
 
-vim.keymap.set("n", "<leader>d", '"_d', keymap_opts)
-vim.keymap.set("v", "<leader>d", '"_d', keymap_opts)
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d', keymap_opts)
 
 vim.keymap.set("t", "<C-T>", "<C-\\><C-n>", keymap_opts)
 

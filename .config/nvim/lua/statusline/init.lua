@@ -31,11 +31,10 @@ return function(use)
 			}
 
 			local keymap_opts = { noremap = true, silent = true }
-      local mac_key = function(mac, other) if vim.fn.has('macunix') then return mac else return other end end
-			vim.keymap.set("n", mac_key("≤","<A-,>"), function()
+			vim.keymap.set("n", "<A-,>", function()
 				require("bufferline").cycle(-1)
 			end, keymap_opts)
-			vim.keymap.set("n", mac_key("≥","<A-.>"), function()
+			vim.keymap.set("n", "<A-.>", function()
 				require("bufferline").cycle(1)
 			end, keymap_opts)
 		end,
