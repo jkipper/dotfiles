@@ -12,8 +12,8 @@ return function(use)
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lua",
-			{"RRethy/vim-illuminate", config = function() vim.g.Illuminate_delay = 500 end},
-      { "mtoohey31/cmp-fish", ft = "fish" }
+			{ "RRethy/vim-illuminate", config = function() vim.g.Illuminate_delay = 500 end },
+			{ "mtoohey31/cmp-fish", ft = "fish" }
 		},
 		config = function()
 			require("completion.conf").cmp()
@@ -33,8 +33,8 @@ return function(use)
 			{
 				"L3MON4D3/LuaSnip",
 				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
           require("completion.snippets").init()
+					-- require("luasnip.loaders.from_vscode").lazy_load()
 				end,
 			},
 			{ "rafamadriz/friendly-snippets" },

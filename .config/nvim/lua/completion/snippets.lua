@@ -10,7 +10,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 local selected_text_or_insert = function(_, snip, _, default_text) if snip.env.TM_SELECTED_TEXT[1] then
     return snippet("nil",
       { text(snip.env.TM_SELECTED_TEXT[1])
-      })
+    })
   else
     return snippet("nil", { insert(1, default_text) })
   end
@@ -45,6 +45,9 @@ local function init()
   ls.config.set_config({
     store_selection_keys = "<C-S>"
   })
+  local snippet_dir = "~/.config/nvim/snippets"
+  require("luasnip.loaders.from_vscode").lazy_load({ paths = { snippet_dir } })
+  require("luasnip.loaders.from_vscode").lazy_load()
 end
 
 return { init = init }
