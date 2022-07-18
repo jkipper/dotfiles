@@ -2,17 +2,18 @@ local ls = require("luasnip")
 local snippet = ls.snippet
 local text = ls.text_node
 local insert = ls.insert_node
+local snippet_node = ls.snippet_node
 local func = ls.function_node
 local choice = ls.choice_node
 local dynamic_node = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 local selected_text_or_insert = function(_, snip, _, default_text) if snip.env.TM_SELECTED_TEXT[1] then
-    return snippet("nil",
+    return snippet_node(nil,
       { text(snip.env.TM_SELECTED_TEXT[1])
     })
   else
-    return snippet("nil", { insert(1, default_text) })
+    return snippet_node(nil, { insert(1, default_text) })
   end
 end
 
@@ -46,7 +47,9 @@ local function init()
     store_selection_keys = "<C-S>"
   })
   local snippet_dir = "~/.config/nvim/snippets"
-  require("luasnip.loaders.from_vscode").lazy_load({ paths = { snippet_dir } })
+  if vim.fn.isdirectory(snippet_dir) then
+    require("luasnip.loaders.from_vscode").lazy_load({ paths = { snippet_dir } })
+  end
   require("luasnip.loaders.from_vscode").lazy_load()
 end
 
