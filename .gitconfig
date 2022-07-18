@@ -23,10 +23,12 @@
   colorMoved = default
 
 [alias]
-  amend = commit -a --amend --no-edit
+  amend = commit --amend --no-edit
+  aamend = commit -a --amend --no-edit
   fu = push -u origin HEAD
   ffu = push -fu origin HEAD
   ls = ls-files
+  unstage = restore --staged
 
 [include]
   path = .gitconfig.local
