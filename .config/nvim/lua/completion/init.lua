@@ -4,7 +4,8 @@ return function(use)
 		requires = {
 			"hrsh7th/cmp-nvim-lsp",
 			"neovim/nvim-lspconfig",
-			"williamboman/nvim-lsp-installer",
+			"williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
 			"onsails/lspkind-nvim",
 			"b0o/schemastore.nvim",
 			"p00f/clangd_extensions.nvim",

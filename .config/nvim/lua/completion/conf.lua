@@ -1,5 +1,4 @@
 local lsp = require "lspconfig"
-local installer = require "nvim-lsp-installer"
 local lspkind = require "lspkind"
 local servers = {
   "pyright",
@@ -135,17 +134,20 @@ local on_attach = function(client, bufnr)
 end
 
 completion_config.lsp = function()
-  require("nvim-lsp-installer").setup {
-    ensure_installed = servers,
-    automatic_installation = false,
+  require"mason".setup{
     ui = {
       icons = {
         server_installed = "✓",
         server_pending = "➜",
         server_uninstalled = "✗",
       },
-    },
+    }
   }
+
+  require"mason-lspconfig".setup{
+    ensure_installed = servers
+  }
+
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   for _, server in ipairs(servers) do
     if server == "clangd" then
