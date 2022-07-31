@@ -3,7 +3,7 @@ return function(use)
     "nvim-neo-tree/neo-tree.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "kyazdani42/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
     config = function()
@@ -38,5 +38,12 @@ return function(use)
       vim.keymap.set("n", "<C-e>", "<cmd>NeoTreeFocusToggle<cr>", keymap_opts)
       vim.keymap.set("n", "<C-b>", "<cmd>NeoTreeFocusToggle buffers<cr>", keymap_opts)
     end
+  }
+  use {
+    's1n7ax/nvim-window-picker',
+    tag = 'v1.*',
+    config = function()
+      require 'window-picker'.setup()
+    end,
   }
 end
