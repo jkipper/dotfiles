@@ -11,7 +11,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 local selected_text_or_insert = function(_, snip, _, default_text) if snip.env.TM_SELECTED_TEXT[1] then
     return snippet_node(nil,
       { text(snip.env.TM_SELECTED_TEXT[1])
-    })
+      })
   else
     return snippet_node(nil, { insert(1, default_text) })
   end
@@ -32,11 +32,13 @@ local markdown_link = snippet({
   dscr = "Create a markdown link"
 }, fmt("[{name}]({link})", {
   name = insert(1, "NAME"),
-  link = dynamic_node(2, selected_text_or_insert, {}, { user_args = { "LINK" } }) }))
+  link = dynamic_node(2, selected_text_or_insert, {}, { user_args = { "LINK" } })
+}))
 
 local snippets = {
   python = { python_debug_print },
-  markdown = { markdown_link }
+  markdown = { markdown_link },
+  lua = require("completion.snippets.lua_snips")
 }
 
 local function init()
@@ -44,7 +46,8 @@ local function init()
     ls.add_snippets(file_type, snip)
   end
   ls.config.set_config({
-    store_selection_keys = "<C-S>"
+    store_selection_keys = "<C-S>",
+    update_events = 'TextChanged,TextChangedI'
   })
   local snippet_dir = "~/.config/nvim/snippets"
   if vim.fn.isdirectory(snippet_dir) then
