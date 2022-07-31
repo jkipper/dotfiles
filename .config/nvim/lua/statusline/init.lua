@@ -6,7 +6,7 @@ return function(use)
         options = {
           theme = "tokyonight",
         },
-        extensions = { "nvim-tree", "fugitive" },
+        extensions = { "neo-tree", "fugitive", "toggleterm", "nvim-dap-ui" },
       }
     end,
   }
