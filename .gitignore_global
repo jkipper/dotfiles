@@ -1,0 +1,10 @@
+.venv/
+.clangd/
+__pycache__
+.mypy_cache
+.cache/
+.pyc
+.vscode/
+.DS_Store
+compile_commands.json
+.python-version

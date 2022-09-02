@@ -1,0 +1,40 @@
+[core]
+  editor = nvim
+  pager = delta
+  excludesfile = ~/.gitignore_global
+
+[interactive]
+  diffFilter = delta --color-only
+
+[rerere]
+	enabled = true
+  autoupdate = true
+
+[pull]
+  rebase = true
+
+[delta]
+  navigate = true
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
+[alias]
+  amend = commit --amend --no-edit
+  aamend = commit -a --amend --no-edit
+  c = commit
+  p = push
+  pf = push -f
+  pu = push -u origin HEAD
+  pfu = push -fu origin HEAD
+  ls = ls-files
+  unstage = restore --staged
+
+[include]
+  path = .gitconfig.local
+
+[rebase]
+	autoStash = true
