@@ -62,12 +62,7 @@ M.bufferline = {
 
 M.lualine = {
     config = function()
-        require("lualine").setup {
-            options = {
-                theme = "tokyonight",
-            },
-            extensions = { "neo-tree", "fugitive", "toggleterm", "nvim-dap-ui" },
-        }
+        require "me.modules.ui.lualine"
     end,
 }
 

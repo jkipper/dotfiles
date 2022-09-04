@@ -13,16 +13,20 @@ M.requires = {
     { "RRethy/vim-illuminate" },
     { "jose-elias-alvarez/null-ls.nvim" },
     { "b0o/schemastore.nvim" },
+    { "nvim-lua/lsp-status.nvim" },
 }
 
 M.config = function()
+    local lsp_status = require "lsp-status"
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
+    lsp_status.register_progress()
     require("clangd_extensions").setup {
         server = {
-            on_attach,
+            handlers = lsp_status.extensions.clangd.setup(),
+            on_attach = on_attach,
             capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
         },
     }

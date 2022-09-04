@@ -10,9 +10,7 @@ return export {
     neotree = {
         "nvim-neo-tree/neo-tree.nvim", cmd={"Neotree", "NeoTreeFocusToggle"}
     },
-    lualine = {
-        "nvim-lualine/lualine.nvim",
-    },
+    lualine = {"nvim-lualine/lualine.nvim"},
 
     bufferline = {
         "akinsho/bufferline.nvim",
