@@ -5,6 +5,7 @@ local PackerHooks = vim.api.nvim_create_augroup("PackerHooks", { clear = true })
 local paths = require "me.core.paths"
 
 local reload_config = function()
+    ---@diagnostic disable-next-line: param-type-mismatch
     local lua_dirs = vim.fn.glob("./lua/*", 0, 1)
     for _, dir in ipairs(lua_dirs) do
         dir = string.gsub(dir, "./lua/", "")
@@ -12,7 +13,7 @@ local reload_config = function()
     end
     require("packer").compile()
 end
-
+--- @param notify_text string
 local notify = function(notify_text)
     vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" })
 end
@@ -65,6 +66,7 @@ function M.load_plugins()
 
     local get_plugins_list = function()
         local list = {}
+        ---@diagnostic disable-next-line: missing-parameter
         local tmp = vim.split(vim.fn.globpath(modules_dir, "*/plugins.lua"), "\n")
         for _, f in ipairs(tmp) do
             list[#list + 1] = string.match(f, "lua/(.+).lua$"):gsub("/", ".")
@@ -83,21 +85,24 @@ function M.load_plugins()
     end)
 end
 
+---@alias PluginConfig table{requires: table<string, string[]>?, config = function?}
+
+---@param mod_conf table<string, PluginConfig>
+---@return function(table<string, table>): table
 M.export_config = function(mod_conf)
     return function(modules)
-        for name, conf in pairs(modules) do
-            local loaded_conf = mod_conf[name]
-            local provided_conf = conf["config"]
-            if provided_conf ~= nil and loaded_conf ~= nil then
-                vim.notify("Duplicate config provided for " .. name)
-            end
-            if loaded_conf ~= nil then
-                if not provided_conf then
-                    modules[name].config = loaded_conf["conf"]
+        for name, provided_mod in pairs(modules) do
+            local loaded_mod = mod_conf[name]
+            --if provided_mod["config"] ~= nil and loaded_mod["config"] ~= nil then
+              --  vim.notify("Duplicate config provided for " .. name)
+            --end
+            if loaded_mod ~= nil then
+                if not provided_mod["config"] then
+                    modules[name].config = loaded_mod["config"]
                 end
-                local provided_deps = conf["requires"]
+                local provided_deps = provided_mod["requires"]
                 if not provided_deps then
-                    modules[name].requires = vim.tbl_values(loaded_conf["deps"] or {})
+                    modules[name].requires = vim.tbl_values(loaded_mod["requires"] or {})
                 end
             end
         end

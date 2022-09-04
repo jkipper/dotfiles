@@ -1,71 +1,67 @@
 local M = {}
 
-local neotree = {}
-
-neotree.deps = {
-    ["plenary.nvim"] = { "nvim-lua/plenary.nvim", opt = true },
-    ["nvim-web-devicons"] = { "kyazdani42/nvim-web-devicons" },
-    ["nui.nvim"] = { "MunifTanjim/nui.nvim" },
-}
-
-neotree.conf = function()
-    require("neo-tree").setup {
-        filesystem = {
-            filtered_items = {
-                hide_dotfiles = false,
-                hide_by_name = {
-                    ".git",
-                    "*.pyc$",
+M.neotree = {
+    requires = {
+        ["plenary.nvim"] = { "nvim-lua/plenary.nvim", opt = true },
+        ["nvim-web-devicons"] = { "kyazdani42/nvim-web-devicons" },
+        ["nui.nvim"] = { "MunifTanjim/nui.nvim" },
+    },
+    config = function()
+        require("neo-tree").setup {
+            filesystem = {
+                filtered_items = {
+                    hide_dotfiles = false,
+                    hide_by_name = {
+                        ".git",
+                        "*.pyc$",
+                    },
+                    never_show = {
+                        ".DS_Store",
+                    },
                 },
-                never_show = {
-                    ".DS_Store",
+                follow_current_file = true,
+                window = {
+                    mappings = {
+                        ["F"] = "clear_filter",
+                    },
                 },
             },
-            follow_current_file = true,
             window = {
                 mappings = {
-                    ["F"] = "clear_filter",
+                    ["<C-V>"] = "open_vsplit",
+                    ["<C-X>"] = "open_split",
                 },
             },
-        },
-        window = {
-            mappings = {
-                ["<C-V>"] = "open_vsplit",
-                ["<C-X>"] = "open_split",
-            },
-        },
-    }
-end
-M.neotree = neotree
-
-local bufferline = {}
-
-bufferline.deps = {
-    ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons",
-    ["scope.nvim"] = "tiagovla/scope.nvim",
+        }
+    end,
 }
-bufferline.conf = function()
-    require("bufferline").setup {
-        options = {
-            separator_style = "thick",
-            numbers = "buffer_id",
-            close_icon = "",
-            offsets = {
-                {
-                    filetype = "neo-tree",
-                    text = "File Explorer",
-                    text_align = "center",
+
+M.bufferline = {
+    requires = {
+        ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons",
+        ["scope.nvim"] = "tiagovla/scope.nvim",
+    },
+    config = function()
+        require("bufferline").setup {
+            options = {
+                separator_style = "thick",
+                numbers = "buffer_id",
+                close_icon = "",
+                offsets = {
+                    {
+                        filetype = "neo-tree",
+                        text = "File Explorer",
+                        text_align = "center",
+                    },
                 },
             },
-        },
-    }
-    require("scope").setup()
-end
-M.bufferline = bufferline
+        }
+        require("scope").setup()
+    end,
+}
 
-local lualine = {}
 M.lualine = {
-    conf = function()
+    config = function()
         require("lualine").setup {
             options = {
                 theme = "tokyonight",
@@ -76,7 +72,7 @@ M.lualine = {
 }
 
 M.dashboard = {
-    conf = function()
+    config = function()
         local db = require "dashboard"
         local home = os.getenv "HOME"
         db.default_executive = "telescope"
@@ -98,19 +94,19 @@ M.dashboard = {
             {
                 icon = "  ",
                 desc = "Recently opened files                   ",
-                action = "DashboardFindHistory",
+                action = "Telescope oldfiles",
                 shortcut = "SPC f h",
             },
             {
                 icon = "  ",
                 desc = "Find  File                              ",
-                action = "Telescope find_files find_command=rg,--hidden,--files",
+                action = "Telescope find_files",
                 shortcut = "SPC f f",
             },
             {
                 icon = "  ",
                 desc = "File Browser                            ",
-                action = "Telescope file_browser",
+                action = "Neotree",
                 shortcut = "SPC f b",
             },
             {
@@ -130,20 +126,20 @@ M.dashboard = {
 }
 
 M.outline = {
-    conf = function()
+    config = function()
         require("symbols-outline").setup { auto_preview = false }
     end,
 }
 
-local trouble = {}
-trouble.deps = { ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons" }
-trouble.config = function()
-    require("trouble").setup {}
-end
-M.trouble = trouble
+M.trouble = {
+    requires = { ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons" },
+    config = function()
+        require("trouble").setup {}
+    end,
+}
 
 M.terminal = {
-    conf = function()
+    config = function()
         require("toggleterm").setup {
             size = function(_)
                 return vim.o.columns * 0.6

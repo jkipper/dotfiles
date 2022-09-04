@@ -15,9 +15,6 @@ end
 local telescope = require "telescope.builtin"
 nmap("<C-P>", file_picker)
 nmap("<C-F>", telescope.current_buffer_fuzzy_find)
--- nmap("<leader><C-P>", function()
--- 	require("fuzzy_finder.pickers").dotfiles(require("telescope.themes").get_ivy {})
--- end)
 nmap("<leader>sf", telescope.live_grep)
 nmap("<leader>sb", telescope.buffers)
 nmap("<leader>sr", telescope.registers)
@@ -26,9 +23,9 @@ nmap("<leader>sd", telescope.diagnostics)
 nmap("<leader>gs", telescope.git_status)
 nmap("<leader>gc", telescope.git_commits)
 nmap("<leader>gb", telescope.git_branches)
+nmap("<leader><C-P>", telescope.buffers)
 
 nmap("<C-e>", cmd "NeoTreeFocusToggle")
-nmap("<C-b>", cmd "NeoTreeFocusToggle buffers")
 
 nmap("<A-,>", function()
     require("bufferline").cycle(-1)

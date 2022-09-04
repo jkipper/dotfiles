@@ -7,7 +7,7 @@ local on_attach = function(client, bufnr)
     require("illuminate").on_attach(client)
 end
 local M = {}
-M.deps = {
+M.requires = {
     ["lua-dev.nvim"] = { "folke/lua-dev.nvim" },
     ["clangd_extensions.nvim"] = { "p00f/clangd_extensions.nvim" },
     ["vim-illuminate"] = { "RRethy/vim-illuminate" },
@@ -15,7 +15,7 @@ M.deps = {
     ["schemastore.nvim"] = { "b0o/schemastore.nvim" },
 }
 
-M.conf = function()
+M.config = function()
     local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }

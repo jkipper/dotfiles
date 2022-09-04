@@ -114,11 +114,7 @@ function DevContainer:wrap_if_active(cmd)
     return new_cmd
 end
 
-function DevContainer:reload_pyright()
-    require("completion.conf").init_server("pyright", function(cmd)
-        return self:wrap_if_active(cmd)
-    end)
-end
+
 
 -- Attach to container as shell. Might be stupid to do
 function DevContainer:enter()

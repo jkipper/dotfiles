@@ -1,4 +1,4 @@
-local c = require "me.modules.completion.conf"
+local c = require("me.modules.completion.conf")
 local export = require("me.core.pack").export_config(c)
 
 return export {
@@ -14,7 +14,7 @@ return export {
     lsp = { "neovim/nvim-lspconfig" },
     lsp_signature = {
         "ray-x/lsp_signature.nvim",
-        conf = function()
+        config = function()
             require("lsp_signature").setup { floating_window = false, hint_enable = true }
         end,
     },
