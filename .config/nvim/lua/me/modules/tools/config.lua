@@ -4,7 +4,9 @@ vim.g.neoformat_enabled_toml = { "taplo" }
 vim.g.neoformat_enabled_cpp = { "clang-format" }
 
 M.docs = {
-    requires = { ["nvim-treesitter"] = "nvim-treesitter/nvim-treesitter" },
+    requires = {
+        "nvim-treesitter/nvim-treesitter",
+    },
     config = function()
         require("neogen").setup {
             snippet_engine = "luasnip",

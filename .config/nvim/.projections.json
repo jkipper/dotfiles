@@ -1,0 +1,8 @@
+{
+  "lua/me/modules/*/plugins.lua": {
+    "alternate": "lua/me/modules/{}/config.lua"
+  },
+  "lua/me/modules/*/config.lua": {
+    "alternate": "lua/me/modules/{}/plugins.lua"
+  }
+}

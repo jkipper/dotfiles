@@ -8,7 +8,7 @@ return export {
         end,
     },
     neotree = {
-        "nvim-neo-tree/neo-tree.nvim",
+        "nvim-neo-tree/neo-tree.nvim", cmd={"Neotree", "NeoTreeFocusToggle"}
     },
     lualine = {
         "nvim-lualine/lualine.nvim",
@@ -20,8 +20,8 @@ return export {
     dashboard = {
         "glepnir/dashboard-nvim",
     },
-    outline = { "simrat39/symbols-outline.nvim" },
-    trouble = { "folke/trouble.nvim" },
+    outline = { "simrat39/symbols-outline.nvim", cmd="SymbolsOutline" },
+    trouble = { "folke/trouble.nvim", cmd="Trouble" },
     notify = {
         "rcarriga/nvim-notify",
         config = function()
@@ -34,6 +34,6 @@ return export {
             require("dressing").setup {}
         end,
     },
-    scriptease = { "tpope/vim-scriptease" },
-    terminal = { "akinsho/toggleterm.nvim", tag = "V2.*" },
+    scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
+    terminal = { "akinsho/toggleterm.nvim", tag = "v2.*" },
 }

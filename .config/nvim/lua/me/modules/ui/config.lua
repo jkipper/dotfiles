@@ -2,9 +2,9 @@ local M = {}
 
 M.neotree = {
     requires = {
-        ["plenary.nvim"] = { "nvim-lua/plenary.nvim", opt = true },
-        ["nvim-web-devicons"] = { "kyazdani42/nvim-web-devicons" },
-        ["nui.nvim"] = { "MunifTanjim/nui.nvim" },
+        { "nvim-lua/plenary.nvim", opt = true },
+        { "kyazdani42/nvim-web-devicons" },
+        { "MunifTanjim/nui.nvim" },
     },
     config = function()
         require("neo-tree").setup {
@@ -38,8 +38,8 @@ M.neotree = {
 
 M.bufferline = {
     requires = {
-        ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons",
-        ["scope.nvim"] = "tiagovla/scope.nvim",
+        "kyazdani42/nvim-web-devicons",
+        "tiagovla/scope.nvim",
     },
     config = function()
         require("bufferline").setup {
@@ -132,7 +132,7 @@ M.outline = {
 }
 
 M.trouble = {
-    requires = { ["nvim-web-devicons"] = "kyazdani42/nvim-web-devicons" },
+    requires = { "kyazdani42/nvim-web-devicons" },
     config = function()
         require("trouble").setup {}
     end,

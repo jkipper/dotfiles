@@ -80,21 +80,3 @@ for type, icon in pairs(signs) do
 end
 
 vim.o.updatetime = 100
-
--- move to ftmaps
-local filetype_mappings = vim.api.nvim_create_augroup("filetype_mapping", {})
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = filetype_mappings,
-    pattern = { "Jenkinsfile*" },
-    command = "set filetype=groovy",
-})
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = filetype_mappings,
-    pattern = { "injections.scm" },
-    command = "set filetype=query",
-})
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-    group = filetype_mappings,
-    pattern = { "*.json" },
-    command = "set filetype=jsonc",
-})

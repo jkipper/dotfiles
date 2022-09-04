@@ -1,4 +1,4 @@
--- schematstore
+-- schematstorecompl
 -- parent = nvim-lspconfig
 --
 --
@@ -8,11 +8,11 @@ local on_attach = function(client, bufnr)
 end
 local M = {}
 M.requires = {
-    ["lua-dev.nvim"] = { "folke/lua-dev.nvim" },
-    ["clangd_extensions.nvim"] = { "p00f/clangd_extensions.nvim" },
-    ["vim-illuminate"] = { "RRethy/vim-illuminate" },
-    ["null-ls.nvim"] = { "jose-elias-alvarez/null-ls.nvim" },
-    ["schemastore.nvim"] = { "b0o/schemastore.nvim" },
+    { "folke/lua-dev.nvim" },
+    { "p00f/clangd_extensions.nvim" },
+    { "RRethy/vim-illuminate" },
+    { "jose-elias-alvarez/null-ls.nvim" },
+    { "b0o/schemastore.nvim" },
 }
 
 M.config = function()
@@ -21,7 +21,10 @@ M.config = function()
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
     require("clangd_extensions").setup {
-        server = default_conf,
+        server = {
+            on_attach,
+            capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
+        },
     }
 
     lsp.sumneko_lua.setup(require("lua-dev").setup {

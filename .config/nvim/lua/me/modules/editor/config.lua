@@ -1,12 +1,12 @@
---@type table<string, PluginConfig>
+---@type table<string, PluginConfig>
 local M = {}
 
 M.telescope = {
     requires = {
-        ["plenary.nvim"] = {
+        {
             "nvim-lua/plenary.nvim",
         },
-        ["telescope-fzf-native.nvim"] = {
+        {
             "nvim-telescope/telescope-fzf-native.nvim",
             run = "make",
         },
@@ -36,15 +36,16 @@ M.telescope = {
         require("telescope").load_extension "fzf"
         require("telescope").load_extension "dotfiles"
         require("telescope").load_extension "projects"
+        require("telescope").load_extension "neoclip"
     end,
 }
 
 M.treesitter = {
     requires = {
-        ["vim-matchup"] = "andymass/vim-matchup",
-        ["nvim-treesitter-textobjects"] = "nvim-treesitter/nvim-treesitter-textobjects",
-        ["playground"] = "nvim-treesitter/playground",
-        ["treesitter-context"] = { "lewis6991/nvim-treesitter-context" },
+        "andymass/vim-matchup",
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-treesitter/playground",
+        { "lewis6991/nvim-treesitter-context" },
     },
     config = function()
         require("nvim-treesitter.configs").setup {
@@ -119,8 +120,8 @@ vim.g.vim_markdown_frontmatter = 1
 vim.g.vim_markdown_toml_frontmatter = 1
 M.markdown = {
     requires = {
-        tabular = { "godlygeek/tabular", ft = "markdown" },
-        ["glow.nvim"] = {
+        { "godlygeek/tabular", ft = "markdown" },
+        {
             "ellisonleao/glow.nvim",
             ft = "markdown",
         },
@@ -129,8 +130,8 @@ M.markdown = {
 
 M.neoclip = {
     requires = {
-        sqlite = { "kkharji/sqlite.lua", module = "sqlite" },
-        ["telescope.nvim"] = { "nvim-telescope/telescope.nvim" },
+        { "kkharji/sqlite.lua", module = "sqlite" },
+        { "nvim-telescope/telescope.nvim" },
     },
     config = function()
         require("neoclip").setup {}

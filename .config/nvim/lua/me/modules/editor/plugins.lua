@@ -39,4 +39,5 @@ return export {
     },
     markdown = { "plasticboy/vim-markdown" },
     neoclip = { "AckslD/nvim-neoclip.lua" },
+    projectionist = {"tpope/vim-projectionist"}
 }

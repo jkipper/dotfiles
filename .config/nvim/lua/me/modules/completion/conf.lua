@@ -2,15 +2,15 @@ local M = {}
 
 M.nvimcmp = {
     requires = {
-        lspkind = { "onsails/lspkind-nvim" },
-        ["cmp-nvim-lsp"] = { "hrsh7th/cmp-nvim-lsp" },
-        ["cmp-cmdline"] = { "hrsh7th/cmp-cmdline" },
-        ["cmp-path"] = { "hrsh7th/cmp-path" },
-        ["cmp-buffer"] = { "hrsh7th/cmp-buffer" },
-        ["cmp_luasnip"] = { "saadparwaiz1/cmp_luasnip" },
-        ["cmp-nvim-lua"] = { "hrsh7th/cmp-nvim-lua" },
-        ["cmp-doxygen"] = { "paopaol/cmp-doxygen" },
-        ["cmp-fish"] = { "mtoohey31/cmp-fish" },
+        { "onsails/lspkind-nvim" },
+        { "hrsh7th/cmp-nvim-lsp" },
+        { "hrsh7th/cmp-cmdline" },
+        { "hrsh7th/cmp-path" },
+        { "hrsh7th/cmp-buffer" },
+        { "saadparwaiz1/cmp_luasnip" },
+        { "hrsh7th/cmp-nvim-lua" },
+        { "paopaol/cmp-doxygen" },
+        { "mtoohey31/cmp-fish" },
     },
 
     config = function()
@@ -90,7 +90,6 @@ M.nvimcmp = {
 }
 
 M.lsp = require "me.modules.completion.lsp"
-
 M.lspinstall = {
     config = function()
         require("mason").setup {
@@ -106,7 +105,7 @@ M.lspinstall = {
 }
 
 M.snip = {
-    requires = { ["friendly-snippets"] = { "rafamadriz/friendly-snippets" } },
+    requires = { "rafamadriz/friendly-snippets" },
     config = function()
         local ls = require "luasnip"
         ls.config.set_config {
