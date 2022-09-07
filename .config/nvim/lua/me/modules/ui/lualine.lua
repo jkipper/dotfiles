@@ -4,8 +4,6 @@
 local lualine = require "lualine"
 local config = require "tokyonight.config"
 local colors = require("tokyonight.colors").setup(config)
--- Color table for highlights
--- stylua: ignore
 
 local conditions = {
     buffer_not_empty = function()
@@ -20,7 +18,16 @@ local conditions = {
         return gitdir and #gitdir > 0 and #gitdir < #filepath
     end,
 }
-
+local function diff_source()
+    local gitsigns = vim.b.gitsigns_status_dict
+    if gitsigns then
+        return {
+            added = gitsigns.added,
+            modified = gitsigns.changed,
+            removed = gitsigns.removed,
+        }
+    end
+end
 -- Config
 local config = {
     options = {
@@ -62,7 +69,6 @@ local function ins_right(component)
     table.insert(config.sections.lualine_x, component)
 end
 
-
 ins_left {
     -- mode component
     function()
@@ -97,11 +103,11 @@ ins_left {
     padding = { left = 1, right = 1 },
 }
 
-
 ins_left {
     "filename",
     cond = conditions.buffer_not_empty,
     color = { fg = colors.cyan, gui = "bold" },
+    path = 1,
 }
 
 ins_left { "location" }
@@ -158,15 +164,15 @@ ins_right {
 }
 
 ins_right {
-    "branch",
-    icon = "",
+    "b:gitsigns_head",
+    icon = "",
     color = { fg = colors.violet, gui = "bold" },
 }
-
 
 ins_right {
     "diff",
     symbols = { added = " ", modified = "柳 ", removed = " " },
+    source = diff_source,
     diff_color = {
         added = { fg = colors.green },
         modified = { fg = colors.orange },

@@ -10,6 +10,7 @@ M.telescope = {
             "nvim-telescope/telescope-fzf-native.nvim",
             run = "make",
         },
+        { "nvim-telescope/telescope-live-grep-args.nvim" },
     },
     config = function()
         require("telescope").setup {
@@ -37,6 +38,7 @@ M.telescope = {
         require("telescope").load_extension "dotfiles"
         require("telescope").load_extension "projects"
         require("telescope").load_extension "neoclip"
+        require("telescope").load_extension "live_grep_args"
     end,
 }
 

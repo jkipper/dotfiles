@@ -5,6 +5,23 @@ M.neotree = {
         { "nvim-lua/plenary.nvim", opt = true },
         { "kyazdani42/nvim-web-devicons" },
         { "MunifTanjim/nui.nvim" },
+        {
+            "s1n7ax/nvim-window-picker",
+            tag = "v1.*",
+            config = function()
+                require("window-picker").setup {
+                    autoselect_one = true,
+                    include_current = false,
+                    filter_rules = {
+                        bo = {
+                            filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+                            buftype = { "terminal" },
+                        },
+                    },
+                    other_win_hl_color = "#e35e4f",
+                }
+            end,
+        },
     },
     config = function()
         require("neo-tree").setup {
