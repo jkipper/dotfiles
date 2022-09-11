@@ -1,5 +1,4 @@
 local M = {}
-
 M.neotree = {
     requires = {
         { "nvim-lua/plenary.nvim", opt = true },

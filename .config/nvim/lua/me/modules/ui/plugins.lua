@@ -8,9 +8,16 @@ return export {
         end,
     },
     neotree = {
-        "nvim-neo-tree/neo-tree.nvim", cmd={"Neotree", "NeoTreeFocusToggle"}
+        "nvim-neo-tree/neo-tree.nvim",
+        cmd = { "Neotree", "NeoTreeFocusToggle" },
     },
-    lualine = {"nvim-lualine/lualine.nvim"},
+    lualine = { "nvim-lualine/lualine.nvim" },
+    lsp_status = {
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup {}
+        end,
+    },
 
     bufferline = {
         "akinsho/bufferline.nvim",
@@ -18,8 +25,8 @@ return export {
     dashboard = {
         "glepnir/dashboard-nvim",
     },
-    outline = { "simrat39/symbols-outline.nvim", cmd="SymbolsOutline" },
-    trouble = { "folke/trouble.nvim", cmd="Trouble" },
+    outline = { "simrat39/symbols-outline.nvim", cmd = "SymbolsOutline" },
+    trouble = { "folke/trouble.nvim", cmd = "Trouble" },
     notify = {
         "rcarriga/nvim-notify",
         config = function()
