@@ -15,7 +15,7 @@ return export {
     lsp_status = {
         "j-hui/fidget.nvim",
         config = function()
-            require("fidget").setup { sources = { null_ls = { ignore = true } } }
+            require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } }
         end,
     },
 
@@ -45,6 +45,18 @@ return export {
         "karb94/neoscroll.nvim",
         config = function()
             require("neoscroll").setup { mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "zt", "zz", "zb" } }
+        end,
+    },
+    window_manager = {
+        "anuvyklack/windows.nvim",
+        requires = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim",
+        },
+        config = function()
+            vim.o.winwidth = 10
+            vim.o.winminwidth = 10
+            require("windows").setup()
         end,
     },
 }

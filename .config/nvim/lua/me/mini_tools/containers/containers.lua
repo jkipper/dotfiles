@@ -131,6 +131,14 @@ function DevContainer:rebuild()
     end
 end
 
+function DevContainer:_make_command_wrapper()
+    local active = self:_get_active()
+    if not active then
+        vim.notify("Creating command requires active container", 4)
+    end
+    return {container_executable, "exec", "-w", vim.loop.cwd(), "bash", "-c"}
+end
+
 local container = DevContainer:new()
 local register = vim.tbl_filter(function(key)
     return not vim.startswith(key, "_") and key ~= "new"
