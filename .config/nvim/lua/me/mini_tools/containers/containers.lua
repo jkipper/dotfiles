@@ -1,8 +1,6 @@
 local job = require "plenary.job"
-
 local executable = "devcontainer"
-local container_executable = "podman"
-local cwd = vim.fn.getcwd()
+local container_executable = vim.loop.os_uname().sysname == "Darwin" and "docker" or "podman"
 
 local TermBuffer = require "me.mini_tools.containers.term_buffer"
 
@@ -12,25 +10,27 @@ DevContainer.__index = DevContainer
 function DevContainer:new()
     local conf = {
         active_id = nil,
-        last_job = nil,
-        stdout = {},
         buf = nil,
     }
     local obj = setmetatable(conf, self)
     return obj
 end
 
-function DevContainer:start()
-    self.last_job = job:new {
-        command = executable,
-        args = { "up", "--workspace-folder", cwd, "--docker-path", container_executable },
-        on_start = function()
+function DevContainer:_job_runner(opts)
+    return job:new {
+        command = opts.command,
+        args = opts.args,
+        cwd = vim.loop.cwd(),
+        on_start = vim.schedule_wrap(function()
             self.buf = TermBuffer:new()
-        end,
+        end),
         on_exit = function(_, return_val)
             if return_val ~= 0 then
                 self.buf:show()
             else
+                if opts.on_success then
+                    opts.on_success()
+                end
                 self.buf:close()
             end
         end,
@@ -39,103 +39,110 @@ function DevContainer:start()
         end,
         on_stdout = function(_, data)
             self.buf:send(data)
-            local as_json = vim.json.decode(data)
-            self.result = as_json["outcome"]
-            self.active_id = as_json["containerId"]
-            if self.result ~= "success" then
-                vim.notify("Something went wrong during devcontainer startup" .. as_json["description"])
-            end
-            if self.active_id ~= nil then
-                vim.notify("Started container " .. self.active_id)
+            if opts.on_stdout then
+                opts.on_stdout(_, data)
             end
         end,
     }
-    self.last_job:start()
-    return self.last_job
 end
 
-function DevContainer:stop(delete)
-    local job_running = self.last_job and self.last_job["code"] == nil
-    if not job_running and not self.active_id then
-        vim.notify "No container active"
-        return nil
+function DevContainer:up()
+    local startup_job = self:_job_runner {
+        command = executable,
+        args = { "up", "--workspace-folder=.", "--docker-path", container_executable },
+        on_stdout = function(_, data)
+            local as_json = vim.json.decode(data)
+            local result = as_json["outcome"]
+            local created_id = as_json["containerId"]
+            if result ~= "success" then
+                vim.notify("Someting with wrong during container start: " .. as_json["description"], 4)
+            end
+            if created_id then
+                vim.notify("Started container with id: " .. created_id)
+            end
+        end,
+    }
+    startup_job:start()
+    return startup_job
+end
+
+function DevContainer:stop()
+    self.active_id = self:_get_active()
+    if not self.active_id then
+        vim.notify "No active container"
+        return
     end
-    local mk_job = function()
-        return job:new {
-            command = container_executable,
-            args = { "container", delete and "rm" or "stop", self.active_id },
-            on_start = function()
-                vim.notify("Stopping container " .. self.active_id)
-                self.buf = TermBuffer:new()
-            end,
-            on_exit = function(_, return_val)
-                vim.notify("Job returned with return code: " .. return_val)
-                if return_val ~= 0 then
-                    self.buf:show()
-                end
-                self.active_id = nil
-            end,
-            on_stderr = function(_, data)
-                self.buf:send(data)
-            end,
-            on_stdout = function(_, data)
-                self.buf:send(data)
-            end,
-        }
-    end
-    if job_running then
-        self.last_job:after(function()
-            mk_job():start()
+    local stop_job = self:_job_runner {
+        command = container_executable,
+        args = { "container", "stop", self.active_id },
+        on_success = function()
+            vim.notify("Stopped container " .. self.active_id)
+        end,
+    }
+    stop_job:start()
+    return stop_job
+end
+
+function DevContainer:delete(active_id)
+    self.active_id = active_id or self.active_id
+
+    local delete_job = self:_job_runner {
+        command = container_executable,
+        args = { "container", "rm", self.active_id },
+        on_success = function()
+            vim.notify("Deleted container " .. self.active_id)
+        end,
+    }
+    delete_job:start()
+    return delete_job
+end
+
+function DevContainer:_get_active()
+    local active = job:new({
+        command = container_executable,
+        args = {
+            "container",
+            "ls",
+            "-a",
+            "--filter=label=devcontainer.local_folder=" .. vim.loop.cwd(),
+            "--format={{.ID}}",
+        },
+    }):sync()
+    return active[1]
+end
+
+function DevContainer:down()
+    self:stop():after_success(function()
+        self:delete()
+    end)
+end
+
+function DevContainer:rebuild()
+    local active = self.active_id or self:_get_active()
+    if active then
+        self:stop():after_success(function()
+            local del = self:delete(self.active_id)
+            del:after_success(function()
+                self:up()
+            end)
         end)
     else
-        self.last_job = mk_job()
-        self.last_job:start()
-    end
-    return mk_job()
-end
-
----Attempt to wrap a command with devcontainer (if one is active) doesn't work yet
----@param cmd table
----@return table
-function DevContainer:wrap_if_active(cmd)
-    if cmd then
-        print("received_cmd: " .. table.concat(cmd, " "))
-    end
-    if self.active_id == nil then
-        print "devcontainer not active, return default"
-        return cmd
-    end
-
-    local new_cmd = { container_executable, "exec", "-i", self.active_id }
-    vim.notify "EXECUTING"
-    local exists = job:new({ command = container_executable, args = { self.active_id, "which", cmd[1] } }):sync()
-    vim.list_extend(new_cmd, cmd)
-    print(table.concat(new_cmd, " "))
-    return new_cmd
-end
-
-
-
--- Attach to container as shell. Might be stupid to do
-function DevContainer:enter()
-    if self.active_id ~= nil then
-        vim.opt.shell = "podman exec -i -w " .. cwd .. " -e SHELL=/bin/bash -l /bin/bash"
-        vim.opt.shellcmdflag = "-c"
+        self:up()
     end
 end
 
 local container = DevContainer:new()
-vim.api.nvim_create_user_command("DevcontainerDown", function()
-    container:stop()
-end, {})
-vim.api.nvim_create_user_command("ShowOutput", function()
-    container.buf:show()
-end, {})
-vim.api.nvim_create_user_command("DevcontainerUp", function()
-    container:start()
-end, {})
-vim.api.nvim_create_user_command("DevcontainerEnter", function()
-    container:enter()
-end, {})
+local register = vim.tbl_filter(function(key)
+    return not vim.startswith(key, "_") and key ~= "new"
+end, vim.tbl_keys(getmetatable(container)))
+
+vim.api.nvim_create_user_command("Devcontainer", function(opt)
+    container[opt.args](container)
+end, {
+    nargs = 1,
+    complete = function()
+        return register
+    end,
+})
 
 return container
