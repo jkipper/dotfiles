@@ -155,7 +155,7 @@ M.terminal = {
             size = function(_)
                 return vim.o.columns * 0.6
             end,
-            open_mapping = [[<C-T>]],
+            open_mapping = [[<C-\>]],
             direction = "vertical",
         }
     end,

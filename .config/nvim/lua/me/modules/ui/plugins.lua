@@ -15,7 +15,7 @@ return export {
     lsp_status = {
         "j-hui/fidget.nvim",
         config = function()
-            require("fidget").setup {}
+            require("fidget").setup { sources = { null_ls = { ignore = true } } }
         end,
     },
 
@@ -41,4 +41,10 @@ return export {
     },
     scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
     terminal = { "akinsho/toggleterm.nvim", tag = "v2.*" },
+    scrolling = {
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup { mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "zt", "zz", "zb" } }
+        end,
+    },
 }

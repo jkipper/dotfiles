@@ -1,4 +1,8 @@
-return {
+local c = require "me.modules.building.config"
+local export = require("me.core.pack").export_config(c)
+
+return export {
+    task_runner = { "stevearc/overseer.nvim" },
     dap = {
         "mfussenegger/nvim-dap",
         requires = { "theHamsta/nvim-dap-virtual-text", { "rcarriga/nvim-dap-ui", cmd = "DapUiToggle" } },

@@ -14,7 +14,7 @@ end
 
 local telescope = require "telescope.builtin"
 nmap("<C-P>", file_picker)
-nmap("<C-F>", function()
+nmap("<leader><C-F>", function()
     telescope.current_buffer_fuzzy_find()
 end)
 nmap("<leader>sf", function()

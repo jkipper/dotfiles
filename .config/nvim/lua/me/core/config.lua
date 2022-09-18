@@ -68,7 +68,7 @@ nvmap("<leader>cy", '"*y')
 nvmap("<leader>cp", '"*p')
 nvmap("<leader>d", '"_d')
 
-vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.keymap.set("t", "<C-T>", "<C-\\><C-n>", { noremap = true, silent = true })
 
 vim.diagnostic.config {
     virtual_text = false,
