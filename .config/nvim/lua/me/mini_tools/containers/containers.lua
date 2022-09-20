@@ -21,9 +21,7 @@ function DevContainer:_job_runner(opts)
         command = opts.command,
         args = opts.args,
         cwd = vim.loop.cwd(),
-        on_start = vim.schedule_wrap(function()
-            self.buf = TermBuffer:new()
-        end),
+        on_start = vim.schedule_wrap(function() self.buf = TermBuffer:new() end),
         on_exit = function(_, return_val)
             if return_val ~= 0 then
                 self.buf:show()
@@ -34,9 +32,7 @@ function DevContainer:_job_runner(opts)
                 self.buf:close()
             end
         end,
-        on_stderr = function(_, data)
-            self.buf:send(data)
-        end,
+        on_stderr = function(_, data) self.buf:send(data) end,
         on_stdout = function(_, data)
             self.buf:send(data)
             if opts.on_stdout then
@@ -55,7 +51,10 @@ function DevContainer:up()
             local result = as_json["outcome"]
             local created_id = as_json["containerId"]
             if result ~= "success" then
-                vim.notify("Someting with wrong during container start: " .. as_json["description"], 4)
+                vim.notify(
+                    "Someting with wrong during container start: " .. as_json["description"],
+                    4
+                )
             end
             if created_id then
                 vim.notify("Started container with id: " .. created_id)
@@ -75,9 +74,7 @@ function DevContainer:stop()
     local stop_job = self:_job_runner {
         command = container_executable,
         args = { "container", "stop", self.active_id },
-        on_success = function()
-            vim.notify("Stopped container " .. self.active_id)
-        end,
+        on_success = function() vim.notify("Stopped container " .. self.active_id) end,
     }
     stop_job:start()
     return stop_job
@@ -89,9 +86,7 @@ function DevContainer:delete(active_id)
     local delete_job = self:_job_runner {
         command = container_executable,
         args = { "container", "rm", self.active_id },
-        on_success = function()
-            vim.notify("Deleted container " .. self.active_id)
-        end,
+        on_success = function() vim.notify("Deleted container " .. self.active_id) end,
     }
     delete_job:start()
     return delete_job
@@ -112,9 +107,7 @@ function DevContainer:_get_active()
 end
 
 function DevContainer:down()
-    self:stop():after_success(function()
-        self:delete()
-    end)
+    self:stop():after_success(function() self:delete() end)
 end
 
 function DevContainer:rebuild()
@@ -122,9 +115,7 @@ function DevContainer:rebuild()
     if active then
         self:stop():after_success(function()
             local del = self:delete(self.active_id)
-            del:after_success(function()
-                self:up()
-            end)
+            del:after_success(function() self:up() end)
         end)
     else
         self:up()
@@ -136,21 +127,18 @@ function DevContainer:_make_command_wrapper()
     if not active then
         vim.notify("Creating command requires active container", 4)
     end
-    return {container_executable, "exec", "-w", vim.loop.cwd(), "bash", "-c"}
+    return { container_executable, "exec", "-w", vim.loop.cwd(), "bash", "-c" }
 end
 
 local container = DevContainer:new()
-local register = vim.tbl_filter(function(key)
-    return not vim.startswith(key, "_") and key ~= "new"
-end, vim.tbl_keys(getmetatable(container)))
+local register = vim.tbl_filter(
+    function(key) return not vim.startswith(key, "_") and key ~= "new" end,
+    vim.tbl_keys(getmetatable(container))
+)
 
-vim.api.nvim_create_user_command("Devcontainer", function(opt)
-    container[opt.args](container)
-end, {
+vim.api.nvim_create_user_command("Devcontainer", function(opt) container[opt.args](container) end, {
     nargs = 1,
-    complete = function()
-        return register
-    end,
+    complete = function() return register end,
 })
 
 return container

@@ -1,9 +1,7 @@
 local M = {}
 
 M.task_runner = {
-    config = function()
-        require("overseer").setup {}
-    end,
+    config = function() require("overseer").setup {} end,
 }
 
 return M

@@ -77,9 +77,7 @@ M.bufferline = {
 }
 
 M.lualine = {
-    config = function()
-        require "me.modules.ui.lualine"
-    end,
+    config = function() require "me.modules.ui.lualine" end,
 }
 
 M.dashboard = {
@@ -137,24 +135,18 @@ M.dashboard = {
 }
 
 M.outline = {
-    config = function()
-        require("symbols-outline").setup { auto_preview = false }
-    end,
+    config = function() require("symbols-outline").setup { auto_preview = false } end,
 }
 
 M.trouble = {
     requires = { "kyazdani42/nvim-web-devicons" },
-    config = function()
-        require("trouble").setup {}
-    end,
+    config = function() require("trouble").setup {} end,
 }
 
 M.terminal = {
     config = function()
         require("toggleterm").setup {
-            size = function(_)
-                return vim.o.columns * 0.6
-            end,
+            size = function(_) return vim.o.columns * 0.6 end,
             open_mapping = [[<C-\>]],
             direction = "vertical",
         }

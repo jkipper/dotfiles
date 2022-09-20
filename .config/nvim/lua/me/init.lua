@@ -1,6 +1,4 @@
-function R(module_name)
-    require("plenary.reload").reload_module(module_name)
-end
+function R(module_name) require("plenary.reload").reload_module(module_name) end
 
 local dev_plugin = os.getenv "plugin_location"
 if dev_plugin ~= nil then

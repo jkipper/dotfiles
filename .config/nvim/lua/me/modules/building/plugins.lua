@@ -5,7 +5,10 @@ return export {
     task_runner = { "stevearc/overseer.nvim" },
     dap = {
         "mfussenegger/nvim-dap",
-        requires = { "theHamsta/nvim-dap-virtual-text", { "rcarriga/nvim-dap-ui", cmd = "DapUiToggle" } },
+        requires = {
+            "theHamsta/nvim-dap-virtual-text",
+            { "rcarriga/nvim-dap-ui", cmd = "DapUiToggle" },
+        },
         cmd = "DapUiToggle",
         config = function()
             require("dapui").setup {}

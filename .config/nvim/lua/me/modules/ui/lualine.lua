@@ -6,12 +6,8 @@ local config = require "tokyonight.config"
 local colors = require("tokyonight.colors").setup(config)
 
 local conditions = {
-    buffer_not_empty = function()
-        return vim.fn.empty(vim.fn.expand "%:t") ~= 1
-    end,
-    hide_in_width = function()
-        return vim.fn.winwidth(0) > 80
-    end,
+    buffer_not_empty = function() return vim.fn.empty(vim.fn.expand "%:t") ~= 1 end,
+    hide_in_width = function() return vim.fn.winwidth(0) > 80 end,
     check_git_workspace = function()
         local filepath = vim.fn.expand "%:p:h"
         local gitdir = vim.fn.finddir(".git", filepath .. ";")
@@ -60,20 +56,14 @@ local config = {
 }
 
 -- Inserts a component in lualine_c at left section
-local function ins_left(component)
-    table.insert(config.sections.lualine_c, component)
-end
+local function ins_left(component) table.insert(config.sections.lualine_c, component) end
 
 -- Inserts a component in lualine_x ot right section
-local function ins_right(component)
-    table.insert(config.sections.lualine_x, component)
-end
+local function ins_right(component) table.insert(config.sections.lualine_x, component) end
 
 ins_left {
     -- mode component
-    function()
-        return ""
-    end,
+    function() return "" end,
     color = function()
         -- auto change color according to neovims mode
         local mode_color = {
@@ -128,9 +118,7 @@ ins_left {
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
 ins_left {
-    function()
-        return "%="
-    end,
+    function() return "%=" end,
 }
 
 ins_right {

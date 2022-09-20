@@ -14,9 +14,8 @@ local reload_config = function()
     require("packer").compile()
 end
 --- @param notify_text string
-local notify = function(notify_text)
-    vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" })
-end
+local notify =
+    function(notify_text) vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" }) end
 
 local toggle_auto_config_reload = function()
     if auto_reload ~= nil then

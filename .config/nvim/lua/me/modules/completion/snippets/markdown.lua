@@ -8,7 +8,8 @@ local choice = ls.choice_node
 local dynamic_node = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 
-local selected_text_or_insert = require("me.modules.completion.snippets.helpers").selected_text_or_insert
+local selected_text_or_insert =
+    require("me.modules.completion.snippets.helpers").selected_text_or_insert
 local M = {}
 
 M.link = snippet(

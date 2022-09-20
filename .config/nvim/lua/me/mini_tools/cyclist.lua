@@ -39,7 +39,9 @@ function M.cycler(dir, fallback_key)
             replace_idx = replace_idx > #M.log_level_order and 1 or replace_idx
             replace_idx = replace_idx == 0 and #M.log_level_order or replace_idx
             local new_word = cur_word:gsub(word_to_match, M.log_level_order[replace_idx])
-            vim.api.nvim_set_current_line(line:sub(1, word_start - 1) .. new_word .. line:sub(word_end + 1, #line))
+            vim.api.nvim_set_current_line(
+                line:sub(1, word_start - 1) .. new_word .. line:sub(word_end + 1, #line)
+            )
             return
         end
     end
@@ -48,15 +50,11 @@ end
 
 function M.setup()
     local function increase()
-        vim.schedule(function()
-            M.cycler(1, "<C-A>")
-        end)
+        vim.schedule(function() M.cycler(1, "<C-A>") end)
     end
 
     local function decrease()
-        vim.schedule(function()
-            M.cycler(-1, "<C-X>")
-        end)
+        vim.schedule(function() M.cycler(-1, "<C-X>") end)
     end
 
     vim.keymap.set("n", "<C-A>", increase, { noremap = true })

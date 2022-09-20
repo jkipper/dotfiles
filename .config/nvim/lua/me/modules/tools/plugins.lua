@@ -5,20 +5,19 @@ return export {
     gitsigns = {
         "lewis6991/gitsigns.nvim",
         requires = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("gitsigns").setup()
-        end,
+        config = function() require("gitsigns").setup() end,
     },
     neogit = {
         "TimUntersberger/neogit",
         requires = {
             "sindrets/diffview.nvim",
-            config = function()
-                require("diffview").setup {}
-            end,
+            config = function() require("diffview").setup {} end,
         },
         config = function()
-            require("neogit").setup { disable_commit_confirmation = true, integrations = { diffview = true } }
+            require("neogit").setup {
+                disable_commit_confirmation = true,
+                integrations = { diffview = true },
+            }
         end,
     },
     formatter = {

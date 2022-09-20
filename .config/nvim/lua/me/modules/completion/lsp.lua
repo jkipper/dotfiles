@@ -3,9 +3,7 @@
 --
 --
 
-local on_attach = function(client, bufnr)
-    require("illuminate").on_attach(client)
-end
+local on_attach = function(client, bufnr) require("illuminate").on_attach(client) end
 local M = {}
 M.requires = {
     { "folke/lua-dev.nvim" },
@@ -18,7 +16,8 @@ M.requires = {
 
 M.config = function()
     local lsp_status = require "lsp-status"
-    local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities =
+        require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
@@ -44,7 +43,15 @@ M.config = function()
         capabilities = capabilities,
     }
 
-    for _, value in ipairs { "pyright", "dockerls", "vimls", "cmake", "bashls", "marksman", "taplo" } do
+    for _, value in ipairs {
+        "pyright",
+        "dockerls",
+        "vimls",
+        "cmake",
+        "bashls",
+        "marksman",
+        "taplo",
+    } do
         lsp[value].setup(default_conf)
     end
 
