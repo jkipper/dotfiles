@@ -7,9 +7,6 @@ return export {
     treesitter = {
         "nvim-treesitter/nvim-treesitter",
     },
-    leap = {
-        "ggandor/leap.nvim",
-    },
     comment = {
         "numToStr/Comment.nvim",
         config = function() require("Comment").setup {} end,

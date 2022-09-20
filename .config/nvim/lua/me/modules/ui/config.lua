@@ -135,7 +135,7 @@ M.dashboard = {
 }
 
 M.outline = {
-    config = function() require("symbols-outline").setup { auto_preview = false } end,
+    config = function() require("symbols-outline").setup { auto_preview = false, autofold_depth = 1 } end,
 }
 
 M.trouble = {

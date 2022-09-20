@@ -45,7 +45,7 @@ nmap("<leader>gg", cmd "Neogit")
 nmap("<leader>ff", cmd "Neoformat")
 nmap("<leader>md", cmd "Neogen")
 
-nmap("<leader>gd", cmd "Lspsaga preview_definition")
+nmap("<leader>gd", cmd "Lspsaga peek_definition")
 nmap("gr", cmd "Lspsaga lsp_finder")
 nmap("K", cmd "Lspsaga hover_doc")
 nmap("<leader>K", cmd "Lspsaga show_line_diagnostics")
