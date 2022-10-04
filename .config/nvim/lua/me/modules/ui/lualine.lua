@@ -1,6 +1,3 @@
--- Eviline config for lualine
--- Author: shadmansaleh
--- Credit: glepnir
 local lualine = require "lualine"
 local config = require "tokyonight.config"
 local colors = require("tokyonight.colors").setup(config)
