@@ -14,14 +14,6 @@ return export {
         "j-hui/fidget.nvim",
         config = function() require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } } end,
     },
-    winbar = {
-        "B4mbus/nvim-headband",
-        config = function() require("nvim-headband").setup {} end,
-        requires = {
-            "SmiteshP/nvim-navic", -- required for for the navic section to work
-            "kyazdani42/nvim-web-devicons", -- required for for devicons and default location_section.separator highlight group
-        },
-    },
     bufferline = {
         "akinsho/bufferline.nvim",
     },

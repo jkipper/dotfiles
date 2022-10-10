@@ -1,9 +1,4 @@
--- schematstorecompl
--- parent = nvim-lspconfig
---
---
 
-local on_attach = function(client, bufnr) require("illuminate").on_attach(client) end
 local M = {}
 M.requires = {
     { "folke/lua-dev.nvim" },
@@ -12,9 +7,14 @@ M.requires = {
     { "jose-elias-alvarez/null-ls.nvim" },
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
+    { "SmiteshP/nvim-navic" },
 }
 
 M.config = function()
+    local on_attach = function(client, bufnr)
+        require("illuminate").on_attach(client)
+        require("nvim-navic").attach(client, bufnr)
+    end
     local lsp_status = require "lsp-status"
     local capabilities =
         require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -29,13 +29,7 @@ M.config = function()
             capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
         },
     }
-
-    lsp.sumneko_lua.setup(require("lua-dev").setup {
-        library = {
-            plugins = { "nvim-treesitter", "plenary.nvim", "telescope.nvim" },
-        },
-        lsponfig = default_conf,
-    })
+    require"lua-dev".setup {}
 
     lsp.jsonls.setup {
         settings = { json = { schemas = require("schemastore").json.schemas() } },
@@ -44,6 +38,7 @@ M.config = function()
     }
 
     for _, value in ipairs {
+        "sumneko_lua",
         "pyright",
         "dockerls",
         "vimls",

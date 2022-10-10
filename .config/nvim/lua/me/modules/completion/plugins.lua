@@ -1,4 +1,4 @@
-local c = require "me.modules.completion.conf"
+local c = require "me.modules.completion.config"
 local export = require("me.core.pack").export_config(c)
 
 return export {
