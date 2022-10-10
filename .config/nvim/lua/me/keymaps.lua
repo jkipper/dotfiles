@@ -45,6 +45,8 @@ nmap("<leader>gg", cmd "Neogit")
 nmap("<leader>ff", cmd "Neoformat")
 nmap("<leader>md", cmd "Neogen")
 
+nmap("<C-T>", cmd "FloatermToggle")
+
 nmap("<leader>gd", cmd "Lspsaga peek_definition")
 nmap("gr", cmd "Lspsaga lsp_finder")
 nmap("K", cmd "Lspsaga hover_doc")

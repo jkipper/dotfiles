@@ -145,11 +145,7 @@ M.trouble = {
 
 M.terminal = {
     config = function()
-        require("toggleterm").setup {
-            size = function(_) return vim.o.columns * 0.6 end,
-            open_mapping = [[<C-\>]],
-            direction = "vertical",
-        }
+        vim.g.floaterm_wintype = "vsplit"
     end,
 }
 

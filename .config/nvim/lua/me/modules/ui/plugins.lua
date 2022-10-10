@@ -31,7 +31,7 @@ return export {
         config = function() require("dressing").setup {} end,
     },
     scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
-    terminal = { "akinsho/toggleterm.nvim", tag = "v2.*" },
+    terminal = { "voldikss/vim-floaterm"},
     scrolling = {
         "karb94/neoscroll.nvim",
         config = function()
