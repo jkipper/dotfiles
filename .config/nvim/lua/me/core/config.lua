@@ -36,7 +36,7 @@ opt.number = true
 opt.smartcase = true
 vim.wo.signcolumn = "yes"
 opt.wildignore:append { "*.pyc", "*_build/*", "**coverage/*", "**/node_modules/*", "**/.git/" }
-opt.cmdheight = 2
+opt.cmdheight = 0
 opt.errorbells = false
 
 if vim.g["neovide"] ~= nil then
