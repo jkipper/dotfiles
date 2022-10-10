@@ -32,14 +32,6 @@ return export {
     },
     scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
     terminal = { "voldikss/vim-floaterm"},
-    scrolling = {
-        "karb94/neoscroll.nvim",
-        config = function()
-            require("neoscroll").setup {
-                mappings = { "<C-u>", "<C-d>", "zt", "zz", "zb" },
-            }
-        end,
-    },
     window_manager = {
         "anuvyklack/windows.nvim",
         requires = {

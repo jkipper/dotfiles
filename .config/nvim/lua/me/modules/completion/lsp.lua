@@ -1,4 +1,3 @@
-
 local M = {}
 M.requires = {
     { "folke/lua-dev.nvim" },
@@ -29,7 +28,7 @@ M.config = function()
             capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
         },
     }
-    require"lua-dev".setup {}
+    require("lua-dev").setup {}
 
     lsp.jsonls.setup {
         settings = { json = { schemas = require("schemastore").json.schemas() } },
