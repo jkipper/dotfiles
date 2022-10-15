@@ -1,6 +1,6 @@
 local M = {}
 M.requires = {
-    { "folke/lua-dev.nvim" },
+    { "folke/neodev.nvim" },
     { "p00f/clangd_extensions.nvim" },
     { "RRethy/vim-illuminate" },
     { "jose-elias-alvarez/null-ls.nvim" },
@@ -15,8 +15,7 @@ M.config = function()
         require("nvim-navic").attach(client, bufnr)
     end
     local lsp_status = require "lsp-status"
-    local capabilities =
-        require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
@@ -28,7 +27,7 @@ M.config = function()
             capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
         },
     }
-    require("lua-dev").setup {}
+    require("neodev").setup {}
 
     lsp.jsonls.setup {
         settings = { json = { schemas = require("schemastore").json.schemas() } },
@@ -45,6 +44,7 @@ M.config = function()
         "bashls",
         "marksman",
         "taplo",
+        "gopls"
     } do
         lsp[value].setup(default_conf)
     end
