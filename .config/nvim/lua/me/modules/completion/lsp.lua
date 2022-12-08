@@ -7,6 +7,7 @@ M.requires = {
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
     { "SmiteshP/nvim-navic" },
+    { "simrat39/rust-tools.nvim" },
 }
 
 M.config = function()
@@ -34,6 +35,7 @@ M.config = function()
         on_attach = on_attach,
         capabilities = capabilities,
     }
+    require("rust-tools").setup {}
 
     for _, value in ipairs {
         "sumneko_lua",
@@ -44,7 +46,7 @@ M.config = function()
         "bashls",
         "marksman",
         "taplo",
-        "gopls"
+        "gopls",
     } do
         lsp[value].setup(default_conf)
     end

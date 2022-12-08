@@ -32,6 +32,20 @@ M.telescope = {
                 git_files = { theme = "ivy" },
                 buffers = { theme = "ivy" },
             },
+            extensions = {
+                live_grep_args = {
+                    auto_quoting = true, -- enable/disable auto-quoting
+                    -- define mappings, e.g.
+                    mappings = { -- extend mappings
+                        i = {
+                            ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                            ["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt {
+                                postfix = " --iglob ",
+                            },
+                        },
+                    },
+                },
+            },
         }
 
         require("telescope").load_extension "fzf"
