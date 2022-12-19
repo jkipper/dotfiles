@@ -39,10 +39,8 @@ opt.wildignore:append { "*.pyc", "*_build/*", "**coverage/*", "**/node_modules/*
 opt.cmdheight = 1
 opt.errorbells = false
 
-if vim.g["neovide"] ~= nil then
-    vim.g.guifont = "JetBrainsMono Nerd Font"
-    vim.g.neovide_input_macos_alt_is_meta = true
-end
+vim.g.guifont = "JetBrainsMono Nerd Font"
+vim.g.neovide_input_macos_alt_is_meta = true
 
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
 -- window movement

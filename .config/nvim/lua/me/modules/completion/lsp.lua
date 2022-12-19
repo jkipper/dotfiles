@@ -8,6 +8,10 @@ M.requires = {
     { "nvim-lua/lsp-status.nvim" },
     { "SmiteshP/nvim-navic" },
     { "simrat39/rust-tools.nvim" },
+    {
+        "akinsho/flutter-tools.nvim",
+        requires = "nvim-lua/plenary.nvim",
+    },
 }
 
 M.config = function()
@@ -37,6 +41,7 @@ M.config = function()
     }
     require("rust-tools").setup {}
 
+    require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {
         "sumneko_lua",
         "pyright",
