@@ -81,7 +81,7 @@ M.treesitter = {
                 "markdown",
             },
             indent = {
-                enable = true,
+                enable = false,
             },
             highlight = { enable = true },
             matchup = {

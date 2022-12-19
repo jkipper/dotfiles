@@ -92,9 +92,6 @@ M.export_config = function(mod_conf)
     return function(modules)
         for name, provided_mod in pairs(modules) do
             local loaded_mod = mod_conf[name]
-            --if provided_mod["config"] ~= nil and loaded_mod["config"] ~= nil then
-            --  vim.notify("Duplicate config provided for " .. name)
-            --end
             if loaded_mod ~= nil then
                 if not provided_mod["config"] then
                     modules[name].config = loaded_mod["config"]
