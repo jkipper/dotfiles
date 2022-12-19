@@ -37,6 +37,7 @@ M.nvimcmp = {
             mapping = {
                 ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
                 ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                ["<C-Space>"] = cmp.mapping.complete(),
                 ["<UP>"] = cmp.mapping.abort(),
                 ["<DOWN>"] = cmp.mapping.abort(),
                 ["<Tab>"] = cmp.mapping(function(fallback)
@@ -84,7 +85,7 @@ M.nvimcmp = {
             },
         })
         cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline {},
+            mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources {
                 { name = "cmdline" },
             },
@@ -108,7 +109,7 @@ M.lspinstall = {
 }
 
 M.snip = {
-    requires = { "rafamadriz/friendly-snippets" },
+    requires = { { "rafamadriz/friendly-snippets" } },
     config = function()
         local ls = require "luasnip"
         ls.config.set_config {

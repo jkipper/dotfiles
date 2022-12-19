@@ -12,7 +12,9 @@ return export {
     lualine = { "nvim-lualine/lualine.nvim" },
     lsp_status = {
         "j-hui/fidget.nvim",
-        config = function() require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } } end,
+        config = function()
+            require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } }
+        end,
     },
     bufferline = {
         "akinsho/bufferline.nvim",
@@ -31,12 +33,12 @@ return export {
         config = function() require("dressing").setup {} end,
     },
     scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
-    terminal = { "voldikss/vim-floaterm"},
+    terminal = { "voldikss/vim-floaterm" },
     window_manager = {
         "anuvyklack/windows.nvim",
         requires = {
-            "anuvyklack/middleclass",
-            "anuvyklack/animation.nvim",
+            { "anuvyklack/middleclass" },
+            { "anuvyklack/animation.nvim" },
         },
         config = function()
             vim.o.winwidth = 10
