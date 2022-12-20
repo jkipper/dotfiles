@@ -7,9 +7,9 @@ return export {
     },
     neotree = {
         "nvim-neo-tree/neo-tree.nvim",
-        cmd = { "Neotree", "NeoTreeFocusToggle" },
+        -- cmd = { "Neotree", "NeoTreeFocusToggle" },
     },
-    lualine = { "nvim-lualine/lualine.nvim" },
+    lualine = { "nvim-lualine/lualine.nvim"},
     lsp_status = {
         "j-hui/fidget.nvim",
         config = function()
@@ -36,7 +36,7 @@ return export {
     terminal = { "voldikss/vim-floaterm" },
     window_manager = {
         "anuvyklack/windows.nvim",
-        requires = {
+        dependencies = {
             { "anuvyklack/middleclass" },
             { "anuvyklack/animation.nvim" },
         },

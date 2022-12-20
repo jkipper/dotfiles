@@ -2,13 +2,13 @@
 local M = {}
 
 M.telescope = {
-    requires = {
+    dependencies = {
         {
             "nvim-lua/plenary.nvim",
         },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make",
+            build = "make",
         },
         { "nvim-telescope/telescope-live-grep-args.nvim" },
     },
@@ -57,7 +57,7 @@ M.telescope = {
 }
 
 M.treesitter = {
-    requires = {
+    dependencies = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-textobjects",
         "nvim-treesitter/playground",
@@ -124,7 +124,7 @@ M.treesitter = {
 }
 
 M.leap = {
-    requires = {},
+    dependencies = {},
     config = function()
         local leap = require "leap"
         leap.set_default_keymaps()
@@ -138,7 +138,7 @@ vim.g.vim_markdown_conceal = 0
 vim.g.vim_markdown_frontmatter = 1
 vim.g.vim_markdown_toml_frontmatter = 1
 M.markdown = {
-    requires = {
+    dependencies = {
         { "godlygeek/tabular", ft = "markdown" },
         {
             "ellisonleao/glow.nvim",
@@ -148,7 +148,7 @@ M.markdown = {
 }
 
 M.neoclip = {
-    requires = {
+    dependencies = {
         { "kkharji/sqlite.lua", module = "sqlite" },
         { "nvim-telescope/telescope.nvim" },
     },

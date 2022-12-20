@@ -4,7 +4,7 @@ vim.g.neoformat_enabled_toml = { "taplo" }
 vim.g.neoformat_enabled_cpp = { "clang-format" }
 
 M.docs = {
-    requires = {
+    dependencies = {
         "nvim-treesitter/nvim-treesitter",
     },
     config = function()

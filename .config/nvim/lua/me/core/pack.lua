@@ -74,14 +74,33 @@ function M.load_plugins()
     end
 
     local plugins_file = get_plugins_list()
-    require("packer").startup(function(use)
-        use { "wbthomason/packer.nvim" }
-        for _, m in ipairs(plugins_file) do
+    local confs = {}
+    local disabled_in_vscode = { "completion", "building", "tools", "ui"}
+    for _, m in ipairs(plugins_file) do
+        local disable = vim.g.vscode ~= nil
+            and vim.tbl_contains(disabled_in_vscode, vim.fn.split(m, "\\.")[3])
+        if not disable then
             for _, conf in pairs(require(m)) do
-                use(conf)
+                confs[#confs + 1] = conf
             end
+        else
+            print("DISABLING " .. m)
         end
-    end)
+    end
+    local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+    if not vim.loop.fs_stat(lazypath) then
+        notify "CREATING"
+        vim.fn.system {
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "--single-branch",
+            "https://github.com/folke/lazy.nvim.git",
+            lazypath,
+        }
+    end
+    vim.opt.runtimepath:append(lazypath)
+    require("lazy").setup(confs)
 end
 
 ---@alias PluginConfig table{requires: table<string, string[]>?, config = function?}
@@ -96,9 +115,9 @@ M.export_config = function(mod_conf)
                 if not provided_mod["config"] then
                     modules[name].config = loaded_mod["config"]
                 end
-                local provided_deps = provided_mod["requires"]
+                local provided_deps = provided_mod["dependencies"]
                 if not provided_deps then
-                    modules[name].requires = vim.tbl_values(loaded_mod["requires"] or {})
+                    modules[name].dependencies = vim.tbl_values(loaded_mod["dependencies"] or {})
                 end
             end
         end

@@ -1,5 +1,5 @@
 local M = {}
-M.requires = {
+M.dependencies = {
     { "folke/neodev.nvim" },
     { "p00f/clangd_extensions.nvim" },
     { "RRethy/vim-illuminate" },
@@ -10,7 +10,7 @@ M.requires = {
     { "simrat39/rust-tools.nvim" },
     {
         "akinsho/flutter-tools.nvim",
-        requires = "nvim-lua/plenary.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
     },
 }
 

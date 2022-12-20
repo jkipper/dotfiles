@@ -4,12 +4,12 @@ return export {
     conflict = { "rhysd/conflict-marker.vim" },
     gitsigns = {
         "lewis6991/gitsigns.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("gitsigns").setup() end,
     },
     neogit = {
         "TimUntersberger/neogit",
-        requires = {
+        dependencies = {
             "sindrets/diffview.nvim",
             config = function() require("diffview").setup {} end,
         },

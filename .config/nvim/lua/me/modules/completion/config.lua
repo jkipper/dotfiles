@@ -1,7 +1,7 @@
 local M = {}
 
 M.nvimcmp = {
-    requires = {
+    dependencies = {
         { "onsails/lspkind-nvim" },
         { "hrsh7th/cmp-nvim-lsp" },
         { "hrsh7th/cmp-cmdline" },
@@ -109,7 +109,7 @@ M.lspinstall = {
 }
 
 M.snip = {
-    requires = { { "rafamadriz/friendly-snippets" } },
+    dependencies = { { "rafamadriz/friendly-snippets" } },
     config = function()
         local ls = require "luasnip"
         ls.config.set_config {

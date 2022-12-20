@@ -1,12 +1,12 @@
 local M = {}
 M.neotree = {
-    requires = {
+    dependencies = {
         { "nvim-lua/plenary.nvim", opt = true },
         { "kyazdani42/nvim-web-devicons" },
         { "MunifTanjim/nui.nvim" },
         {
             "s1n7ax/nvim-window-picker",
-            tag = "v1.*",
+            tag = "v1.5",
             config = function()
                 require("window-picker").setup {
                     autoselect_one = true,
@@ -53,10 +53,11 @@ M.neotree = {
 }
 
 M.bufferline = {
-    requires = {
+    dependencies = {
         { "kyazdani42/nvim-web-devicons" },
         { "tiagovla/scope.nvim" }
     },
+    lazy = false,
     config = function()
         require("bufferline").setup {
             options = {
@@ -78,6 +79,7 @@ M.bufferline = {
 
 M.lualine = {
     config = function() require "me.modules.ui.lualine" end,
+    lazy = false
 }
 
 M.dashboard = {
@@ -139,7 +141,7 @@ M.outline = {
 }
 
 M.trouble = {
-    requires = { { "kyazdani42/nvim-web-devicons" } },
+    dependencies = { { "kyazdani42/nvim-web-devicons" } },
     config = function() require("trouble").setup {} end,
 }
 
