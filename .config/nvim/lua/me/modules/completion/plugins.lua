@@ -6,7 +6,7 @@ return export {
         "glepnir/lspsaga.nvim",
         branch = "main",
         cmd = "Lspsaga",
-        config = function() require("lspsaga").init_lsp_saga { finder_action_keys = { open = "<CR>" } } end,
+        config = function() require("lspsaga").setup { finder_action_keys = { open = "<CR>" } } end,
     },
     nvimcmp = { "hrsh7th/nvim-cmp", tag = "v0.0.1" },
     lsp = { "neovim/nvim-lspconfig" },
