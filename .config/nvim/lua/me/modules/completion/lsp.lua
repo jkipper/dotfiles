@@ -39,7 +39,13 @@ M.config = function()
         on_attach = on_attach,
         capabilities = capabilities,
     }
-    require("rust-tools").setup {}
+    require("rust-tools").setup {
+        server = {
+            settings = {
+                ["rust-analyzer"] = { checkOnSave = { command = "clippy" } },
+            },
+        },
+    }
 
     require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {
