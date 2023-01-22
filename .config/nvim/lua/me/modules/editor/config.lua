@@ -71,6 +71,7 @@ M.treesitter = {
                 "bash",
                 "lua",
                 "python",
+                "rust",
                 "fish",
                 "cmake",
                 "comment",
