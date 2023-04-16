@@ -49,7 +49,7 @@ M.config = function()
 
     require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {
-        "sumneko_lua",
+        "lua_ls",
         "pyright",
         "dockerls",
         "vimls",
