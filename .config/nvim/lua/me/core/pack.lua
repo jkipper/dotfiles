@@ -14,8 +14,9 @@ local reload_config = function()
     require("packer").compile()
 end
 --- @param notify_text string
-local notify =
-    function(notify_text) vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" }) end
+local notify = function(notify_text)
+    vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" })
+end
 
 local toggle_auto_config_reload = function()
     if auto_reload ~= nil then
@@ -75,7 +76,7 @@ function M.load_plugins()
 
     local plugins_file = get_plugins_list()
     local confs = {}
-    local disabled_in_vscode = { "completion", "building", "tools", "ui"}
+    local disabled_in_vscode = { "completion", "building", "tools", "ui" }
     for _, m in ipairs(plugins_file) do
         local disable = vim.g.vscode ~= nil
             and vim.tbl_contains(disabled_in_vscode, vim.fn.split(m, "\\.")[3])

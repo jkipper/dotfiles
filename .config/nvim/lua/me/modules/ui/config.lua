@@ -35,7 +35,7 @@ M.neotree = {
                         ".DS_Store",
                     },
                 },
-                follow_current_file = true,
+                follow_current_file = { enabled = true },
                 window = {
                     mappings = {
                         ["F"] = "clear_filter",
@@ -55,7 +55,7 @@ M.neotree = {
 M.bufferline = {
     dependencies = {
         { "kyazdani42/nvim-web-devicons" },
-        { "tiagovla/scope.nvim" }
+        { "tiagovla/scope.nvim" },
     },
     lazy = false,
     config = function()
@@ -79,7 +79,7 @@ M.bufferline = {
 
 M.lualine = {
     config = function() require "me.modules.ui.lualine" end,
-    lazy = false
+    lazy = false,
 }
 
 M.dashboard = {
@@ -137,7 +137,9 @@ M.dashboard = {
 }
 
 M.outline = {
-    config = function() require("symbols-outline").setup { auto_preview = false, autofold_depth = 1 } end,
+    config = function()
+        require("symbols-outline").setup { auto_preview = false, autofold_depth = 1 }
+    end,
 }
 
 M.trouble = {
@@ -146,9 +148,7 @@ M.trouble = {
 }
 
 M.terminal = {
-    config = function()
-        vim.g.floaterm_wintype = "vsplit"
-    end,
+    config = function() vim.g.floaterm_wintype = "vsplit" end,
 }
 
 return M

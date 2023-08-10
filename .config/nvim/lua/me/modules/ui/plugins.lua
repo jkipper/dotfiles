@@ -9,7 +9,7 @@ return export {
         "nvim-neo-tree/neo-tree.nvim",
         -- cmd = { "Neotree", "NeoTreeFocusToggle" },
     },
-    lualine = { "nvim-lualine/lualine.nvim"},
+    lualine = { "nvim-lualine/lualine.nvim" },
     lsp_status = {
         "j-hui/fidget.nvim",
         config = function()

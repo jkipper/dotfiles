@@ -12,7 +12,9 @@ return export {
     lsp = { "neovim/nvim-lspconfig" },
     lsp_signature = {
         "ray-x/lsp_signature.nvim",
-        config = function() require("lsp_signature").setup { floating_window = false, hint_enable = true } end,
+        config = function()
+            require("lsp_signature").setup { floating_window = false, hint_enable = true }
+        end,
     },
     lspinstall = { "williamboman/mason.nvim" },
     snip = { "L3MON4D3/LuaSnip" },

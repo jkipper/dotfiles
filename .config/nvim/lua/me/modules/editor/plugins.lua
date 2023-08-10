@@ -11,7 +11,7 @@ return export {
         "numToStr/Comment.nvim",
         config = function() require("Comment").setup {} end,
     },
-    surround = { "kylechui/nvim-surround", config = function() require"nvim-surround".setup{} end },
+    surround = { "kylechui/nvim-surround", config = function() require("nvim-surround").setup {} end },
     dot_repeat = { "tpope/vim-repeat" },
     autopairs = {
         "windwp/nvim-autopairs",

@@ -3,7 +3,9 @@ local M = {}
 ---@param mode string | list
 ---@return fun(map: string, command: string | function)
 local make_map = function(mode)
-    return function(map, command) vim.keymap.set(mode, map, command, { noremap = true, silent = true }) end
+    return function(map, command)
+        vim.keymap.set(mode, map, command, { noremap = true, silent = true })
+    end
 end
 
 M.nmap = make_map "n"
