@@ -58,6 +58,7 @@ M.config = function()
         "marksman",
         "taplo",
         "gopls",
+        "ruff_lsp"
     } do
         lsp[value].setup(default_conf)
     end
@@ -66,7 +67,6 @@ M.config = function()
     null_ls.setup {
         sources = {
             null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.diagnostics.flake8,
             null_ls.builtins.diagnostics.gitlint,
             null_ls.builtins.diagnostics.fish,
             null_ls.builtins.diagnostics.hadolint,

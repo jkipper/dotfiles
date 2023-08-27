@@ -61,7 +61,7 @@ M.treesitter = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-textobjects",
         "nvim-treesitter/playground",
-        { "lewis6991/nvim-treesitter-context" },
+        { "nvim-treesitter/nvim-treesitter-context" },
     },
     config = function()
         require("nvim-treesitter.configs").setup {
