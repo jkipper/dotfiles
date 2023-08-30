@@ -5,6 +5,9 @@ return export {
         "folke/tokyonight.nvim",
         config = function() vim.cmd "colorscheme tokyonight" end,
     },
+    other_theme = {
+      "rebelot/kanagawa.nvim"
+    },
     neotree = {
         "nvim-neo-tree/neo-tree.nvim",
         -- cmd = { "Neotree", "NeoTreeFocusToggle" },
