@@ -11,7 +11,10 @@ return export {
         "numToStr/Comment.nvim",
         config = function() require("Comment").setup {} end,
     },
-    surround = { "kylechui/nvim-surround", config = function() require("nvim-surround").setup {} end },
+    surround = {
+        "kylechui/nvim-surround",
+        config = function() require("nvim-surround").setup {} end,
+    },
     dot_repeat = { "tpope/vim-repeat" },
     autopairs = {
         "windwp/nvim-autopairs",
@@ -22,9 +25,14 @@ return export {
         "folke/which-key.nvim",
         config = function() require("which-key").setup {} end,
     },
-    project_manager = {
-        "ahmedkhalf/project.nvim",
-        config = function() require("project_nvim").setup {} end,
+    quickscope = {
+        "jinh0/eyeliner.nvim",
+        config = function()
+            require("eyeliner").setup {
+                highlight_on_key = true,
+                dim = false,
+            }
+        end,
     },
     markdown = { "plasticboy/vim-markdown" },
     neoclip = { "AckslD/nvim-neoclip.lua" },

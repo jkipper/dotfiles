@@ -50,7 +50,6 @@ M.telescope = {
 
         require("telescope").load_extension "fzf"
         require("telescope").load_extension "dotfiles"
-        require("telescope").load_extension "projects"
         require("telescope").load_extension "neoclip"
         require("telescope").load_extension "live_grep_args"
     end,
@@ -121,16 +120,6 @@ M.treesitter = {
             },
         }
         require("treesitter-context").setup {}
-    end,
-}
-
-M.leap = {
-    dependencies = {},
-    config = function()
-        local leap = require "leap"
-        leap.set_default_keymaps()
-        leap.opts.special_keys.next_match = "<tab>"
-        leap.opts.special_keys.prev_match = "<s-tab>"
     end,
 }
 

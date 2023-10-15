@@ -6,11 +6,10 @@ return export {
         config = function() vim.cmd "colorscheme tokyonight" end,
     },
     other_theme = {
-      "rebelot/kanagawa.nvim"
+        "rebelot/kanagawa.nvim",
     },
     neotree = {
         "nvim-neo-tree/neo-tree.nvim",
-        -- cmd = { "Neotree", "NeoTreeFocusToggle" },
     },
     lualine = { "nvim-lualine/lualine.nvim" },
     lsp_status = {
@@ -23,10 +22,6 @@ return export {
     bufferline = {
         "akinsho/bufferline.nvim",
     },
-    dashboard = {
-        "glepnir/dashboard-nvim",
-    },
-    outline = { "simrat39/symbols-outline.nvim", cmd = "SymbolsOutline" },
     trouble = { "folke/trouble.nvim", cmd = "Trouble" },
     notify = {
         "rcarriga/nvim-notify",
@@ -37,17 +32,4 @@ return export {
         config = function() require("dressing").setup {} end,
     },
     scriptease = { "tpope/vim-scriptease", cmd = "Messages" },
-    terminal = { "voldikss/vim-floaterm" },
-    window_manager = {
-        "anuvyklack/windows.nvim",
-        dependencies = {
-            { "anuvyklack/middleclass" },
-            { "anuvyklack/animation.nvim" },
-        },
-        config = function()
-            vim.o.winwidth = 10
-            vim.o.winminwidth = 10
-            require("windows").setup()
-        end,
-    },
 }

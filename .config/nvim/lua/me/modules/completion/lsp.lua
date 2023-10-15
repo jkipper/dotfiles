@@ -21,23 +21,27 @@ M.config = function()
     end
     local lsp_status = require "lsp-status"
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    require("neodev").setup {}
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
     lsp_status.register_progress()
-    require("clangd_extensions").setup {
-        server = {
-            handlers = lsp_status.extensions.clangd.setup(),
-            on_attach = on_attach,
-            capabilities = vim.tbl_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
-        },
-    }
-    require("neodev").setup {}
 
     lsp.jsonls.setup {
         settings = { json = { schemas = require("schemastore").json.schemas() } },
         on_attach = on_attach,
         capabilities = capabilities,
+    }
+    lsp.yamlls.setup {
+        settings = {
+            yaml = {
+                schemaStore = {
+                    enable = false,
+                    url = "",
+                },
+                schemas = require("schemastore").json.schemas(),
+            },
+        },
     }
     require("rust-tools").setup {
         server = {
@@ -58,7 +62,7 @@ M.config = function()
         "marksman",
         "taplo",
         "gopls",
-        "ruff_lsp"
+        "ruff_lsp",
     } do
         lsp[value].setup(default_conf)
     end

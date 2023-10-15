@@ -32,12 +32,8 @@ nmap("<C-e>", cmd "Neotree toggle")
 nmap("<A-,>", function() require("bufferline").cycle(-1) end)
 nmap("<A-.>", function() require("bufferline").cycle(1) end)
 
-nmap("<C-T>", cmd "OverseerToggle")
-
-nmap("<leader>go", cmd "SymbolsOutline")
-
-nmap("<leader>xq", cmd "TroubleToggle quickfix")
-nmap("<leader>xl", cmd "TroubleToggle loclist")
+nmap("<leader>xq", cmd "Trouble quickfix")
+nmap("<leader>xl", cmd "Trouble loclist")
 nmap("<leader>xx", cmd "TroubleClose")
 
 nmap("<leader>gg", cmd "Neogit")
@@ -45,12 +41,9 @@ nmap("<leader>gg", cmd "Neogit")
 nmap("<leader>ff", cmd "Neoformat")
 nmap("<leader>md", cmd "Neogen")
 
-nmap("<C-T>", cmd "FloatermToggle")
-
 nmap("<leader>gd", cmd "Lspsaga peek_definition")
 nmap("gr", cmd "Lspsaga finder")
 nmap("K", cmd "Lspsaga hover_doc")
-nmap("<leader>K", cmd "Lspsaga show_line_diagnostics")
 nmap("<leader>rn", cmd "Lspsaga rename")
 nmap("<leader>ca", cmd "Lspsaga code_action")
 nmap("<leader>ga", cmd "A")

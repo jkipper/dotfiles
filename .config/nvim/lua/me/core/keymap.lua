@@ -1,6 +1,6 @@
 local M = {}
 
----@param mode string | list
+---@param mode string | string[]
 ---@return fun(map: string, command: string | function)
 local make_map = function(mode)
     return function(map, command)

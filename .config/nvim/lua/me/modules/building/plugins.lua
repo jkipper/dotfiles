@@ -2,7 +2,6 @@ local c = require "me.modules.building.config"
 local export = require("me.core.pack").export_config(c)
 
 return export {
-    task_runner = { "stevearc/overseer.nvim" },
     dap = {
         "rcarriga/nvim-dap-ui",
         dependencies = {
@@ -14,5 +13,17 @@ return export {
             -- require("nvim-dap-virtual-text").setup {}
             vim.api.nvim_create_user_command("DapUiToggle", require("dapui").toggle, {})
         end,
+    },
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-python",
+        },
+        config = function()
+            require("neotest").setup { adapters = { require "neotest-python" } }
+          end
     },
 }

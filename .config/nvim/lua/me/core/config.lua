@@ -68,9 +68,9 @@ nvmap("<leader>d", '"_d')
 
 vim.keymap.set("t", "<C-T>", "<C-\\><C-n>", { noremap = true, silent = true })
 
-vim.diagnostic.config {
-    virtual_text = false,
-}
+-- vim.diagnostic.config {
+--     virtual_text = false,
+-- }
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
