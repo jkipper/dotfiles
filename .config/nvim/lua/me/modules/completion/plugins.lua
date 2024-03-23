@@ -8,7 +8,7 @@ return export {
         cmd = "Lspsaga",
         config = function() require("lspsaga").setup { finder_action_keys = { open = "<CR>" } } end,
     },
-    nvimcmp = { "hrsh7th/nvim-cmp", tag = "v0.0.1" },
+    nvimcmp = { "hrsh7th/nvim-cmp"},
     lsp = { "neovim/nvim-lspconfig" },
     lsp_signature = {
         "ray-x/lsp_signature.nvim",

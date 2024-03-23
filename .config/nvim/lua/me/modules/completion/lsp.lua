@@ -7,7 +7,7 @@ M.dependencies = {
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
     { "SmiteshP/nvim-navic" },
-    { "simrat39/rust-tools.nvim" },
+    { "mrcjkb/rustaceanvim", ft = { "rust" } },
     {
         "akinsho/flutter-tools.nvim",
         dependencies = "nvim-lua/plenary.nvim",
@@ -43,13 +43,13 @@ M.config = function()
             },
         },
     }
-    require("rust-tools").setup {
-        server = {
-            settings = {
-                ["rust-analyzer"] = { checkOnSave = { command = "clippy" } },
-            },
-        },
-    }
+    -- require("rust-tools").setup {
+    --     server = {
+    --         settings = {
+    --             ["rust-analyzer"] = { checkOnSave = { command = "clippy" } },
+    --         },
+    --     },
+    -- }
 
     require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {

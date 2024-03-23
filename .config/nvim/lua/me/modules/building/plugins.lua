@@ -7,6 +7,7 @@ return export {
         dependencies = {
             { "theHamsta/nvim-dap-virtual-text" },
             { "mfussenegger/nvim-dap" },
+            { "nvim-neotest/nvim-nio" },
         },
         config = function()
             require("dapui").setup {}
@@ -21,9 +22,8 @@ return export {
             "nvim-treesitter/nvim-treesitter",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-neotest/neotest-python",
+            { "nvim-neotest/nvim-nio" },
         },
-        config = function()
-            require("neotest").setup { adapters = { require "neotest-python" } }
-          end
+        config = function() require("neotest").setup { adapters = { require "neotest-python" } } end,
     },
 }
