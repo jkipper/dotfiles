@@ -18,6 +18,9 @@ M.config = function()
     local on_attach = function(client, bufnr)
         require("illuminate").on_attach(client)
         require("nvim-navic").attach(client, bufnr)
+        if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(bufnr, true)
+        end
     end
     local lsp_status = require "lsp-status"
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -27,6 +30,7 @@ M.config = function()
 
     lsp_status.register_progress()
 
+    vim.g.rustaceanvim = { server = { on_attach = on_attach } }
     lsp.jsonls.setup {
         settings = { json = { schemas = require("schemastore").json.schemas() } },
         on_attach = on_attach,
@@ -43,13 +47,6 @@ M.config = function()
             },
         },
     }
-    -- require("rust-tools").setup {
-    --     server = {
-    --         settings = {
-    --             ["rust-analyzer"] = { checkOnSave = { command = "clippy" } },
-    --         },
-    --     },
-    -- }
 
     require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {
@@ -63,6 +60,7 @@ M.config = function()
         "taplo",
         "gopls",
         "ruff_lsp",
+        "yamlls",
     } do
         lsp[value].setup(default_conf)
     end
@@ -75,6 +73,7 @@ M.config = function()
             null_ls.builtins.diagnostics.fish,
             null_ls.builtins.diagnostics.hadolint,
             null_ls.builtins.diagnostics.shellcheck,
+            null_ls.builtins.diagnostics.mypy,
         },
         autostart = true,
     }

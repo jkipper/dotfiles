@@ -46,6 +46,7 @@ M.neotree = {
                 mappings = {
                     ["<C-V>"] = "open_vsplit",
                     ["<C-X>"] = "open_split",
+                    ["<TAB>"] = "toggle_node"
                 },
             },
         }

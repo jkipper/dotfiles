@@ -9,16 +9,17 @@ return export {
     },
     neogit = {
         "TimUntersberger/neogit",
-        dependencies = {
+        dependencies = { {
             "sindrets/diffview.nvim",
             config = function() require("diffview").setup {} end,
-        },
+        }, "nvim-telescope/telescope.nvim" },
         config = function()
             require("neogit").setup {
                 disable_commit_confirmation = true,
                 integrations = { diffview = true },
             }
         end,
+        branch="nightly"
     },
     formatter = {
         "sbdchd/neoformat",

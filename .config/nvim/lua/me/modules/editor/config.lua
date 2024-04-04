@@ -67,7 +67,6 @@ M.treesitter = {
             ensure_installed = {
                 "cpp",
                 "c",
-                "bash",
                 "lua",
                 "python",
                 "rust",

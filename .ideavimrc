@@ -1,0 +1,37 @@
+let mapleader=" "
+set surround
+set multiple-cursors
+set highlightedyank
+set commentary
+set argtextobj
+let g:argtextobj_pairs="[:],(:),<:>"
+
+set showmode
+set so=5
+set incsearch
+set nu
+set relativenumber
+set number
+set expandtab
+set smarttab
+set undofile
+set scrolloff=20
+set sidescrolloff=20
+set tabstop=2
+
+
+nmap gr <Action>(ShowUsages) 
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>ff <Action>(ReformatCode)
+nmap <leader>sf <Action>(FindInPath)
+
+map <C-h> <C-w><C-h>
+map <C-j> <C-w><C-j>
+map <C-k> <C-w><C-k>
+map <C-l> <C-w><C-l>
+map gh <Action>(ShowErrorDescription)
+nmap n nzzzv
+nmap N NzzzV
+
+nmap <A-.> <Action>(NextTab)
+nmap <A-,> <Action>(PreviousTab)

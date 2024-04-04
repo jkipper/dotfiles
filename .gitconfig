@@ -26,6 +26,8 @@
   amend = commit --amend --no-edit
   aamend = commit -a --amend --no-edit
   c = commit
+  fixup = commit --fixup HEAD~1
+  autobase = "!f() { git rebase --autosquash -i \"$(git merge-base HEAD ${1:-origin/master})\"; }; f" 
   p = push
   pf = push -f
   pu = push -u origin HEAD
@@ -38,3 +40,16 @@
 
 [rebase]
 	autoStash = true
+[push]
+	autoSetupRemote = true
+[http]
+	postBuffer = 2097152000
+[https]
+	postBuffer = 2097152000
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[remote "origin"]
+	fetch = +refs/notes/*:refs/notes/*
