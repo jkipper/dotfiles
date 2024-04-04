@@ -3,9 +3,13 @@ local export = require("me.core.pack").export_config(c)
 
 return export {
     lspsaga = {
-        "glepnir/lspsaga.nvim",
+        "nvimdev/lspsaga.nvim",
         branch = "main",
         cmd = "Lspsaga",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
         config = function() require("lspsaga").setup { finder_action_keys = { open = "<CR>" } } end,
     },
     nvimcmp = { "hrsh7th/nvim-cmp" },
