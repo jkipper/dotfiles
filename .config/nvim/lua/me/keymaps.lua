@@ -51,7 +51,7 @@ else
     nmap("<leader>xl", cmd "Trouble loclist")
     nmap("<leader>xx", cmd "TroubleClose")
 
-    nmap("<leader>gg", cmd "Neogit")
+    nmap("<leader>gg", cmd ":tab Git")
 
     nmap("<leader>ff", cmd "Neoformat")
     nmap("<leader>md", cmd "Neogen")
@@ -62,6 +62,7 @@ else
     nmap("<leader>rn", cmd "Lspsaga rename")
     nmap("<leader>ca", cmd "Lspsaga code_action")
     nmap("<leader>H", cmd "Lspsaga show_line_diagnostics")
+    nmap("<C-`>", cmd "Lspsaga term_toggle")
     nmap("<leader>ga", cmd "A")
     nmap("gD", vim.lsp.buf.declaration)
     nmap("gd", vim.lsp.buf.definition)

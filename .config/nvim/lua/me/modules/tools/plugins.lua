@@ -7,23 +7,11 @@ return export {
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("gitsigns").setup() end,
     },
-    neogit = {
-        "TimUntersberger/neogit",
-        dependencies = { {
-            "sindrets/diffview.nvim",
-            config = function() require("diffview").setup {} end,
-        }, "nvim-telescope/telescope.nvim" },
-        config = function()
-            require("neogit").setup {
-                disable_commit_confirmation = true,
-                integrations = { diffview = true },
-            }
-        end,
-        branch="nightly"
-    },
+    git = { "tpope/vim-fugitive" },
     formatter = {
         "sbdchd/neoformat",
         cmd = "Neoformat",
     },
     docs = { "danymat/neogen" },
+    zoxide = { "nanotee/zoxide.vim" },
 }
