@@ -24,6 +24,10 @@ return export {
             "nvim-neotest/neotest-python",
             { "nvim-neotest/nvim-nio" },
         },
-        config = function() require("neotest").setup { adapters = { require "neotest-python" } } end,
+        config = function()
+            require("neotest").setup {
+                adapters = { require "neotest-python", require "rustaceanvim.neotest" },
+            }
+        end,
     },
 }
