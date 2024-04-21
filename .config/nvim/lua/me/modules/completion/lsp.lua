@@ -2,7 +2,7 @@ local M = {}
 M.dependencies = {
     { "folke/neodev.nvim" },
     { "RRethy/vim-illuminate" },
-    { "jose-elias-alvarez/null-ls.nvim" },
+    { "nvimtools/none-ls.nvim" },
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
     { "SmiteshP/nvim-navic" },
