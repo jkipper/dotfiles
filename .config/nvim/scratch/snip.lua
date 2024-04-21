@@ -21,7 +21,8 @@ local test = function()
         print(query.captures[id])
         print(metadata[id])
         local row1, col1, row2, col2 = node:range()
-        local text = vim.api.nvim_buf_get_text(vim.api.nvim_get_current_buf(), row1, col1, row2, col2, {})
+        local text =
+            vim.api.nvim_buf_get_text(vim.api.nvim_get_current_buf(), row1, col1, row2, col2, {})
         print(text[1])
     end
 end

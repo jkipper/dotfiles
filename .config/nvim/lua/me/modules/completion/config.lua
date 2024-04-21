@@ -26,13 +26,12 @@ M.nvimcmp = {
                         :match "%s"
                     == nil
         end
-
         cmp.setup {
             snippet = {
                 expand = function(args) snip.lsp_expand(args.body) end,
             },
             formatting = {
-                format = require("lspkind").cmp_format { with_text = true, maxwidth = 50 },
+                format = require("lspkind").cmp_format { mode = "symbol", maxwidth = 50 },
             },
             mapping = {
                 ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),

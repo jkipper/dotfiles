@@ -6,6 +6,7 @@ M.telescope = {
         {
             "nvim-lua/plenary.nvim",
         },
+        { "debugloop/telescope-undo.nvim" },
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "make",
@@ -13,6 +14,7 @@ M.telescope = {
         { "nvim-telescope/telescope-live-grep-args.nvim" },
     },
     config = function()
+        local actions = require "telescope.actions"
         require("telescope").setup {
             defaults = {
                 mappings = {
@@ -30,7 +32,14 @@ M.telescope = {
                     theme = "ivy",
                 },
                 git_files = { theme = "ivy" },
-                buffers = { theme = "ivy" },
+                buffers = {
+                    theme = "ivy",
+                    mappings = {
+                        i = {
+                            ["<c-w>"] = actions.delete_buffer + actions.move_to_top,
+                        },
+                    },
+                },
             },
             extensions = {
                 live_grep_args = {
@@ -52,6 +61,7 @@ M.telescope = {
         require("telescope").load_extension "dotfiles"
         require("telescope").load_extension "neoclip"
         require("telescope").load_extension "live_grep_args"
+        require("telescope").load_extension "undo"
     end,
 }
 
@@ -128,12 +138,10 @@ vim.g.vim_markdown_frontmatter = 1
 vim.g.vim_markdown_toml_frontmatter = 1
 M.markdown = {
     dependencies = {
-        { "godlygeek/tabular", ft = "markdown" },
-        {
-            "ellisonleao/glow.nvim",
-            ft = "markdown",
-        },
+        "nvim-treesitter/nvim-treesitter",
+        "lukas-reineke/headlines.nvim",
     },
+    config = true,
 }
 
 M.neoclip = {

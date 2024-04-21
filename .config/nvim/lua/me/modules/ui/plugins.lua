@@ -3,13 +3,10 @@ local export = require("me.core.pack").export_config(c)
 return export {
     theme = {
         "folke/tokyonight.nvim",
-        config = function() vim.cmd "colorscheme tokyonight" end,
+        config = function() vim.cmd.colorscheme "tokyonight" end,
     },
     other_theme = {
         "rebelot/kanagawa.nvim",
-    },
-    neotree = {
-        "nvim-neo-tree/neo-tree.nvim",
     },
     lualine = { "nvim-lualine/lualine.nvim" },
     lsp_status = {
@@ -19,8 +16,9 @@ return export {
             require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } }
         end,
     },
-    bufferline = {
-        "akinsho/bufferline.nvim",
+    file_explorer = {
+        "stevearc/oil.nvim",
+        config = function() require("oil").setup() end,
     },
     trouble = { "folke/trouble.nvim", cmd = "Trouble" },
     notify = {

@@ -41,8 +41,7 @@ else
     nmap("<leader>gc", function() telescope.git_commits() end)
     nmap("<leader>gb", function() telescope.git_branches() end)
     nmap("<leader><C-P>", function() telescope.buffers() end)
-
-    nmap("<C-e>", cmd "Neotree toggle")
+    nmap("<leader>u", cmd "Telescope undo")
 
     nmap("<A-,>", function() require("bufferline").cycle(-1) end)
     nmap("<A-.>", function() require("bufferline").cycle(1) end)
@@ -51,7 +50,7 @@ else
     nmap("<leader>xl", cmd "Trouble loclist")
     nmap("<leader>xx", cmd "TroubleClose")
 
-    nmap("<leader>gg", cmd ":tab Git")
+    nmap("<leader>gg", cmd "tab Git")
 
     nmap("<leader>ff", cmd "Neoformat")
     nmap("<leader>md", cmd "Neogen")

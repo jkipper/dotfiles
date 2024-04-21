@@ -1,17 +1,12 @@
 local M = {}
 M.dependencies = {
     { "folke/neodev.nvim" },
-    { "p00f/clangd_extensions.nvim" },
     { "RRethy/vim-illuminate" },
     { "jose-elias-alvarez/null-ls.nvim" },
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
     { "SmiteshP/nvim-navic" },
     { "mrcjkb/rustaceanvim", ft = { "rust" } },
-    {
-        "akinsho/flutter-tools.nvim",
-        dependencies = "nvim-lua/plenary.nvim",
-    },
 }
 
 M.config = function()
@@ -19,12 +14,23 @@ M.config = function()
         require("illuminate").on_attach(client)
         require("nvim-navic").attach(client, bufnr)
         if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(bufnr, true)
+            vim.api.nvim_create_user_command(
+                "InlayHintsToggle",
+                function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+                {}
+            )
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            vim.lsp.inlay_hint.enable()
         end
     end
     local lsp_status = require "lsp-status"
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    require("neodev").setup {}
+    require("neodev").setup {
+        override = function(_, library)
+            library.enabled = true
+            library.plugins = true
+        end,
+    }
     local lsp = require "lspconfig"
     local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
@@ -48,7 +54,6 @@ M.config = function()
         },
     }
 
-    require("flutter-tools").setup { capabilities = capabilities }
     for _, value in ipairs {
         "lua_ls",
         "pyright",

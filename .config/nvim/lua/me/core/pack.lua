@@ -7,7 +7,6 @@ local notify = function(notify_text)
     vim.notify(notify_text, vim.log.levels.INFO, { title = "Reload" })
 end
 
-
 local M = {}
 M.enable_auto_luafile = function()
     vim.api.nvim_create_autocmd("BufWritePost", {
@@ -19,7 +18,6 @@ M.enable_auto_luafile = function()
         group = Hooks,
     })
 end
-
 
 function M.load_plugins()
     local vim_path = paths.get_config_path()

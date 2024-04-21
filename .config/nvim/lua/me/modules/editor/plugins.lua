@@ -25,6 +25,33 @@ return export {
         "folke/which-key.nvim",
         config = function() require("which-key").setup {} end,
     },
+    harpoon = {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local harpoon = require "harpoon"
+            harpoon:setup()
+            vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end)
+            vim.keymap.set(
+                "n",
+                "<C-e>",
+                function() harpoon.ui:toggle_quick_menu(harpoon:list()) end
+            )
+
+            vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2) end)
+
+            -- Toggle previous & next buffers stored within Harpoon list
+            vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+            vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+            vim.api.nvim_create_user_command(
+                "HarpoonClear",
+                function() harpoon:list():clear() end,
+                {}
+            )
+        end,
+    },
     quickscope = {
         "jinh0/eyeliner.nvim",
         config = function()
@@ -34,7 +61,7 @@ return export {
             }
         end,
     },
-    markdown = { "plasticboy/vim-markdown" },
+    markdown = { "tadmccorkle/markdown.nvim", ft = "markdown" },
     neoclip = { "AckslD/nvim-neoclip.lua" },
     projectionist = { "tpope/vim-projectionist" },
 }

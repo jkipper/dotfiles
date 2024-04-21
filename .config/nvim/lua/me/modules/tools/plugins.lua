@@ -20,11 +20,13 @@ return export {
         config = {
             vim.api.nvim_create_user_command(
                 "SessionLoad",
-                function() require("persistence").load() end, {}
+                function() require("persistence").load() end,
+                {}
             ),
             vim.api.nvim_create_user_command(
                 "SessionRestore",
-                function() require("persistence").load { last = true } end, {}
+                function() require("persistence").load { last = true } end,
+                {}
             ),
         },
     },
