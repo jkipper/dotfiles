@@ -52,6 +52,8 @@ else
     nmap("<leader>xx", cmd "TroubleClose")
 
     nmap("<leader>gg", cmd "tab Git")
+    nmap("gh", cmd "diffget //2")
+    nmap("gl", cmd "diffget //3")
 
     nmap("<leader>ff", cmd "Neoformat")
     nmap("<leader>md", cmd "Neogen")
