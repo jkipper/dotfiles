@@ -41,6 +41,7 @@ else
     nmap("<leader>gc", function() telescope.git_commits() end)
     nmap("<leader>gb", function() telescope.git_branches() end)
     nmap("<leader><C-P>", function() telescope.buffers() end)
+    nmap("<C-S-P>", function() telescope.commands() end)
     nmap("<leader>u", cmd "Telescope undo")
 
     nmap("<A-,>", function() require("bufferline").cycle(-1) end)
