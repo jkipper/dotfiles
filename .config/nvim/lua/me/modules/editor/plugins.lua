@@ -52,6 +52,7 @@ return export {
             )
         end,
     },
+    tmux = {"christoomey/vim-tmux-navigator"},
     quickscope = {
         "jinh0/eyeliner.nvim",
         config = function()

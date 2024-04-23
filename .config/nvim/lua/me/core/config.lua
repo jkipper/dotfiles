@@ -2,6 +2,7 @@ local keymap = require "me.core.keymap"
 local nmap = keymap.nmap
 local vmap = keymap.vmap
 local nvmap = keymap.nvmap
+local cmd = keymap.cmd
 
 local opt = vim.opt
 
@@ -44,10 +45,10 @@ vim.g.neovide_input_macos_alt_is_meta = true
 
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
 -- window movement
-nmap("<C-H>", "<C-W><C-H>")
-nmap("<C-J>", "<C-W><C-J>")
-nmap("<C-K>", "<C-W><C-K>")
-nmap("<C-L>", "<C-W><C-L>")
+nmap("<C-H>", cmd "<C-U>TmuxNavigateLeft")
+nmap("<C-J>", cmd "<C-U>TmuxNavigateDown")
+nmap("<C-K>",cmd "<C-U>TmuxNavigateUp")
+nmap("<C-L>",cmd "<C-U>TmuxNavigateRight")
 
 -- move lines up and down
 vmap("<a-k>", [[:m '<-2<cr>gv=gv]])

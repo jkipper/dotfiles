@@ -1,29 +1,5 @@
-require "me.mini_tools.containers.containers"
-require("me.mini_tools.cyclist").setup()
-
-vim.api.nvim_create_user_command("Colormode", function(tbl)
-    local theme = vim.g.colors_name
-    local target = tbl.args
-    if theme == "tokyonight" then
-        if target == "dark" then
-            vim.cmd.colorscheme "tokyonight-storm"
-        elseif target == "light" then
-            vim.cmd.colorscheme "tokyonight-day"
-        end
-    end
-    if theme == "kanagawa" then
-        if target == "dark" then
-            vim.cmd.colorscheme "kanagawa-wave"
-        elseif target == "light" then
-            vim.cmd.colorscheme "kanagawa-lotus"
-        end
-    end
-end, {
-    nargs = 1,
-    complete = function(_, _, _) return { "dark", "light" } end,
-})
-
 local ts_utils = require "nvim-treesitter.ts_utils"
+local nmap = require("me.core.keymap").nmap
 
 local toggle_fstring = function()
     local winnr = 0
@@ -59,4 +35,4 @@ local toggle_fstring = function()
     vim.api.nvim_win_set_cursor(winnr, cursor)
 end
 
-vim.keymap.set("n", "F", toggle_fstring, { noremap = true })
+nmap("<leader>mf", toggle_fstring)

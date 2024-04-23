@@ -65,6 +65,7 @@ M.config = function()
         "taplo",
         "gopls",
         "ruff_lsp",
+        "cucumber_language_server",
         "yamlls",
     } do
         lsp[value].setup(default_conf)
