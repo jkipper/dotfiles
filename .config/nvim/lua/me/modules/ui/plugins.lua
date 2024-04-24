@@ -21,10 +21,6 @@ return export {
         config = function() require("oil").setup() end,
     },
     trouble = { "folke/trouble.nvim", cmd = "Trouble" },
-    notify = {
-        "rcarriga/nvim-notify",
-        config = function() vim.notify = require "notify" end,
-    },
     dressing = {
         "stevearc/dressing.nvim",
         config = function() require("dressing").setup {} end,
