@@ -9,12 +9,12 @@ local opt = vim.opt
 vim.g.mapleader = " "
 
 opt.mouse = "a"
-opt.tabstop = 2
+opt.tabstop = 4
 
 opt.expandtab = true
 opt.smarttab = true
-opt.shiftwidth = 2
-opt.softtabstop = 2
+opt.shiftwidth = 4
+opt.softtabstop = 4
 opt.autoindent = true
 opt.breakindent = true
 opt.termguicolors = true
@@ -47,8 +47,8 @@ vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
 -- window movement
 nmap("<C-H>", cmd "<C-U>TmuxNavigateLeft")
 nmap("<C-J>", cmd "<C-U>TmuxNavigateDown")
-nmap("<C-K>",cmd "<C-U>TmuxNavigateUp")
-nmap("<C-L>",cmd "<C-U>TmuxNavigateRight")
+nmap("<C-K>", cmd "<C-U>TmuxNavigateUp")
+nmap("<C-L>", cmd "<C-U>TmuxNavigateRight")
 
 -- move lines up and down
 vmap("<a-k>", [[:m '<-2<cr>gv=gv]])

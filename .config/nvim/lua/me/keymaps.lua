@@ -5,13 +5,6 @@ local vmap = keymap.vmap
 local nvmap = keymap.nvmap
 local cmd = keymap.cmd
 
-local function file_picker()
-    local ok = pcall(require("telescope.builtin").git_files)
-    if not ok then
-        require("telescope.builtin").find_files()
-    end
-end
-
 -- keep for later
 if vim.g["vscode"] ~= nil then
     local vscode = require "vscode-neovim"
@@ -25,7 +18,7 @@ if vim.g["vscode"] ~= nil then
     nmap("<C-L>", function() vscode.action "workbench.action.navigateRight" end)
 else
     local telescope = require "telescope.builtin"
-    nmap("<C-P>", file_picker)
+    nmap("<C-P>", function() telescope.find_files() end)
     nmap("<leader><C-F>", function() telescope.current_buffer_fuzzy_find() end)
     nmap(
         "<leader>sf",
