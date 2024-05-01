@@ -35,3 +35,4 @@ local toggle_fstring = function()
 end
 
 nmap("<leader>mf", toggle_fstring)
+nmap("<leader>ml", require "me.mini_tools.py_f_to_fmt_log")
