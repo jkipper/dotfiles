@@ -73,10 +73,8 @@ M.config = function()
     null_ls.setup {
         sources = {
             null_ls.builtins.code_actions.gitsigns,
-            null_ls.builtins.diagnostics.gitlint,
             null_ls.builtins.diagnostics.fish,
             null_ls.builtins.diagnostics.hadolint,
-            null_ls.builtins.diagnostics.shellcheck,
             null_ls.builtins.diagnostics.mypy,
         },
         autostart = true,

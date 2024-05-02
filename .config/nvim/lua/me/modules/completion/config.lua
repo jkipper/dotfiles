@@ -11,6 +11,7 @@ M.nvimcmp = {
         { "hrsh7th/cmp-nvim-lua" },
         { "paopaol/cmp-doxygen" },
         { "mtoohey31/cmp-fish" },
+        { "hrsh7th/cmp-nvim-lsp-document-symbol" },
     },
 
     config = function()
@@ -79,9 +80,11 @@ M.nvimcmp = {
         }
         cmp.setup.cmdline("/", {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = {
+            sources = cmp.config.sources({
+                { name = "nvim_lsp_document_symbol" },
+            }, {
                 { name = "buffer" },
-            },
+            }),
         })
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),

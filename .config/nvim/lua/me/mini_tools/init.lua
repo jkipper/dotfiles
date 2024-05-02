@@ -1,4 +1,3 @@
-require "me.mini_tools.containers.containers"
 require("me.mini_tools.cyclist").setup()
 
 vim.api.nvim_create_user_command("Colormode", function(tbl)
@@ -22,5 +21,3 @@ end, {
     nargs = 1,
     complete = function(_, _, _) return { "dark", "light" } end,
 })
-
-local ts_utils = require "nvim-treesitter.ts_utils"

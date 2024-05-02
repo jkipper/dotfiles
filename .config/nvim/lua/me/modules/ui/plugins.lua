@@ -9,13 +9,6 @@ return export {
         "rebelot/kanagawa.nvim",
     },
     lualine = { "nvim-lualine/lualine.nvim" },
-    lsp_status = {
-        "j-hui/fidget.nvim",
-        tag = "legacy",
-        config = function()
-            require("fidget").setup { sources = { ["null-ls"] = { ignore = true } } }
-        end,
-    },
     file_explorer = {
         "stevearc/oil.nvim",
         config = function() require("oil").setup() end,

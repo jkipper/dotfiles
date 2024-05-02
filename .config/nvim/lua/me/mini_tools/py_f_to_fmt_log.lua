@@ -36,8 +36,7 @@ local function parse()
             goto continue
         end
 
-        local text = vim.treesitter.get_node_text(capture, 0, metadata[id])
-        local current_text = text
+        local current_text = vim.treesitter.get_node_text(capture, 0, metadata[id])
 
         local pattern = "{.-}"
         local match = current_text:match(pattern)
