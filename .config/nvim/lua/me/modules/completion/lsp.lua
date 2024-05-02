@@ -5,14 +5,12 @@ M.dependencies = {
     { "nvimtools/none-ls.nvim" },
     { "b0o/schemastore.nvim" },
     { "nvim-lua/lsp-status.nvim" },
-    { "SmiteshP/nvim-navic" },
     { "mrcjkb/rustaceanvim", ft = { "rust" } },
 }
 
 M.config = function()
     local on_attach = function(client, bufnr)
         require("illuminate").on_attach(client)
-        require("nvim-navic").attach(client, bufnr)
         if client.server_capabilities.inlayHintProvider then
             vim.api.nvim_create_user_command(
                 "InlayHintsToggle",

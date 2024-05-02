@@ -2,7 +2,7 @@ local lualine = require "lualine"
 local config = require "tokyonight.config"
 local colors = require("tokyonight.colors").setup(config)
 
-local navic = require "nvim-navic"
+-- local navic = require "nvim-navic"
 
 local conditions = {
     buffer_not_empty = function() return vim.fn.empty(vim.fn.expand "%:t") ~= 1 end,
@@ -114,11 +114,6 @@ ins_left_winbar {
     color = { fg = colors.cyan, gui = "bold" },
 }
 
-ins_left_winbar {
-    navic.get_location,
-    cond = navic.is_available,
-}
-
 ins_left {
     "filename",
     cond = conditions.buffer_not_empty,
@@ -150,8 +145,8 @@ ins_left {
 ins_right {
     function()
         local msg = "No Active Lsp"
-        local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-        local clients = vim.lsp.get_active_clients()
+        local buf_ft = vim.api.nvim_buf_get_option_value(0, "filetype")
+        local clients = vim.lsp.get_clients()
         if next(clients) == nil then
             return msg
         end
@@ -185,7 +180,7 @@ ins_right {
 
 ins_right {
     "diff",
-    symbols = { added = " ", modified = "柳 ", removed = " " },
+    symbols = { added = " ", modified = " ", removed = " " },
     source = diff_source,
     diff_color = {
         added = { fg = colors.green },
