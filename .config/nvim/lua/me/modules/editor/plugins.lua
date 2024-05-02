@@ -7,10 +7,6 @@ return export {
     treesitter = {
         "nvim-treesitter/nvim-treesitter",
     },
-    comment = {
-        "numToStr/Comment.nvim",
-        config = function() require("Comment").setup {} end,
-    },
     surround = {
         "kylechui/nvim-surround",
         config = function() require("nvim-surround").setup {} end,
@@ -52,7 +48,7 @@ return export {
             )
         end,
     },
-    tmux = {"christoomey/vim-tmux-navigator"},
+    tmux = { "christoomey/vim-tmux-navigator" },
     quickscope = {
         "jinh0/eyeliner.nvim",
         config = function()

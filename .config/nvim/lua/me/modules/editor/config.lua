@@ -69,7 +69,6 @@ M.treesitter = {
     dependencies = {
         "andymass/vim-matchup",
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "nvim-treesitter/playground",
         { "nvim-treesitter/nvim-treesitter-context" },
     },
     config = function()
@@ -83,6 +82,7 @@ M.treesitter = {
                 "fish",
                 "cmake",
                 "comment",
+                "go",
                 "jsonc",
                 "yaml",
                 "dockerfile",
