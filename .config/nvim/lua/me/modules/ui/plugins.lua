@@ -7,6 +7,7 @@ return export {
     },
     other_theme = {
         "rebelot/kanagawa.nvim",
+        -- config = function() vim.cmd.colorscheme "kanagawa" end
     },
     lualine = { "nvim-lualine/lualine.nvim" },
     file_explorer = {

@@ -11,15 +11,11 @@ M.dependencies = {
 M.config = function()
     local on_attach = function(client, bufnr)
         require("illuminate").on_attach(client)
-        if client.server_capabilities.inlayHintProvider then
-            vim.api.nvim_create_user_command(
-                "InlayHintsToggle",
-                function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
-                {}
-            )
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-            vim.lsp.inlay_hint.enable()
-        end
+        vim.api.nvim_create_user_command(
+            "InlayHintsToggle",
+            function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+            {}
+        )
     end
     local lsp_status = require "lsp-status"
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -51,10 +47,15 @@ M.config = function()
             },
         },
     }
+    lsp.basedpyright.setup {
+        capabilities = capabilities,
+        settings = { basedpyright = {
+            typeCheckingMode = "standard",
+        } },
+    }
 
     for _, value in ipairs {
         "lua_ls",
-        "pyright",
         "dockerls",
         "vimls",
         "cmake",
