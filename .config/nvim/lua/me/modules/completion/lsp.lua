@@ -13,7 +13,7 @@ M.config = function()
         require("illuminate").on_attach(client)
         vim.api.nvim_create_user_command(
             "InlayHintsToggle",
-            function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end,
+            function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = nil }) end,
             {}
         )
     end
@@ -60,6 +60,7 @@ M.config = function()
         "vimls",
         "cmake",
         "bashls",
+        "ocamllsp",
         "marksman",
         "taplo",
         "gopls",
