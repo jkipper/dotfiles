@@ -134,6 +134,7 @@ M.snip = {
         for file_type, snip in pairs(snippets) do
             ls.add_snippets(file_type, snip)
         end
+        require "me.modules.completion.snippets.go_err"
     end,
 }
 return M

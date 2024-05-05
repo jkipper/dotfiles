@@ -63,6 +63,12 @@ else
     nmap("gd", vim.lsp.buf.definition)
     nmap("gt", vim.lsp.buf.type_definition)
     nmap("gi", vim.lsp.buf.implementation)
+    vim.keymap.set({ "i", "s" }, "<C-E>", function()
+        local ls = require "luasnip"
+        if ls.choice_active() then
+            ls.change_choice(1)
+        end
+    end, { silent = true })
 
     nmap("<leader>tb", function() require("dap").toggle_breakpoint() end)
     nmap("<F10>", function() require("dap").step_over() end)
