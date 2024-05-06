@@ -1,12 +1,3 @@
-local ts_f_string_query = [[
-(call 
-    function: (attribute 
-        attribute: (identifier) @func_name)
-    arguments: (argument_list . (string)+ @cont
-        (#match? @cont "f\".*\"")
-    )
-)]]
-
 ---@param start string
 ---@return TSNode | nil
 local function get_starting_node(start)
@@ -25,7 +16,11 @@ local function get_starting_node(start)
 end
 
 local function parse()
-    local query = vim.treesitter.query.parse("python", ts_f_string_query)
+    local query = vim.treesitter.query.get("python", "log-f-string")
+    if query == nil then
+        vim.notify "Failed to load query"
+    end
+
     local node = get_starting_node "call"
     if node == nil then
         return

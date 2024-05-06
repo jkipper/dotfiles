@@ -92,8 +92,8 @@ local function go_result_type(info)
         vim.notify "not inside a function"
         return { txt "" }
     end
-    -- query is defined in after/ftplugin/go.lua to avoid load before ts parsing
-    local query = vim.treesitter.query.get("go", "Luasnip_Result")
+    -- defined in queries/go/return-type.scm
+    local query = vim.treesitter.query.get("go", "return-type")
     if query == nil then
         vim.notify "Failed to load query"
         return { txt "" }
