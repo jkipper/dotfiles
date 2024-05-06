@@ -8,25 +8,16 @@ local i = ls.insert_node
 local c = ls.choice_node
 local fn = ls.function_node
 local dyn = ls.dynamic_node
-local snippet_from_nodes = ls.sn
+local sn = ls.sn
+local fmta = require("luasnip.extras.fmt").fmta
+local postfix = require("luasnip.extras.postfix").postfix
 
-local ts_go_query = [[
-(method_declaration result: (_) @type)
- (function_declaration result: (_) @type)
- (func_literal result: (_) @type)
-]]
-
-vim.treesitter.query.set("go", "Luasnip_Result", ts_go_query)
-
-local function same(index)
-    return fn(function(args) return args[1] end, { index })
-end
-
-local transform = function(text, info)
-    print("RECEIVED INFO " .. text)
-    if text == "int" then
-        return txt "0"
-    elseif text == "error" then
+local defaults = {
+    int = function() return txt "0" end,
+    bool = function() return txt "false" end,
+    string = function() return txt '""' end,
+    error = function(info)
+        print(vim.inspect(info))
         if info then
             info.index = info.index + 1
             return c(info.index, {
@@ -38,10 +29,13 @@ local transform = function(text, info)
         else
             return txt "err"
         end
-    elseif text == "bool" then
-        return txt "false"
-    elseif text == "string" then
-        return txt '""'
+    end,
+}
+
+local transform = function(text, info)
+    local out = defaults[text]
+    if out ~= nil then
+        return out(info)
     elseif text:find("*", 1, true) then
         return txt "nil"
     end
@@ -71,8 +65,16 @@ local handlers = {
     end,
 }
 
+---@class ResultInfo
+---@field index number
+---@field err_name string
+---@field func_name string
+
+---Get the result type of the function
+---@param info ResultInfo
+---@return any[]
 local function go_result_type(info)
-    local function_node_types = {
+    local starting_node_types = {
         function_declaration = true,
         method_declaration = true,
         func_literal = true,
@@ -80,7 +82,7 @@ local function go_result_type(info)
 
     local node = vim.treesitter.get_node()
     while node ~= nil do
-        if function_node_types[node:type()] then
+        if starting_node_types[node:type()] then
             break
         end
         node = node:parent()
@@ -88,12 +90,13 @@ local function go_result_type(info)
 
     if not node then
         vim.notify "not inside a function"
-        return txt ""
+        return { txt "" }
     end
+    -- query is defined in after/ftplugin/go.lua to avoid load before ts parsing
     local query = vim.treesitter.query.get("go", "Luasnip_Result")
     if query == nil then
-        print("INVALID QUERy")
-        return { txt "nil" }
+        vim.notify "Failed to load query"
+        return { txt "" }
     end
     for _, capture in query:iter_captures(node, 0) do
         if handlers[capture:type()] then
@@ -104,30 +107,67 @@ local function go_result_type(info)
     return { txt "nil" }
 end
 
-local go_ret_vals = function(args)
-    return snippet_from_nodes(
-        nil,
-        go_result_type {
-            index = 0,
-            err_name = args[1][1],
-            func_name = args[2][1],
-        }
-    )
+---@param func_call string
+local postfix_err_text = function(func_call)
+    return function()
+        return sn(
+            nil,
+            go_result_type {
+                index = 0,
+                err_name = "err",
+                func_name = func_call:match "([%w%d%._]+)%(.*%)",
+            }
+        )
+    end
 end
-local smart_err = s({ trig = "!smart_err", name = "Smart error" }, {
-    i(1, { "val" }),
-    txt ", ",
-    i(2, { "err" }),
-    txt " := ",
-    i(3, { "f" }),
-    txt "(",
-    i(4),
-    txt ")",
-    txt { "", "if " },
-    same(2),
-    txt { " != nil {", "\treturn " },
-    dyn(5, go_ret_vals, { 2, 3 }),
-    txt { "", "}" },
-    i(0),
+
+-- choice node for the error format
+-- requires the initial insert node for selection
+
+local iferr_postfix = postfix({ trig = ".siferr!", match_pattern = "[%w%d%._]+%(.*%)" }, {
+    dyn(
+        1,
+        function(_, parent)
+            return sn(
+                nil,
+                fmta(
+                    [[
+if err := <call>; err != nil {
+    return <err_out>
+} 
+                    ]],
+                    {
+                        call = txt(parent.env.POSTFIX_MATCH),
+                        err_out = dyn(1, postfix_err_text(parent.env.POSTFIX_MATCH)),
+                    }
+                )
+            )
+        end
+    ),
 })
-ls.add_snippets("go", { smart_err })
+
+local var_err_postfix = postfix({ trig = ".svarerr!", match_pattern = "[%w%d%._]+%(.*%)" }, {
+    dyn(
+        1,
+        function(_, parent)
+            return sn(
+                nil,
+                fmta(
+                    [[
+<val>, err := <call>
+if err != nil {
+    return <err_out>
+}
+            ]],
+                    {
+                        val = i(1, { "val" }),
+                        call = txt(parent.env.POSTFIX_MATCH),
+                        err_out = dyn(2, postfix_err_text(parent.env.POSTFIX_MATCH)),
+                    }
+                )
+            )
+        end
+    ),
+})
+
+ls.add_snippets("go", { iferr_postfix, var_err_postfix })
