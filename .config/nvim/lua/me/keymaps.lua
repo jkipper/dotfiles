@@ -57,7 +57,7 @@ else
     nmap("<leader>rn", cmd "Lspsaga rename")
     nmap("<leader>ca", cmd "Lspsaga code_action")
     nmap("<leader>H", cmd "Lspsaga show_line_diagnostics")
-    nmap("<C-`>", cmd "Lspsaga term_toggle")
+    -- nmap("<C-`>", cmd "Lspsaga term_toggle")
     nmap("<leader>ga", cmd "A")
     nmap("gD", vim.lsp.buf.declaration)
     nmap("gd", vim.lsp.buf.definition)
@@ -75,4 +75,30 @@ else
     nmap("<F11>", function() require("dap").step_info() end)
     nmap("<leader><F11>", function() require("dap").step_out() end)
     nmap("<F5>", function() require("dap").continue() end)
+
+    -- testing
+
+    nmap("<leader>tr", function() require("neotest").run.run() end)
+    nmap("<leader>ts", function() require("neotest").summary.toggle() end)
+    nmap("<leader>tk", function() require("neotest").run.stop() end)
+
+    nmap("<C-T>", function()
+        local job = require("plenary.job")
+            :new({
+                command = "tmux",
+                args = { "resize-pane", "-Z" },
+                on_exit = function()
+                    vim.schedule(
+                        function()
+                            vim.cmd(
+                                vim.api.nvim_replace_termcodes([[normal! <C-w>=]], true, true, true)
+                            )
+                        end
+                    )
+                end,
+            })
+            :start()
+    end)
+
+    -- misc
 end

@@ -22,6 +22,7 @@ opt.backspace = { "indent", "eol", "start" }
 opt.undofile = true
 -- doesn't work with opt for some reason
 vim.cmd "set noshowmode"
+vim.cmd "set nowrap"
 opt.completeopt = "menu,menuone,noselect"
 opt.incsearch = true
 opt.ruler = true
