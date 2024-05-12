@@ -1,8 +1,5 @@
 local keymap = require "me.core.keymap"
 local nmap = keymap.nmap
-local imap = keymap.imap
-local vmap = keymap.vmap
-local nvmap = keymap.nvmap
 local cmd = keymap.cmd
 
 -- keep for later
@@ -20,25 +17,19 @@ else
     local telescope = require "telescope.builtin"
     nmap("<C-P>", function() telescope.find_files() end)
     nmap("<leader><C-F>", function() telescope.current_buffer_fuzzy_find() end)
-    nmap(
-        "<leader>sf",
-        function() require("telescope").extensions.live_grep_args.live_grep_args() end
-    )
-    nmap("<leader>sld", function() telescope.lsp_document_symbols() end)
-    nmap("<leader>slw", function() telescope.lsp_workspace_symbols() end)
-    nmap("<leader>sb", function() telescope.buffers() end)
-    nmap("<leader>sr", function() telescope.registers() end)
-    nmap("<leader>sj", function() telescope.jumplist() end)
-    nmap("<leader>sd", function() telescope.diagnostics() end)
+    nmap("<leader>fs", function() telescope.live_grep() end)
+    nmap("<leader>fld", function() telescope.lsp_document_symbols() end)
+    nmap("<leader>flw", function() telescope.lsp_workspace_symbols() end)
+    nmap("<leader>fb", function() telescope.buffers() end)
+    nmap("<leader>fr", function() telescope.registers() end)
+    nmap("<leader>fj", function() telescope.jumplist() end)
+    nmap("<leader>fd", function() telescope.diagnostics() end)
     nmap("<leader>gs", function() telescope.git_status() end)
     nmap("<leader>gc", function() telescope.git_commits() end)
     nmap("<leader>gb", function() telescope.git_branches() end)
     nmap("<leader><C-P>", function() telescope.buffers() end)
     nmap("<C-S-P>", function() telescope.commands() end)
     nmap("<leader>u", cmd "Telescope undo")
-
-    nmap("<A-,>", function() require("bufferline").cycle(-1) end)
-    nmap("<A-.>", function() require("bufferline").cycle(1) end)
 
     nmap("<leader>xq", cmd "Trouble quickfix")
     nmap("<leader>xl", cmd "Trouble loclist")
@@ -56,12 +47,11 @@ else
     nmap("K", cmd "Lspsaga hover_doc")
     nmap("<leader>rn", cmd "Lspsaga rename")
     nmap("<leader>ca", cmd "Lspsaga code_action")
-    nmap("<leader>H", cmd "Lspsaga show_line_diagnostics")
-    -- nmap("<C-`>", cmd "Lspsaga term_toggle")
+    nmap("<leader>K", cmd "Lspsaga show_line_diagnostics")
     nmap("<leader>ga", cmd "A")
     nmap("gD", vim.lsp.buf.declaration)
-    nmap("gd", vim.lsp.buf.definition)
-    nmap("gt", vim.lsp.buf.type_definition)
+    nmap("gd", cmd "Lspsaga goto_definition")
+    nmap("gt", cmd "Lspsaga goto_type_definition")
     nmap("gi", vim.lsp.buf.implementation)
     vim.keymap.set({ "i", "s" }, "<C-E>", function()
         local ls = require "luasnip"
@@ -83,7 +73,7 @@ else
     nmap("<leader>tk", function() require("neotest").run.stop() end)
 
     nmap("<C-T>", function()
-        local job = require("plenary.job")
+        require("plenary.job")
             :new({
                 command = "tmux",
                 args = { "resize-pane", "-Z" },

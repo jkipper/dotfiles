@@ -1,6 +1,23 @@
 local ts_utils = require "nvim-treesitter.ts_utils"
 local nmap = require("me.core.keymap").nmap
 
+---@param start string
+---@return TSNode | nil
+local function get_starting_node(start)
+    local node = vim.treesitter.get_node()
+    if node == nil then
+        return
+    end
+    while node:type() ~= start do
+        local parent = node:parent()
+        if parent == nil then
+            return
+        end
+        node = parent
+    end
+    return node
+end
+
 local toggle_fstring = function()
     local winnr = 0
     local cursor = vim.api.nvim_win_get_cursor(winnr)
@@ -34,5 +51,46 @@ local toggle_fstring = function()
     vim.api.nvim_win_set_cursor(winnr, cursor)
 end
 
+local function f_to_log_string()
+    local query = vim.treesitter.query.get("python", "log-f-string")
+    if query == nil then
+        vim.notify "Failed to load query"
+    end
+
+    local node = get_starting_node "call"
+    if node == nil then
+        return
+    end
+
+    ---@diagnostic disable-next-line: need-check-nil
+    for id, capture, metadata in query:iter_captures(node, 0) do
+        ---@diagnostic disable-next-line: need-check-nil
+        if query.captures[id] ~= "cont" then
+            goto continue
+        end
+
+        local current_text = vim.treesitter.get_node_text(capture, 0, metadata[id])
+
+        local pattern = "{.-}"
+        local match = current_text:match(pattern)
+        while match do
+            local var_name = match:sub(2, -2)
+            current_text = current_text:gsub(pattern, "%%s", 1) .. ", " .. var_name
+            match = current_text:match(pattern)
+        end
+
+        local start_row, start_col, end_row, end_col = capture:range()
+        vim.api.nvim_buf_set_text(
+            0,
+            start_row,
+            start_col,
+            end_row,
+            end_col,
+            { current_text:sub(2) }
+        )
+        ::continue::
+    end
+end
+
 nmap("<leader>mf", toggle_fstring)
-nmap("<leader>ml", require "me.mini_tools.py_f_to_fmt_log")
+nmap("<leader>ml", f_to_log_string)

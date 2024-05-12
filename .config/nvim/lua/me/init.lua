@@ -1,12 +1,17 @@
-function R(module_name) require("plenary.reload").reload_module(module_name) end
-
-local dev_plugin = os.getenv "plugin_location"
-if dev_plugin ~= nil then
-    vim.opt.runtimepath:append(dev_plugin)
-end
-
 require "me.core.config"
-require("me.core.pack").load_plugins()
 require "me.core.events"
-require "me.mini_tools"
-require "me.keymaps"
+
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    }
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("me.plugins", {})
+require "me.keymap"

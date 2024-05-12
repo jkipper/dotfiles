@@ -1,19 +1,18 @@
-local M = {}
-
-M.nvimcmp = {
+local nvim_cmp = {
+    "hrsh7th/nvim-cmp",
     dependencies = {
-        { "onsails/lspkind-nvim" },
-        { "hrsh7th/cmp-nvim-lsp" },
-        { "hrsh7th/cmp-cmdline" },
-        { "hrsh7th/cmp-path" },
-        { "hrsh7th/cmp-buffer" },
-        { "saadparwaiz1/cmp_luasnip" },
-        { "hrsh7th/cmp-nvim-lua" },
-        { "paopaol/cmp-doxygen" },
-        { "mtoohey31/cmp-fish" },
-        { "hrsh7th/cmp-nvim-lsp-document-symbol" },
+        "onsails/lspkind-nvim",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-buffer",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lua",
+        "paopaol/cmp-doxygen",
+        "mtoohey31/cmp-fish",
+        "hrsh7th/cmp-nvim-lsp-document-symbol",
+        "danymat/neogen",
     },
-
     config = function()
         local cmp = require "cmp"
         local snip = require "luasnip"
@@ -95,23 +94,9 @@ M.nvimcmp = {
     end,
 }
 
-M.lsp = require "me.modules.completion.lsp"
-M.lspinstall = {
-    config = function()
-        require("mason").setup {
-            ui = {
-                icons = {
-                    server_installed = "✓",
-                    server_pending = "➜",
-                    server_uninstalled = "✗",
-                },
-            },
-        }
-    end,
-}
-
-M.snip = {
-    dependencies = { { "rafamadriz/friendly-snippets" } },
+local luasnip = {
+    "L3MON4D3/LuaSnip",
+    dependencies = "rafamadriz/friendly-snippets",
     config = function()
         local ls = require "luasnip"
         ls.config.set_config {
@@ -126,15 +111,16 @@ M.snip = {
         require("luasnip.loaders.from_vscode").lazy_load()
 
         local snippets = {
-            python = vim.tbl_values(require "me.modules.completion.snippets.python"),
-            markdown = vim.tbl_values(require "me.modules.completion.snippets.markdown"),
-            lua = vim.tbl_values(require "me.modules.completion.snippets.lua_snips"),
+            python = vim.tbl_values(require "me.plugins.completion.snippets.python"),
+            markdown = vim.tbl_values(require "me.plugins.completion.snippets.markdown"),
+            lua = vim.tbl_values(require "me.plugins.completion.snippets.lua_snips"),
         }
 
         for file_type, snip in pairs(snippets) do
             ls.add_snippets(file_type, snip)
         end
-        require "me.modules.completion.snippets.go_err"
+        require "me.plugins.completion.snippets.go_err"
     end,
 }
-return M
+
+return { luasnip, nvim_cmp }

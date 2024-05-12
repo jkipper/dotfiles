@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 local keymap = require "me.core.keymap"
 local nmap = keymap.nmap
 local vmap = keymap.vmap
@@ -5,8 +7,6 @@ local nvmap = keymap.nvmap
 local cmd = keymap.cmd
 
 local opt = vim.opt
-
-vim.g.mapleader = " "
 
 opt.mouse = "a"
 opt.tabstop = 4
@@ -44,12 +44,11 @@ opt.errorbells = false
 vim.g.guifont = "JetBrainsMono Nerd Font,JetBrainsMono Nerd Font Mono"
 vim.g.neovide_input_macos_alt_is_meta = true
 
-vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { noremap = true, silent = true })
 -- window movement
-nmap("<C-H>", cmd "<C-U>TmuxNavigateLeft")
-nmap("<C-J>", cmd "<C-U>TmuxNavigateDown")
-nmap("<C-K>", cmd "<C-U>TmuxNavigateUp")
-nmap("<C-L>", cmd "<C-U>TmuxNavigateRight")
+nmap("<C-H>", cmd "TmuxNavigateLeft")
+nmap("<C-J>", cmd "TmuxNavigateDown")
+nmap("<C-K>", cmd "TmuxNavigateUp")
+nmap("<C-L>", cmd "TmuxNavigateRight")
 
 -- move lines up and down
 vmap("<a-k>", [[:m '<-2<cr>gv=gv]])
@@ -70,13 +69,13 @@ nvmap("<leader>d", '"_d')
 
 vim.keymap.set("t", "<C-T>", "<C-\\><C-n>", { noremap = true, silent = true })
 
--- vim.diagnostic.config {
---     virtual_text = false,
--- }
--- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
--- for type, icon in pairs(signs) do
---     local hl = "DiagnosticSign" .. type
---     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
--- end
+vim.diagnostic.config {
+    virtual_text = false,
+}
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
 vim.o.updatetime = 100
