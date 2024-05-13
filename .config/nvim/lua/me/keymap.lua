@@ -17,7 +17,7 @@ else
     local telescope = require "telescope.builtin"
     nmap("<C-P>", function() telescope.find_files() end)
     nmap("<leader><C-F>", function() telescope.current_buffer_fuzzy_find() end)
-    nmap("<leader>fs", function() telescope.live_grep() end)
+    nmap("<leader>fg", function() telescope.live_grep() end)
     nmap("<leader>fld", function() telescope.lsp_document_symbols() end)
     nmap("<leader>flw", function() telescope.lsp_workspace_symbols() end)
     nmap("<leader>fb", function() telescope.buffers() end)
