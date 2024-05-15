@@ -39,7 +39,7 @@ else
     nmap("gh", cmd "diffget //2")
     nmap("gl", cmd "diffget //3")
 
-    nmap("<leader>ff", cmd "Neoformat")
+    nmap("<leader>ff", function() require("conform").format() end)
     nmap("<leader>md", cmd "Neogen")
 
     nmap("<leader>gd", cmd "Lspsaga peek_definition")

@@ -1,4 +1,5 @@
-no_call_parentheses = true
+no_call_parentheses =  true
+
 indent_type = "Spaces"
 line_endings = "Unix"
 column_width = 100

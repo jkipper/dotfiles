@@ -1,9 +1,24 @@
 return {
     "tpope/vim-fugitive",
     "nanotee/zoxide.vim",
-    "sbdchd/neoformat",
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                -- Conform will run multiple formatters sequentially
+                python = { "ruff_format", "black" },
+                -- Use a sub-list to run only the first available formatter
+                go = { "goimports", "gofmt" },
+                toml = { "taplo" },
+                json = { "prettier" },
+                yaml = { "prettier" },
+                markdown = { "prettier" },
+            },
+        },
+    },
     "tpope/vim-scriptease",
-    {"stevearc/oil.nvim", opts = {}},
+    { "stevearc/oil.nvim", opts = {} },
 
     {
         "folke/persistence.nvim",
