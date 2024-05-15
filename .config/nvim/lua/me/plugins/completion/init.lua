@@ -85,6 +85,7 @@ local lsp_plugin = {
                 null_ls.builtins.diagnostics.fish,
                 null_ls.builtins.diagnostics.hadolint,
                 null_ls.builtins.diagnostics.mypy,
+                null_ls.builtins.diagnostics.golangci_lint
             },
             autostart = true,
         }
