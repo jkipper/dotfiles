@@ -61,6 +61,20 @@ local lsp_plugin = {
             },
         }
 
+        lsp.gopls.setup {
+            capabilities = capabilities,
+            settings = {
+                gopls = {
+                    hints = {
+                        parameterNames = true,
+                        constantValues = true,
+                        rangeVariabletypes = true,
+                    },
+                    usePlaceholders = true,
+                },
+            },
+        }
+
         for _, value in ipairs {
             "lua_ls",
             "dockerls",
@@ -70,7 +84,6 @@ local lsp_plugin = {
             "ocamllsp",
             "marksman",
             "taplo",
-            "gopls",
             "ruff_lsp",
             "cucumber_language_server",
             "yamlls",
@@ -85,11 +98,11 @@ local lsp_plugin = {
                 null_ls.builtins.diagnostics.fish,
                 null_ls.builtins.diagnostics.hadolint,
                 null_ls.builtins.diagnostics.mypy,
-                null_ls.builtins.diagnostics.golangci_lint
+                null_ls.builtins.diagnostics.golangci_lint,
             },
             autostart = true,
         }
     end,
 }
 local cmp = require "me.plugins.completion.cmp"
-return { lsp_plugin, cmp}
+return { lsp_plugin, cmp }
