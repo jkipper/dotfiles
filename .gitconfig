@@ -29,9 +29,9 @@
   fixup = commit --fixup HEAD~1
   autobase = "!f() { git rebase --autosquash -i \"$(git merge-base HEAD ${1:-origin/master})\"; }; f" 
   p = push
-  pf = push -f
+  pf = push --force-with-lease
   pu = push -u origin HEAD
-  pfu = push -fu origin HEAD
+  pfu = push -u --force-with-lease origin HEAD
   ls = ls-files
   unstage = restore --staged
 
