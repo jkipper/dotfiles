@@ -36,6 +36,7 @@ else
     nmap("<leader>xx", cmd "TroubleClose")
 
     nmap("<leader>gg", cmd "tab Git")
+    nmap("<leader>gl", cmd "Git log --oneline")
     nmap("gh", cmd "diffget //2")
     nmap("gl", cmd "diffget //3")
 
