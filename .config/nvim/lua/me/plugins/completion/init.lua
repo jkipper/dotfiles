@@ -1,13 +1,11 @@
 local lsp_plugin = {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "folke/neodev.nvim",
+        "saghen/blink.cmp",
         "RRethy/vim-illuminate",
         "nvimtools/none-ls.nvim",
         "b0o/schemastore.nvim",
         "nvim-lua/lsp-status.nvim",
-        "hrsh7th/nvim-cmp",
-        "hrsh7th/cmp-nvim-lsp",
         { "mrcjkb/rustaceanvim", ft = { "rust" } },
     },
     config = function()
@@ -22,13 +20,7 @@ local lsp_plugin = {
             )
         end
         local lsp_status = require "lsp-status"
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        require("neodev").setup {
-            override = function(_, library)
-                library.enabled = true
-                library.plugins = true
-            end,
-        }
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
         local lsp = require "lspconfig"
         local default_conf = { on_attach = on_attach, capabilities = capabilities }
 
@@ -84,7 +76,7 @@ local lsp_plugin = {
             "ocamllsp",
             "marksman",
             "taplo",
-            "ruff_lsp",
+            "ruff",
             "cucumber_language_server",
             "yamlls",
         } do

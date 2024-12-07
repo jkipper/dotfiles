@@ -1,97 +1,49 @@
-local nvim_cmp = {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-        "onsails/lspkind-nvim",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-buffer",
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "paopaol/cmp-doxygen",
-        "mtoohey31/cmp-fish",
-        "hrsh7th/cmp-nvim-lsp-document-symbol",
-        "danymat/neogen",
+local lazydev = {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+        library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
     },
-    config = function()
-        local cmp = require "cmp"
-        local snip = require "luasnip"
-        local neogen = require "neogen"
-        local has_words_before = function()
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0
-                and vim.api
-                        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-                        :sub(col, col)
-                        :match "%s"
-                    == nil
-        end
-        cmp.setup {
-            snippet = {
-                expand = function(args) snip.lsp_expand(args.body) end,
+}
+
+local blink = {
+    "saghen/blink.cmp",
+    dependencies = {
+        "rafamadriz/friendly-snippets",
+        "L3MON4D3/LuaSnip",
+        "folke/lazydev.nvim",
+    },
+    version = "v0.*",
+    opts = {
+        keymap = { preset = "enter" },
+        snippets = {
+            expand = function(snippet) require("luasnip").lsp_expand(snippet) end,
+            active = function(filter)
+                if filter and filter.direction then
+                    return require("luasnip").jumpable(filter.direction)
+                end
+                return require("luasnip").in_snippet()
+            end,
+            jump = function(direction) require("luasnip").jump(direction) end,
+        },
+        sources = {
+            completion = {
+                enabled_providers = { "lsp", "path", "luasnip", "buffer", "lazydev" },
             },
-            formatting = {
-                format = require("lspkind").cmp_format { mode = "symbol", maxwidth = 50 },
+            providers = {
+                lsp = { fallback_for = { "lazydev" } },
+                lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
             },
-            mapping = {
-                ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<UP>"] = cmp.mapping.abort(),
-                ["<DOWN>"] = cmp.mapping.abort(),
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif snip and snip.expand_or_jumpable() then
-                        snip.expand_or_jump()
-                    elseif neogen and neogen.jumpable() then
-                        neogen.jump_next()
-                    elseif has_words_before() then
-                        cmp.complete()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-                ["<S-TAB>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif snip and snip.jumpable(-1) then
-                        snip.jump(-1)
-                    elseif neogen and neogen.jumpable(true) then
-                        neogen.jump_prev()
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-                ["<CR>"] = cmp.mapping.confirm(),
-                ["<C-c>"] = cmp.mapping.abort(),
-            },
-            sources = cmp.config.sources({
-                { name = "nvim_lsp" },
-                { name = "luasnip" },
-                { name = "doxygen" },
-                { name = "nvim_lua" },
-                { name = "fish" },
-            }, {
-                { name = "buffer" },
-                { name = "path" },
-            }),
-        }
-        cmp.setup.cmdline("/", {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = "nvim_lsp_document_symbol" },
-            }, {
-                { name = "buffer" },
-            }),
-        })
-        cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources {
-                { name = "cmdline" },
-            },
-        })
-    end,
+        },
+        completion = {
+            documentation = { auto_show = true },
+            signature = { enabled = true },
+        },
+    },
 }
 
 local luasnip = {
@@ -123,4 +75,4 @@ local luasnip = {
     end,
 }
 
-return { luasnip, nvim_cmp }
+return { luasnip, blink, lazydev }
