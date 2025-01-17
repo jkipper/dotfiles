@@ -79,6 +79,7 @@ local lsp_plugin = {
             "ruff",
             "cucumber_language_server",
             "yamlls",
+            "nil_ls"
         } do
             lsp[value].setup(default_conf)
         end

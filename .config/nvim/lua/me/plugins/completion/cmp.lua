@@ -31,18 +31,26 @@ local blink = {
             jump = function(direction) require("luasnip").jump(direction) end,
         },
         sources = {
-            completion = {
-                enabled_providers = { "lsp", "path", "luasnip", "buffer", "lazydev" },
-            },
+            default = { "lsp", "path", "luasnip", "buffer", "lazydev" },
             providers = {
-                lsp = { fallback_for = { "lazydev" } },
-                lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+                lazydev = {
+                    name = "LazyDev",
+                    module = "lazydev.integrations.blink",
+                    fallbacks = { "lsp" },
+                },
             },
         },
         completion = {
+            list = {
+                selection = {
+                    preselect = function(ctx)
+                        return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+                    end,
+                },
+            },
             documentation = { auto_show = true },
-            signature = { enabled = true },
         },
+        signature = { enabled = true },
     },
 }
 

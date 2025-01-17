@@ -1,4 +1,5 @@
 
+
 export FZF_DEFAULT_COMMAND="fd --type file --color=always"
 export FZF_DEFAULT_OPTS="--ansi"
 export FZF_CTRLT_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -38,3 +39,16 @@ zstyle ':fzf-tab:complete:(cd|rm|ls|bat):*' fzf-preview '(bat --color=always --d
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 enable-fzf-tab
+
+
+# Load pyenv automatically by appending
+# the following to
+# ~/.zprofile (for login shells)
+# and ~/.zshrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+
+typeset -Ug path cdpath fpath manpath
